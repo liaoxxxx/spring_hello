@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 th:text="${title}">成功页面</h1>
+<h4  th:text="${userName}" th:each="userName:${user}"></h4>
+</body>
+</html>
