@@ -1,5 +1,6 @@
 package com.liaoxx.spring_hello.controller;
 
+import org.apache.catalina.connector.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +21,7 @@ public class HelloController {
     public String success(Map <String, Object> map){
         map.put("user", Arrays .asList("张三","李四","王五","赵六"));
         map.put("title","输出");
+        map.put("imgUrl","/js.png");
         return "success";
     }
 
