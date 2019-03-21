@@ -94,9 +94,19 @@
     原文：https://blog.csdn.net/anaini1314/article/details/71157791 
     版权声明：本文为博主原创文章，转载请附上博文链接！
 ````
+####jdbc:mysql连接数据库 时区 timezone 报错
+#####1.报错页面详情
+```
+Whitelabel Error Page
+This application has no explicit mapping for /error, so you are seeing this as a fallback.
 
+Fri Mar 22 02:14:54 CST 2019
+There was an unexpected error (type=Internal Server Error, status=500).
+Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: The server time zone value 'ä¸­å›½æ ‡å‡†æ—¶é—´' is unrecognized or represents more than one time zone. You must configure either the server or JDBC driver (via the serverTimezone configuration property) to use a more specifc time zone value if you want to utilize time zone support.
+```
+#####2.原因：配置错误的spring.datasource.url = jdbc:mysql://127.0.0.1:3306/bswly?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false  没有配置时区
 
-
+#####3.解决方案  补上时区参数：spring.datasource.url = jdbc:mysql://127.0.0.1:3306/bswly?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimezone=UTC
 *******************************
 *
 *
