@@ -143,7 +143,7 @@ public class AdminController {
 * 第二步检查 return "/admin/login.html";     //返回了视图页面的路径无错误
 
 ####2.解决方案 
-``````
+``````xml
 关于SpringBoot 如何返回一个视图页面(例如JSP)
 
 
@@ -182,7 +182,7 @@ spring:  
 
 ``````
 
-````
+````java
 @RestController
 @Controller
 public class AdminController {
