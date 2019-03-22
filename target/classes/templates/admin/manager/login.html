@@ -6,6 +6,9 @@
 </head>
 <body>
 <h1>this is view of '/admin/login'</h1>
+<p th:each="user : ${users}">
+    <p th:text="${user.id}"></p>
+</p>
 <form th:action="${signInUrl}" ></form>
 </body>
 </html>

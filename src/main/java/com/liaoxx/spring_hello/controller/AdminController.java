@@ -30,8 +30,11 @@ public class AdminController {
         return "/admin/login.html";     //返回了视图页面
     }
     @RequestMapping("/querylist")
-    public List<Map<String,Object>> queryUser(){
-      List<Map<String,Object>>  list= jdbcTemplate.queryForList("select * from  user");
-      return list;
+    public void queryUser(Map map){
+      List<Map<String,Object>>  list= jdbcTemplate.queryForList("select * from  user where id=67");
+      map.put("users",list);
+        System.out.println(list.get(0));
+        return;
+      //return "/admin/manager/login";
     }
 }

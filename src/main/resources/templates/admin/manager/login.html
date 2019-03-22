@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>this is view of '/admin/login'</h1>
+<p th:each="user : ${users}">
+    <p th:text="${user.id}"></p>
+</p>
+<form th:action="${signInUrl}" ></form>
+</body>
+</html>
