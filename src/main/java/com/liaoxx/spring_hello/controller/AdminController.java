@@ -4,9 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import java.util.TimeZone;
 import java.util.List;
 
 import java.util.Map;
@@ -22,19 +19,14 @@ public class AdminController {
     @RequestMapping("/login")
     public String Login(Map<String, Object> map){
         map.put("signInUrl","/signin");
-        return "/admin/login.html";     //返回了视图页面
+        return "/admin/manager/login.html";     //返回了视图页面
     }
-    @RequestMapping("/signin")
-    public String SignIn(Map<String, Object> map){
-        map.put("foo","bar");
-        return "/admin/login.html";     //返回了视图页面
-    }
+
     @RequestMapping("/querylist")
-    public void queryUser(Map map){
-      List<Map<String,Object>>  list= jdbcTemplate.queryForList("select * from  user where id=67");
-      map.put("users",list);
-        System.out.println(list.get(0));
-        return;
-      //return "/admin/manager/login";
+    public String queryUser(Map map){
+      List<Map<String,Object>>  list= jdbcTemplate.queryForList("select * from  user where id >=355 and id<=358");
+      map.put("list",list);
+      System.out.println(list);
+      return "/admin/manager/querylist";
     }
 }

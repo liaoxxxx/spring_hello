@@ -9,8 +9,21 @@
     
  ###jdbc 连接数据库 的配置和测试
     
-    
-####1.在application.properties 中的配置
+####1.在pom.xml 中生命依赖 jdbc 以及 mysql 驱动 
+```xml
+            <!--引入jdbc-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
+            </dependency>
+            <!--引入mysql 驱动-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+            </dependency>
+```    
+           
+####2.在application.properties 中的配置
 ````yml
     server.port=8088
     
@@ -33,7 +46,7 @@
     spring.datasource.initial-size=10
 ````
     
- ####2.测试 在SpringHelloApplicationTests.classs中测试
+ ####3.测试 在SpringHelloApplicationTests.classs中测试
     
 ````java
     package com.liaoxx.spring_hello;
@@ -61,6 +74,56 @@
     
     }
 ````
+
+####4.java代码 执行 查询 获取的结果：
+````java
+package com.liaoxx.spring_hello.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
+import java.util.Map;
+
+//@RestController //注解无法返回视图，默认返回JSON数据。
+@Controller
+@RequestMapping("/admin")
+public class AdminController {
+    @Autowired
+    JdbcTemplate jdbcTemplate;   // 1.JdbcTemplate
+    @RequestMapping("/querylist")
+    public String queryUser(Map map){
+      List<Map<String,Object>>  list= jdbcTemplate.queryForList("select * from  user where id >=355 and id<=358"); //2.获取 执行 查询 的结果
+      map.put("list",list); //传递到视图
+      System.out.println(list);
+      return "/admin/manager/querylist"; //视图页面文件地址
+    }
+}
+
+````
+
+
+####5.遍历展示查询结果
+````html
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table >
+    <tr th:each="prod : ${list}" >
+        <td style="border: black 1px solid" th:text="${prod.id}">Onions</td>
+        <td style="border: black 1px solid" th:text="${prod.user_name}">Onions</td>
+        <td style="border: black 1px solid" th:text="${prod.nick_name}">Onions</td>
+    </tr>
+</table>
+</body>
+</html>
+````
+
     
    * 运行测试时会出现报警
 ````
@@ -102,19 +165,19 @@ This application has no explicit mapping for /error, so you are seeing this as a
 
 Fri Mar 22 02:14:54 CST 2019
 There was an unexpected error (type=Internal Server Error, status=500).
-Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: The server time zone value 'ä¸­å›½æ ‡å‡†æ—¶é—´' is unrecognized or represents more than one time zone. You must configure either the server or JDBC driver (via the serverTimezone configuration property) to use a more specifc time zone value if you want to utilize time zone support.
+Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: The server time zone value 'ä¸­å›½æ ‡å‡†æ—¶é—´'
+ is unrecognized or represents more than one time zone. You must configure either the server or JDBC driver 
+ (via the serverTimezone configuration property) to use a more specifc time zone value if you want to utilize time zone support.
 ```
 #####2.原因：配置错误的spring.datasource.url = jdbc:mysql://127.0.0.1:3306/bswly?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false  没有配置时区
 
-#####3.解决方案  补上时区参数：spring.datasource.url = jdbc:mysql://127.0.0.1:3306/bswly?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimezone=UTC
+#####3.解决方案  补上时区参数：spring.datasource.url = jdbc:mysql://127.0.0.1:3306/database_name?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&serverTimezone=UTC
 *******************************
-*
-*
-*
-##视图
+
+##Thymeleaf 视图模板引擎
 
 
-###返回view页面出错的情景
+###返回view页面出错的情景  返回字符串如 "/admin/login.html"
 ####1.代码如下
 ````java
 package com.liaoxx.spring_hello.controller;
