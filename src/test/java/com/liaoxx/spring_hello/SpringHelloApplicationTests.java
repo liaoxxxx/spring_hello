@@ -17,16 +17,9 @@ public class SpringHelloApplicationTests {
     DataSource dataSource;
     @Test
     public void contextLoads() {
-       /* System.out.println("打印dataSource,getClass-----------------------");
+        //System.out.println("打印dataSource,getClass-----------------------");
         System.out.println(dataSource.getClass());
-        System.out.println("打印dataSource,getClass-----------------------");*/
-
-
-
-
-
-
-
+        //System.out.println("打印dataSource,getClass-----------------------");
     }
 
 }
