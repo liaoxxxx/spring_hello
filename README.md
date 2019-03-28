@@ -402,3 +402,40 @@ springboot整合druid时，引入了druid的数据源，在配置文件applicati
 原文：https://blog.csdn.net/xingkongtianma01/article/details/81624313 
 版权声明：本文为博主原创文章，转载请附上博文链接！
 ````
+
+####使用Mybatis  参照[Spring Boot（六）集成 MyBatis 操作 MySQL 8](https://segmentfault.com/a/1190000016374807)
+
+
+>1.在pom.xml 文件 添加  Mybatis依赖包 以及相应的数据库驱动  [注意 低版本会出现 @MapperScan注解无法使用](https://blog.csdn.net/hzr0523/article/details/80191909) 
+
+```xml
+      <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+           <dependency>
+               <groupId>org.mybatis.spring.boot</groupId>
+               <artifactId>mybatis-spring-boot-starter</artifactId>
+               <version>1.3.2</version>
+           </dependency>
+
+        <!--引入mysql 驱动-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+```
+
+
+>2.在application.properties 文件  配置 mapper 包名 
+>注【Mapper是MyBatis的核心，是SQL存储的地方，也是配置数据库映射的地方。】
+
+```text
+#配置mapper包名
+mybatis.type-aliases-package=com.liaoxx.spring_hello.mapper
+```
+
+
+>3.在程序入口 【 main( ) 】 添加注解@MapperScan("com.liaoxx.spring_hello.mapper")  |   直接在启动文件SpringbootApplication.java的类上配置@MapperScan，这样就可以省去，单独给每个Mapper上标识@Mapper的麻烦。
+
+``
+
+
+``

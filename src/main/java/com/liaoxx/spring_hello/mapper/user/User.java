@@ -1,4 +1,4 @@
-package com.liaoxx.spring_hello.mappers.user;
+package com.liaoxx.spring_hello.mapper.user;
 
 public class User {
     private  long id;
