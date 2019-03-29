@@ -1,7 +1,7 @@
 #spring_hello
   **项目介绍**
     
-   ##**你好**
+   
     
 * * *
     
@@ -435,7 +435,9 @@ mybatis.type-aliases-package=com.liaoxx.spring_hello.mapper
 
 >3.在程序入口 【 main( ) 】 添加注解@MapperScan("com.liaoxx.spring_hello.mapper")  |   直接在启动文件SpringbootApplication.java的类上配置@MapperScan，这样就可以省去，单独给每个Mapper上标识@Mapper的麻烦。
 
-``
+````
 
+````
 
-``
+************
+##日志
