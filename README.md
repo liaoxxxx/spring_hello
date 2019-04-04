@@ -435,9 +435,21 @@ mybatis.type-aliases-package=com.liaoxx.spring_hello.mapper
 
 >3.在程序入口 【 main( ) 】 添加注解@MapperScan("com.liaoxx.spring_hello.mapper")  |   直接在启动文件SpringbootApplication.java的类上配置@MapperScan，这样就可以省去，单独给每个Mapper上标识@Mapper的麻烦。
 
+````java
+package com.liaoxx.spring_hello;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+@MapperScan("com.liaoxx.spring_hello.mapper")  //@MapperScan，可以省去单独给每个Mapper上标识@Mapper的麻烦。
+@SpringBootApplication
+public class SpringHelloApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(SpringHelloApplication.class, args);
+    }
+}
 ````
 
-````
+>4
 
 ************
 ##日志
