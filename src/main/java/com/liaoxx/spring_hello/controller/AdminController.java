@@ -39,7 +39,7 @@ public class AdminController {
     }
     @GetMapping("/find/{id}")
     public String findOne(@PathVariable("id") Integer  id ,Map map){
-        Admin admin=adminRepository.getOne(24);
+        Admin admin=adminRepository.getOne(id);
         System.out.println(admin);
         map.put("admin",admin);
         return "/admin/manager/find";

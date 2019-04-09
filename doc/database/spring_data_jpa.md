@@ -70,3 +70,33 @@ public interface AdminRepository extends JpaRepository<Admin,Integer> {
 }
 ```
 
+>##5.使用 Repository接口 操作
+````java
+package com.liaoxx.spring_hello.controller;
+
+import com.liaoxx.spring_hello.entity.Admin;
+import com.liaoxx.spring_hello.repository.AdminRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import java.util.Map;
+
+//@RestController //注解无法返回视图，默认返回JSON数据。
+@Controller
+@RequestMapping("/admin")
+public class AdminController {
+   
+    @Autowired
+    AdminRepository adminRepository;
+
+    @GetMapping("/find/{id}")
+    public String findOne(@PathVariable("id") Integer  id ,Map map){
+        Admin admin=adminRepository.getOne(id);
+        System.out.println(admin);
+        map.put("admin",admin);
+        return "/admin/manager/find";
+    }
+}
+````
+
