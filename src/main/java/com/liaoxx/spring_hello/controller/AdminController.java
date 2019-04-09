@@ -1,9 +1,14 @@
 package com.liaoxx.spring_hello.controller;
 
+import com.liaoxx.spring_hello.entity.Admin;
+import com.liaoxx.spring_hello.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +20,8 @@ import java.util.Map;
 public class AdminController {
     @Autowired
     JdbcTemplate jdbcTemplate;
+    @Autowired
+    AdminRepository adminRepository;
 
     //@ResponseBody   //注解无法返回视图，默认返回JSON数据。
     @RequestMapping("/login")
@@ -29,5 +36,12 @@ public class AdminController {
         map.put("list", list);
         System.out.println(list);
         return "/admin/manager/querylist";
+    }
+    @GetMapping("/find/{id}")
+    public String findOne(@PathVariable("id") Integer  id ,Map map){
+        Admin admin=adminRepository.getOne(24);
+        System.out.println(admin);
+        map.put("admin",admin);
+        return "/admin/manager/find";
     }
 }
