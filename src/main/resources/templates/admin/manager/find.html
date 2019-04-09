@@ -6,9 +6,10 @@
 </head>
 <body>
 <table >
-    <tr th:each="prod : ${admin}" >
-        <td style="border: black 1px solid" th:text="${prod.id}">Onions</td>
-        <td style="border: black 1px solid" th:text="${prod.nickname}">Onions</td>
+    <tr  >
+        <td style="border: black 1px solid" th:text="${admin.id}">Onions</td>
+        <td style="border: black 1px solid" th:text="${admin.nickname}">Onions</td>
+        <td style="border: black 1px solid" th:text="${admin.phone}">Onions</td>
     </tr>
 </table>
 </body>
