@@ -11,5 +11,8 @@
             <version>3.3.1-2</version>
         </dependency>
 ```` 
->##3.使用： 在maven工具自动载入，索引完成后
+
+>##3.使用： 在maven工具自动载入，索引完成后，找到External Libraries 目录下   的Maven: org.webjars:jquery:3.3.1-2 jar包
+![webjars](/doc/imgs/TIM截图20190411124909.png)
+>##4.使用： 在maven工具自动载入，索引完成后
 访问 www.域名.com/webjars/
