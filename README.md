@@ -206,7 +206,7 @@ public class AdminController {
 * 第二步检查 return "/admin/login.html";     //返回了视图页面的路径无错误
 
 ####2.解决方案 
-``````xml
+``````text
 关于SpringBoot 如何返回一个视图页面(例如JSP)
 
 
@@ -423,7 +423,7 @@ springboot整合druid时，引入了druid的数据源，在配置文件applicati
         </dependency>
 ```
 
-
+ JPA、MyBatis还有Hibernate
 >2.在application.properties 文件  配置 mapper 包名 
 >注【Mapper是MyBatis的核心，是SQL存储的地方，也是配置数据库映射的地方。】
 

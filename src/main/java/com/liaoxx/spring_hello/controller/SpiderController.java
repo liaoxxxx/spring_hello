@@ -52,6 +52,7 @@ public class SpiderController {
             for (Map map1 :recommendList){
                 System.out.println(map1.get("pic"));
             }
+            System.out.println(listParse);
 
 
         } catch (IOException e) {
