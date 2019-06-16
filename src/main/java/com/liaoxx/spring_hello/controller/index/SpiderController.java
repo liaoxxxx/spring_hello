@@ -1,4 +1,4 @@
-package com.liaoxx.spring_hello.controller;
+package com.liaoxx.spring_hello.controller.index;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -53,7 +53,20 @@ public class SpiderController {
             List listParse=(JSONArray) listObj; //转为Litt
             //循环
             for (Object object :listParse){
+                Map<String ,Object> map1=(Map) object;
+                System.out.println(map1);
+
                 BiliRecommendEnityt biliRecommendEnityt=new BiliRecommendEnityt();
+
+                biliRecommendEnityt.setAid((int)map1.get("aid"));
+                biliRecommendEnityt.setPic((String)map1.get("pic"));
+                biliRecommendEnityt.setAuthor((String)map1.get("author"));
+                biliRecommendEnityt.setDescription((String)map1.get("description"));
+                biliRecommendEnityt.setMid((int)map1.get("mid"));
+                biliRecommendEnityt.setSubtitle((String)map1.get("subtitle"));
+                biliRecommendEnityt.setTitle((String) map1.get("title"));
+                biliRecommendEnityt.setTypename((String) map1.get("typename"));
+
                 biliRecommendVideoRepository.saveAndFlush(biliRecommendEnityt);
 
             }

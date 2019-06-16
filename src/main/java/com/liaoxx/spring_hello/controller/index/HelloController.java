@@ -1,4 +1,4 @@
-package com.liaoxx.spring_hello.controller;
+package com.liaoxx.spring_hello.controller.index;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

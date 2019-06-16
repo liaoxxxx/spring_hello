@@ -1,4 +1,4 @@
-package com.liaoxx.spring_hello.controller;
+package com.liaoxx.spring_hello.controller.admin;
 
 import com.liaoxx.spring_hello.entity.Admin;
 import com.liaoxx.spring_hello.repository.AdminRepository;
@@ -30,7 +30,7 @@ public class AdminController {
         return "/admin/manager/login.html";     //返回了视图页面
     }
 
-    @RequestMapping("/querylist")
+    @RequestMapping("/e")
     public String queryUser(Map map) {
         List<Map<String, Object>> list = jdbcTemplate.queryForList("select * from  user where id >=355 and id<=358");
         map.put("list", list);

@@ -1,4 +1,4 @@
-package com.liaoxx.spring_hello.controller;
+package com.liaoxx.spring_hello.controller.index;
 
 import com.liaoxx.spring_hello.entity.User;
 import com.liaoxx.spring_hello.mapper.user.UserMapper;
