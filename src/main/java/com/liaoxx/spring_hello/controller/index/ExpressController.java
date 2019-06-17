@@ -13,7 +13,7 @@ public class ExpressController {
     @RequestMapping("/query")
     public String query( HttpServletRequest request){
        if( request.getMethod().equals("POST")){
-           System.out.println(  request.getParameter("expressNo"));
+          String expressNo=  request.getParameter("expressNo");
        }
         return "./index/express/query";
 
