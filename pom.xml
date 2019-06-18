@@ -36,6 +36,13 @@
             <artifactId>jquery</artifactId>
             <version>3.3.1-2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>3.3.5</version>
+        </dependency>
+
         <!--引入jdbc-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
