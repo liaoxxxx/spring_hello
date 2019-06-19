@@ -16,4 +16,3 @@
 ![webjars](/doc/imgs/TIM截图20190411124909.png)
 >##4.使用： 在maven工具自动载入，索引完成后
 访问 www.域名.com/webjars/
-s
