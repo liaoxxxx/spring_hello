@@ -1,4 +1,4 @@
-package com.liaoxx.spring_hello.controller.index;
+package com.liaoxx.spring_hello.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
