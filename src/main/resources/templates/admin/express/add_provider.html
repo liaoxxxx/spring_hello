@@ -6,5 +6,16 @@
 </head>
 <body>
 <h1>添加快递商</h1>
+<form action="/admin/add_expressprovider" method="post">
+    <input type="text" name="expressName" placeholder="输入快递公司的名字(中文)">
+    <br>
+    <input type="text" name="expressChar" placeholder="输入快递公司的拼音(中文)">
+    <br>
+    <input type="text" name="expressCode" placeholder="输入快递公司查询代码">
+    <br>
+    <input type="text" name="remark" placeholder="输入备注">
+    <br>
+    <input type="submit" value="提交">
+</form>
 </body>
 </html>
