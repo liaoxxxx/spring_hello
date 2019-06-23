@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,8 +8,8 @@
 <body>
 <form action="/express/query" method="post">
     <br>
-    <select name="expressCode" id="">
-        <option  value="JD">京东快递</option>
+    <select name="expressId" id="" >
+        <option  th:each="express:${expressList}" th:value="${express.getId()}" th:text="${express.getExpressProviderName()}"></option>
     </select>
     <input class="input-group-lg" type="text" name="expressNo" placeholder="请输入快递单号">
     <button class="active">搜索 </button>

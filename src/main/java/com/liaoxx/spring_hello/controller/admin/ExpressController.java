@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -23,22 +24,26 @@ public class ExpressController {
     @Autowired
     ExpressProviderRepository expressProviderRepository;
     @RequestMapping("/add_expressprovider")
-    public String add_expressprovider(Map map ,HttpServletRequest request){
+    public String add_expressprovider(HttpServletRequest request,
+                                      @RequestParam (value = "expressCustomer",required = false)String expressCustomer,
+                                      @RequestParam (value = "expressCode",required = false)String expressCode,
+                                      @RequestParam (value = "expressChar",required = false)String expressChar,
+                                      @RequestParam (value = "expressName",required = false)String expressName,
+                                      @RequestParam (value = "remark",required = false)String remark
+    ){
        if( request.getMethod().equals("POST")){
            ExpressProvider expressProvider=new ExpressProvider();
-           expressProvider.setExpressProviderName(request.getParameter("expressName"));
-           expressProvider.setExpressProviderChar(request.getParameter("expressCode"));
-           expressProvider.setExpressProviderCode(request.getParameter("expressChar"));
-           expressProvider.setExpressProviderCode(request.getParameter("expressChar"));
-           expressProvider.setRemark(request.getParameter("remark"));
+           expressProvider.setExpressProviderName(expressName);
+           expressProvider.setExpressProviderChar(expressChar);
+           expressProvider.setExpressProviderCode(expressCode);
+           expressProvider.setExpressProviderCustomerName(expressCustomer);
+           expressProvider.setRemark(remark);
            expressProvider.setCreated_at(System.currentTimeMillis());
            expressProvider.setUpdated_at(System.currentTimeMillis());
            expressProvider.setStatus((byte) 1);
            expressProvider.setIs_delete((byte) 0);
            expressProviderRepository.saveAndFlush(expressProvider);
        }
-
-        //map.put("admin",admin);
         return "./admin/express/add_provider";
     }
 }

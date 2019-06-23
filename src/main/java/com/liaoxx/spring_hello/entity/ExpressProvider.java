@@ -14,6 +14,8 @@ public class ExpressProvider {
     @Column
     private String expressProviderChar;
     @Column
+    private String expressProviderCustomerName;
+    @Column
     private byte is_delete;
     @Column
     private String remark;
@@ -94,5 +96,12 @@ public class ExpressProvider {
 
     public void setUpdated_at(long updated_at) {
         this.updated_at = updated_at;
+    }
+    public String getExpressProviderCustomerName() {
+        return expressProviderCustomerName;
+    }
+
+    public void setExpressProviderCustomerName(String expressProviderCustomerName) {
+        this.expressProviderCustomerName = expressProviderCustomerName;
     }
 }

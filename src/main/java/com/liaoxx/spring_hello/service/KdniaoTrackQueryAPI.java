@@ -50,9 +50,9 @@ public class KdniaoTrackQueryAPI {
      * Json方式 查询订单物流轨迹
      * @throws Exception
      */
-    public String getOrderTracesByJson(String expCode, String expNo) throws Exception{
-        String requestData= "{'OrderCode':'','ShipperCode':'" + expCode + "','LogisticCode':'" + expNo + "'}";
-
+    public String getOrderTracesByJson(String expCode, String expNo,String customerName) throws Exception{
+        String requestData= "{'OrderCode':'','ShipperCode':'" + expCode + "','LogisticCode':'" + expNo + "',"+"'CustomerName':'"+customerName+"'}";
+        //System.out.println(requestData);
         Map<String, String> params = new HashMap<String, String>();
         params.put("RequestData", urlEncoder(requestData, "UTF-8"));
         params.put("EBusinessID", EBusinessID);
