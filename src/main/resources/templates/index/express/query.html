@@ -9,10 +9,19 @@
 <form action="/express/query" method="post">
     <br>
     <select name="expressId" id="" >
+        <option value="0" selected="selected">未选择</option>
         <option  th:each="express:${expressList}" th:value="${express.getId()}" th:text="${express.getExpressProviderName()}"></option>
     </select>
     <input class="input-group-lg" type="text" name="expressNo" placeholder="请输入快递单号">
     <button class="active">搜索 </button>
+    <div>
+        <ul th:if="${traceListHtml}">
+            <li th:each="traceStepMap:${traceListHtml}"  >
+                <span th:text='${traceStepMap.get("AcceptStation")}'></span>
+                <span th:text='${traceStepMap.get("AcceptTime")}'></span>
+            </li>
+        </ul>
+    </div>
 </form>
 </body>
 </html>

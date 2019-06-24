@@ -35,7 +35,7 @@ public class SpiderController {
 
     @RequestMapping("/query")
     public Object query(){
-
+        System.out.println("88888888888888888888888888888888888888888888");
         CloseableHttpClient hc= HttpClients.createDefault();
         HttpGet get=new HttpGet("https://www.bilibili.com/index/recommend.json");
         try {

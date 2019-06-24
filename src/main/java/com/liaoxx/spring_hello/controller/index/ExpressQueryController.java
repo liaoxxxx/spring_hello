@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -21,7 +23,7 @@ public class ExpressQueryController {
     @RequestMapping("/query")
     public String query(HttpServletRequest request ,
                         @RequestParam (value = "expressNo",required = false)String expressNo,
-                        @RequestParam (value = "expressId",required = false) int expressId,
+                        @RequestParam (value = "expressId",required = false,defaultValue = "0") int expressId,
                         Map <String, Object> map){
        if( request.getMethod().equals("POST")){
            ExpressProvider expressOne = expressProviderRepository.getOne(expressId);
@@ -33,10 +35,10 @@ public class ExpressQueryController {
                 Map<String,String> stepMap=new HashMap();  //轨迹步骤
                 List <Map <String,String>> traceList =new ArrayList<>();//存放抽取获得的 轨迹步骤 后的数组
                 for (Object object : traceListJson ){
-                    Map <String,String> traceSteMap=(Map <String,String>) object;
-                    //System.out.println(traceSteMap.get("AcceptStation"));
-                    //System.out.println(traceSteMap.get("AcceptTime"));
-                    traceList.add(traceSteMap);
+                    Map <String,String> traceStepMap=(Map <String,String>) object;
+                    System.out.println(traceStepMap.get("AcceptStation"));
+                    System.out.println(traceStepMap.get("AcceptTime"));
+                    traceList.add(traceStepMap);
                 }
                 map.put("traceListHtml",traceList);
            } catch (Exception e) {
@@ -47,5 +49,10 @@ public class ExpressQueryController {
         List expressList= expressProviderRepository.findAll();
         map.put("expressList",expressList);
         return "./index/express/query";
+    }
+    @ResponseBody
+    @RequestMapping("/test1")
+    public String test1(){
+        return  "9999";
     }
 }
