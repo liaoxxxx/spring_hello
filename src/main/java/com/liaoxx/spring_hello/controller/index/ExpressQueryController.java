@@ -2,6 +2,7 @@ package com.liaoxx.spring_hello.controller.index;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.liaoxx.spring_hello.entity.ExpressProvider;
 import com.liaoxx.spring_hello.repository.ExpressProviderRepository;
 import com.liaoxx.spring_hello.service.KdniaoTrackQueryAPI;
@@ -51,8 +52,13 @@ public class ExpressQueryController {
         return "./index/express/query";
     }
     @ResponseBody
-    @RequestMapping("/test1")
-    public String test1(){
-        return  "9999";
+    @RequestMapping("/findbycode")
+    public String findByExpressProviderCode(){
+        ExpressProvider expressProvider= expressProviderRepository.findByExpressProviderCode("JD");
+        System.out.println(expressProvider);
+        //expressProviderRepository.findAll(expressProvider);
+        JSONObject jsonObject=new JSONObject();
+        String expressString= jsonObject.toJSONString(expressProvider);
+        return  expressString;
     }
 }

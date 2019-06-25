@@ -17,8 +17,8 @@
     <div>
         <ul th:if="${traceListHtml}">
             <li th:each="traceStepMap:${traceListHtml}"  >
-                <span th:text='${traceStepMap.get("AcceptStation")}'></span>
                 <span th:text='${traceStepMap.get("AcceptTime")}'></span>
+                <span th:text='${traceStepMap.get("AcceptStation")}'></span>
             </li>
         </ul>
     </div>
