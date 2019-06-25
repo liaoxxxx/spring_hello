@@ -59,6 +59,8 @@ public class ExpressQueryController {
         //expressProviderRepository.findAll(expressProvider);
         JSONObject jsonObject=new JSONObject();
         String expressString= jsonObject.toJSONString(expressProvider);
+        Object expressProvider1=JSONObject.parseObject(expressString);
+        System.out.println(expressProvider1);
         return  expressString;
     }
 }
