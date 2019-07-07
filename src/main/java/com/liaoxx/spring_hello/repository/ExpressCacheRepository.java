@@ -7,5 +7,6 @@ import java.util.List;
 
 //继承JpaRepository 来完成对数据库的操作
 public interface ExpressCacheRepository extends JpaRepository<ExpressCache,Integer> {
-    List <ExpressCache> getByExpressProviderCodeAndExpressNo(String Code,String expressNo);
+    ExpressCache  getByExpressProviderCodeAndExpressNo(String Code,String expressNo);
+
 }
