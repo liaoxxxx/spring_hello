@@ -27,6 +27,8 @@ public class ExpressQueryController {
     ExpressProviderRepository expressProviderRepository;
     @Autowired
     ExpressCacheRepository expressCacheRepository;
+    @Autowired
+    ExpressService expressService;
     @RequestMapping("/query")
     public String query(HttpServletRequest request ,
                         @RequestParam (value = "expressNo",required = false)String expressNo,
@@ -36,11 +38,13 @@ public class ExpressQueryController {
            //获取快递提供商信息
            ExpressProvider expressOne = expressProviderRepository.getOne(expressId);
            //查询缓存
-           ExpressCache expressCache =expressCacheRepository.getByExpressProviderCodeAndExpressNo(expressOne.getExpressProviderCode(),expressNo);
-           ExpressService expressService=new ExpressService();
+
+
+           ExpressCache expressCache =expressService.getCache(expressOne,expressNo);
+
            if (expressCache==null){
                 try {
-
+                    System.out.println("使用了快递鸟api");
                     //查询
                     KdniaoTrackQueryAPI kdnAPI=  new KdniaoTrackQueryAPI();
                     String trace =kdnAPI.getOrderTracesByJson(expressOne.getExpressProviderCode(),expressNo,expressOne.getExpressProviderCustomerName());
@@ -56,7 +60,7 @@ public class ExpressQueryController {
                map.put("traceListHtml",traceList);
            }
        }
-
+        expressService.getCacheTest();
         List expressList= expressProviderRepository.findAll();
         map.put("expressList",expressList);
         return "./index/express/query";

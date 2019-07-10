@@ -8,16 +8,22 @@ import com.liaoxx.spring_hello.entity.ExpressProvider;
 import com.liaoxx.spring_hello.repository.ExpressCacheRepository;
 import com.liaoxx.spring_hello.repository.ExpressProviderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
+@Service
+@Configurable
 public class ExpressService {
 
     @Autowired
     ExpressProviderRepository expressProviderRepository;
-
+    @Autowired
+    ExpressCacheRepository expressCacheRepository;
     public   void    saveCache(String expressNo, ExpressProvider expressProvider,String trace,ExpressCacheRepository expressCacheRepository){
         ExpressCache expressCacheEN=new ExpressCache();
         //构建expressCache 实体
@@ -31,8 +37,8 @@ public class ExpressService {
         expressCacheEN.setExpressNo(expressNo);
 
         expressCacheRepository.save(expressCacheEN);
-   }
-   public List decodeTrace(String trace){
+    }
+    public List decodeTrace(String trace){
        Map respMap= JSON.parseObject(trace); //转为map
        List traceListJson= (JSONArray)respMap.get("Traces"); //获得trace
        List <Map <String,String>> traceList =new ArrayList<>();//存放抽取获得的 轨迹步骤 后的数组
@@ -43,5 +49,14 @@ public class ExpressService {
            traceList.add(traceStepMap);
        }
        return traceList;
+    }
+    public ExpressCache getCache(ExpressProvider expressOne,String expressNo){
+         return  expressCacheRepository.getByExpressProviderCodeAndExpressNo(expressOne.getExpressProviderCode(),expressNo);
+
+    }
+
+    public void getCacheTest(){
+
+        System.out.println("\n\n\n\n\n\n"+expressCacheRepository+"\n\n\n\n\n\n");
     }
 }
