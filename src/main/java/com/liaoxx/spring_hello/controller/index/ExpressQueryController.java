@@ -39,9 +39,7 @@ public class ExpressQueryController {
            ExpressProvider expressOne = expressProviderRepository.getOne(expressId);
            //查询缓存
 
-
            ExpressCache expressCache =expressService.getCache(expressOne,expressNo);
-
            if (expressCache==null){
                 try {
                     System.out.println("使用了快递鸟api");
@@ -49,7 +47,7 @@ public class ExpressQueryController {
                     KdniaoTrackQueryAPI kdnAPI=  new KdniaoTrackQueryAPI();
                     String trace =kdnAPI.getOrderTracesByJson(expressOne.getExpressProviderCode(),expressNo,expressOne.getExpressProviderCustomerName());
                     //存入
-                    expressService.saveCache(expressNo,expressOne,trace,expressCacheRepository);
+                    expressService.saveCache(expressNo,expressOne,trace);
                     List traceList=expressService.decodeTrace(trace);
                     map.put("traceListHtml",traceList);
                 } catch (Exception e) {

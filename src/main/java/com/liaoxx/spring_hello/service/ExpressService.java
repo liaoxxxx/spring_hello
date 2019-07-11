@@ -24,7 +24,7 @@ public class ExpressService {
     ExpressProviderRepository expressProviderRepository;
     @Autowired
     ExpressCacheRepository expressCacheRepository;
-    public   void    saveCache(String expressNo, ExpressProvider expressProvider,String trace,ExpressCacheRepository expressCacheRepository){
+    public   void    saveCache(String expressNo, ExpressProvider expressProvider,String trace){
         ExpressCache expressCacheEN=new ExpressCache();
         //构建expressCache 实体
         expressCacheEN.setCreated_at( System.currentTimeMillis());
