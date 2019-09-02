@@ -27,5 +27,7 @@ public class HelloController {
         map.put("imgUrl","/js.png");
         return "success";
     }
+    public void test() {
+    }
 
 }
