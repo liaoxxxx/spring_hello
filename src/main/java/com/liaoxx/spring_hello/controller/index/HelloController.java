@@ -28,6 +28,7 @@ public class HelloController {
         return "success";
     }
     public void test() {
+
     }
 
 }

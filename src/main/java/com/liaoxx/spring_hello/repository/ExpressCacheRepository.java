@@ -9,4 +9,5 @@ import java.util.List;
 public interface ExpressCacheRepository extends JpaRepository<ExpressCache,Integer> {
     ExpressCache  getByExpressProviderCodeAndExpressNo(String Code,String expressNo);
 
+
 }

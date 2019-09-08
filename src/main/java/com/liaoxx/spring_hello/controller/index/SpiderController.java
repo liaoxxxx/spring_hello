@@ -1,10 +1,8 @@
-package com.liaoxx.spring_hello.controller;
+package com.liaoxx.spring_hello.controller.index;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
-import com.liaoxx.spring_hello.entity.spider.BiliRecommendEnityt;
+import com.liaoxx.spring_hello.entity.spider.BiliRecommendEntity;
 import com.liaoxx.spring_hello.repository.BiliRecommendVideoRepository;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,18 +11,19 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.security.Key;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @ResponseBody
@@ -38,6 +37,7 @@ public class SpiderController {
         System.out.println("88888888888888888888888888888888888888888888");
         CloseableHttpClient hc= HttpClients.createDefault();
         HttpGet get=new HttpGet("https://www.bilibili.com/index/recommend.json");
+        System.out.println(get);
         try {
             //new
             CloseableHttpResponse response=hc.execute(get);
@@ -56,7 +56,7 @@ public class SpiderController {
                 Map<String ,Object> map1=(Map) object;
                 System.out.println(map1);
 
-                BiliRecommendEnityt biliRecommendEnityt=new BiliRecommendEnityt();
+                BiliRecommendEntity biliRecommendEnityt=new BiliRecommendEntity();
 
                 biliRecommendEnityt.setAid((int)map1.get("aid"));
                 biliRecommendEnityt.setPic((String)map1.get("pic"));
@@ -76,5 +76,19 @@ public class SpiderController {
         }
 
         return  0;
+    }
+
+
+    @GetMapping("/redistest/{id}")
+    @Cacheable(value ="BiliRecommendEntity",key = "#BiliRecommendEntity.id")
+    public void redisTest(@PathVariable("id")Integer  id){
+
+        BiliRecommendEntity biliRecommendEntity=  biliRecommendVideoRepository.getOne(id);
+        //biliRecommendEntity=(BiliRecommendEntity) biliRecommendEntity;
+        System.out.println(biliRecommendEntity.getId());
+
+        //System.out.println(biliRecommendEntity);
+        System.out.println("fooooo");
+        //return biliRecommendEntity;
     }
 }

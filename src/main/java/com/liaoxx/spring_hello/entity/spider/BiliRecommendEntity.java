@@ -1,12 +1,11 @@
 package com.liaoxx.spring_hello.entity.spider;
 
 import javax.persistence.*;
-import java.util.HashMap;
 import java.util.List;
 
 @Entity
 //@Table(name="")
-public class BiliRecommendEnityt /*extends HashMap<String,Object> */{
+public class BiliRecommendEntity /*extends HashMap<String,Object> */{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -100,7 +99,7 @@ public class BiliRecommendEnityt /*extends HashMap<String,Object> */{
     }
 
 
-    public List<BiliRecommendEnityt> findAll() {
+    public List<BiliRecommendEntity> findAll() {
         return null;
     }
 }
