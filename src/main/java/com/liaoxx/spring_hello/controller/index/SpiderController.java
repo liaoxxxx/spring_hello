@@ -79,16 +79,5 @@ public class SpiderController {
     }
 
 
-    @GetMapping("/redistest/{id}")
-    @Cacheable(value ="BiliRecommendEntity",key = "#BiliRecommendEntity.id")
-    public void redisTest(@PathVariable("id")Integer  id){
 
-        BiliRecommendEntity biliRecommendEntity=  biliRecommendVideoRepository.getOne(id);
-        //biliRecommendEntity=(BiliRecommendEntity) biliRecommendEntity;
-        System.out.println(biliRecommendEntity.getId());
-
-        //System.out.println(biliRecommendEntity);
-        System.out.println("fooooo");
-        //return biliRecommendEntity;
-    }
 }
