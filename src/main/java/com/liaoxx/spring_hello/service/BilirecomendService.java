@@ -3,6 +3,7 @@ package com.liaoxx.spring_hello.service;
 import com.liaoxx.spring_hello.entity.spider.BiliRecommendEntity;
 import com.liaoxx.spring_hello.repository.BiliRecommendVideoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,9 @@ public class BilirecomendService {
 
         biliRecommendVideoRepository.save(biliRecommendEntity);
         return biliRecommendEntity;
+    }
+    @CacheEvict(cacheNames = "BiliRecommend",key = "#id")
+    public void delBiliRcmd(int id){
+        biliRecommendVideoRepository.deleteById(id);
     }
 }
