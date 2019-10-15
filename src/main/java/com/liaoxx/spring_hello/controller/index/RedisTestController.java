@@ -21,6 +21,7 @@ public class RedisTestController {
 
     @RequestMapping("/test")
     public String test() {
+        stringRedisTemplate.opsForValue().set("name","liaoxx");
         return "a";
     }
 }
