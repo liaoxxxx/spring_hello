@@ -4,6 +4,7 @@ package com.liaoxx.spring_hello.controller.index;
 import com.liaoxx.spring_hello.repository.BiliRecommendVideoRepository;
 import org.junit.Test;
 
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.beans.BeanMap;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -21,5 +22,14 @@ import java.util.Map;
 @RequestMapping("/rabbit")
 public class RabbitController {
 
+    @Autowired
+    AmqpTemplate amqpTemplate;
+
+    @RequestMapping("/test1")
+    public void test(){
+        Map<String,Object> map=new HashMap();
+        map.put("name","liaoxx");
+        amqpTemplate.convertAndSend("test",map);
+    }
 
 }
