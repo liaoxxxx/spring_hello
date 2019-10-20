@@ -2,8 +2,10 @@ package com.liaoxx.spring_hello;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
+import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.io.*;
@@ -15,6 +17,13 @@ import java.util.Map;
 @SpringBootTest
 public class SpringHelloApplicationTests {
 
+    @Autowired
+    AmqpTemplate amqpTemplate;
+
+
+    public void test1(){
+
+    }
 /*
 
     @Test

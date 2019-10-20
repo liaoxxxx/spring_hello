@@ -24,13 +24,14 @@ public class RedisTestController {
     @Autowired
     BiliRecommendVideoRepository recommendVideoRepository;
 
+
     @RequestMapping("/test")
     @ResponseBody
     public String test() {
         stringRedisTemplate.opsForValue().set("names","liaoxxxx");
         System.out.println(stringRedisTemplate.opsForValue().get("names"));
-        stringRedisTemplate.opsForValue().set("name","liaoxx");
-        System.out.println(BeanMap.create( recommendVideoRepository.getOne(1)));
+        stringRedisTemplate.opsForValue().set("name","liao666xx");
+        //System.out.println(BeanMap.create( recommendVideoRepository.getOne(1)));
         //redisTemplate.opsForHash().putAll("biliRcmd01",BeanMap.create( recommendVideoRepository.getOne(1)));
         //System.out.println(redisTemplate.opsForHash().values("biliRcmd01"));
         return "a";
