@@ -9,7 +9,13 @@ public class RabbitConfig {
 
     @Bean
     public Queue Queue() {
-        return new Queue("hello");
+        return new Queue("default");
     }
+
+    public String EXCHANGE ="directEX";
+
+    public String ROUTINGKEY ="directRK";
+
+
 
 }
