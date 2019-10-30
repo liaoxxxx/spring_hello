@@ -29,7 +29,7 @@ public class RabbitPublishController {
         System.out.println("Sender : " + context);
         this.amqpTemplate.convertAndSend("default", context);
     }
-
+/*
     @RequestMapping("/directPublish")
     public void test2() {
         rabbitTemplate.setExchange("66666");
@@ -39,7 +39,7 @@ public class RabbitPublishController {
     @RequestMapping("/RbtDefaultPublish")
     public void test3() {
         rabbitTemplate.convertAndSend("","","" );
-    }
+    }*/
 }
 
 

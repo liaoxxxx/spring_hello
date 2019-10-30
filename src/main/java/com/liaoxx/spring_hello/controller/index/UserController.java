@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    private UserMapper userMapper;
+    //private UserMapper userMapper;
 
     @RequestMapping("/add")
     public String addUser(){
 
-        User user=new User();
-        user.setUsername("liaoxx");
-        user.setPasswd("liao993501756");
-        user.setSalt("adwed");
-        userMapper.install(user);
+       // User user=new User();
+       // user.setUsername("liaoxx");
+       // user.setPasswd("liao993501756");
+        //user.setSalt("adwed");
+        //userMapper.install(user);
         return "success";
     }
 }

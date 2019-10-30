@@ -31,8 +31,8 @@ public class RedisTestController {
         stringRedisTemplate.opsForValue().set("names","liaoxxxx");
         System.out.println(stringRedisTemplate.opsForValue().get("names"));
         System.out.println(BeanMap.create( recommendVideoRepository.getOne(1)));
-        redisTemplate.opsForHash().putAll("biliRcmd01",BeanMap.create( recommendVideoRepository.getOne(1)));
-        System.out.println(redisTemplate.opsForHash().values("biliRcmd01"));
+        //redisTemplate.opsForHash().putAll("biliRcmd01",BeanMap.create( recommendVideoRepository.getOne(1)));
+        //System.out.println(redisTemplate.opsForHash().values("biliRcmd01"));
         return "a";
     }
 

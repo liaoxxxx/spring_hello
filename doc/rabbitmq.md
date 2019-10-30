@@ -7,7 +7,7 @@ https://zhuanlan.zhihu.com/p/25069044
 
 
 
-##二.配置,及代码范例
+##二.简单-配置,及代码范例
 >1.配置pom包，主要是添加spring-boot-starter-amqp的支持
 ```xml
 <dependency>
@@ -47,7 +47,12 @@ spring.rabbitmq.password=123456
    }
 ``` 
 
-## 三.常见错误
+## 三.复杂 配置
+### 1.配置
+
+
+
+## 四.常见错误
 
 
 >1.org.springframework.amqp.rabbit.listener.BlockingQueueConsumer$DeclarationException: Failed to declare queue(s):[default]

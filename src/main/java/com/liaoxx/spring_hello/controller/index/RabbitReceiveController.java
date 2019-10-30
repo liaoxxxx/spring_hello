@@ -10,23 +10,3 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-@Controller
-@ResponseBody
-@RequestMapping("/rabbit")
-@RabbitListener(queues = "default")
-public class RabbitReceiveController {
-
-    @RabbitHandler
-    @RequestMapping("/defaultReceive")
-    public void process(String aaaa) {
-        System.out.println();
-        System.out.println("Receiver  : " + aaaa);
-    }
-    @RabbitHandler
-    @RequestMapping("/directReceive")
-    public void process1(String aaaa) {
-        System.out.println("dddddd");
-        System.out.println("Receiver  : " + aaaa);
-    }
-
-}
