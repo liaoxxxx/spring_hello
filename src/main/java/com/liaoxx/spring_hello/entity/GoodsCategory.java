@@ -1,6 +1,10 @@
 package com.liaoxx.spring_hello.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 @Entity
 @Table(name="goods_category")
 public class GoodsCategory {
@@ -8,24 +12,32 @@ public class GoodsCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //标注为自增主键
     private int  id;
 
+    @NotBlank(message ="分类的名称不能为空")
     @Column
     private String cateName;
+
+    @NotNull(message = "分类的父级不能为空")
     @Column
     private int parentId;
+
+    @NotBlank(message ="分类的描述不能为空")
     @Column
     private String summary;
 
+    @NotNull
     @Column
     private byte status;
 
+    @NotNull
+    @Column
+    private Long createdAt;
+
+    @Column
+    @NotNull
+    private Long updatedAt;
 
 
-    @Column
-    private String thumb;
-    @Column
-    private int created_at;
-    @Column
-    private int updated_at;
+
 
     public int getId() {
         return id;
@@ -67,28 +79,21 @@ public class GoodsCategory {
         this.status = status;
     }
 
-    public String getThumb() {
-        return thumb;
+
+    public long getCreated_at() {
+        return createdAt;
     }
 
-    public void setThumb(String thumb) {
-        this.thumb = thumb;
+    public void setCreated_at(long created_at) {
+        this.createdAt = created_at;
     }
 
-    public int getCreated_at() {
-        return created_at;
+    public long getUpdated_at() {
+        return updatedAt;
     }
 
-    public void setCreated_at(int created_at) {
-        this.created_at = created_at;
-    }
-
-    public int getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(int updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdated_at(long updated_at) {
+        this.updatedAt = updated_at;
     }
 
 

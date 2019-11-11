@@ -28,12 +28,46 @@ public class GoodsCategoryController {
     @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
     @RequestMapping( "/add_category")
     public Map<String, Object> addGoodsCategory(@RequestBody GoodsCategoryDto goodsCategoryDto){
-
-        System.out.println(goodsCategoryDto.getCateName());
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++");
         Map<String,Object> map =new HashMap<>();
-        map.put("code",200);
-        map.put("msg","success");
+
+        if (goodsCategoryService.add(goodsCategoryDto)){
+
+            map.put("code",200);
+            map.put("msg","success");
+            map.put("data",goodsCategoryDto);
+        }
+        else {
+
+            map.put("code",500);
+            map.put("msg","error");
+            map.put("data",goodsCategoryDto);
+        }
+        return map;
+    }
+
+
+
+
+
+
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
+    @RequestMapping( "/get_all_category")
+    public Map<String, Object> getList(@RequestBody GoodsCategoryDto goodsCategoryDto){
+        Map<String,Object> map =new HashMap<>();
+
+        if (goodsCategoryService.add(goodsCategoryDto)){
+
+            map.put("code",200);
+            map.put("msg","success");
+            map.put("data",goodsCategoryDto);
+        }
+        else {
+
+            map.put("code",500);
+            map.put("msg","error");
+            map.put("data",goodsCategoryDto);
+        }
         return map;
     }
 
