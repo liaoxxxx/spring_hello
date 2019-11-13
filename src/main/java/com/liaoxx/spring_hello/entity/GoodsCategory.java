@@ -38,6 +38,10 @@ public class GoodsCategory {
 
 
 
+    private String updateAtStr;
+
+    private String createdAtStr;
+
 
     public int getId() {
         return id;
@@ -79,23 +83,35 @@ public class GoodsCategory {
         this.status = status;
     }
 
-
-    public long getCreated_at() {
+    public Long getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreated_at(long created_at) {
-        this.createdAt = created_at;
+    public void setCreatedAt(Long createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public long getUpdated_at() {
+    public Long getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdated_at(long updated_at) {
-        this.updatedAt = updated_at;
+    public void setUpdatedAt(Long updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
+    public String getUpdateAtStr() {
+        return updateAtStr;
+    }
 
+    public void setUpdateAtStr(String updateAtStr) {
+        this.updateAtStr = updateAtStr;
+    }
 
+    public String getCreatedAtStr() {
+        return createdAtStr;
+    }
+
+    public void setCreatedAtStr(String createdAtStr) {
+        this.createdAtStr = createdAtStr;
+    }
 }

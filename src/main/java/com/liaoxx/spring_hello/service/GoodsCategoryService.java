@@ -5,8 +5,6 @@ import com.liaoxx.spring_hello.repository.GoodsCategoryRepository;
 import com.liaoxx.spring_hello.util.SqlTimeTool;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -29,8 +27,8 @@ public class GoodsCategoryService {
         System.out.println(timeTamp);
         GoodsCategory goodsCategory=new GoodsCategory();
         BeanUtils.copyProperties(goodsCategoryDto,goodsCategory);
-        goodsCategory.setCreated_at(timeTamp);
-        goodsCategory.setUpdated_at(timeTamp);
+        goodsCategory.setCreatedAt(timeTamp);
+        goodsCategory.setUpdatedAt(timeTamp);
         goodsCategoryRepository.save(goodsCategory);
         return true;
     }
@@ -48,7 +46,12 @@ public class GoodsCategoryService {
         //排序
         Sort sort = new Sort(Sort.Direction.DESC,"id");
 
-        return goodsCategoryRepository.findAll(sort);
+        List<GoodsCategory> list=goodsCategoryRepository.findAll(sort);
+        for (GoodsCategory i:list) {
+           i.setCreatedAtStr(SqlTimeTool.transMicroTime2Date(i.getCreatedAt()));
+            i.setUpdateAtStr(SqlTimeTool.transMicroTime2Date(i.getUpdatedAt()));
+        }
+        return list;
 
 
     }
