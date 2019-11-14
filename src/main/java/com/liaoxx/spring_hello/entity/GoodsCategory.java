@@ -1,11 +1,16 @@
 package com.liaoxx.spring_hello.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@JsonIgnoreProperties(
+        value={"hibernateLazyInitializer"}          //No serializer found for class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor
+    )                  // https://stackoverflow.com/questions/52656517/no-serializer-found-for-class-org-hibernate-proxy-pojo-bytebuddy-bytebuddyinterc
 @Table(name="goods_category")
 public class GoodsCategory {
     @Id //标注为主键

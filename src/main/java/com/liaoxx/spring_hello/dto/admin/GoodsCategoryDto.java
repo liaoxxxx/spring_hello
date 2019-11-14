@@ -4,6 +4,9 @@ import javax.persistence.Column;
 
 public class GoodsCategoryDto {
 
+
+    private int id;
+
     private String cateName;
 
     private int parentId;
@@ -15,6 +18,13 @@ public class GoodsCategoryDto {
 
     private String thumb;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCateName() {
         return cateName;

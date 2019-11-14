@@ -33,6 +33,8 @@ public class GoodsCategoryService {
         return true;
     }
 
+
+
     public List getList(int page,int pageSize,String cateName){
         //条件
         Specification<GoodsCategory> spec = new Specification<GoodsCategory>() {
@@ -59,5 +61,17 @@ public class GoodsCategoryService {
 
     public List<GoodsCategory> findAll(){
         return goodsCategoryRepository.findAll();
+    }
+
+
+
+
+    public GoodsCategory getById(int id){
+        return goodsCategoryRepository.getOne(id);
+    }
+
+
+    public GoodsCategory update(GoodsCategory goodsCategory){
+        return goodsCategoryRepository.save(goodsCategory);
     }
 }
