@@ -1,6 +1,5 @@
 package com.liaoxx.spring_hello.dto.admin;
 
-import javax.persistence.Column;
 
 public class GoodsCategoryDto {
 
