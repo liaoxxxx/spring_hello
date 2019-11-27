@@ -57,7 +57,7 @@ public class GoodsCategoryController {
     @RequestMapping( "/get_all_category")
     public Map<String,Object> getList(){
 
-      return   JsonResponse.jsonSuccess("get goods category success",
+      return   JsonResponse.Success("get goods category success",
               goodsCategoryService.getList(10,20,"aaaa")
       ) ;
     }
@@ -68,7 +68,7 @@ public class GoodsCategoryController {
     public Map<String, Object> getCategoryById(@RequestBody LinkedHashMap<String,String> map){
         GoodsCategory goodsCategory= goodsCategoryService.getById( Integer.parseInt( map.get("id")));
 
-        return   JsonResponse.jsonSuccess("get goods category id : "+map.get("id"),goodsCategory);
+        return   JsonResponse.Success("get goods category id : "+map.get("id"),goodsCategory);
     }
 
 
@@ -84,7 +84,7 @@ public class GoodsCategoryController {
         goodsCategory.setUpdatedAt(SqlTimeTool.getMicroTimeTamp());
         //保存
         goodsCategoryService.update(goodsCategory);
-        return   JsonResponse.jsonSuccess("save GoodsCategory id : "+goodsCategoryDto.getId(),goodsCategory);
+        return   JsonResponse.Success("save GoodsCategory id : "+goodsCategoryDto.getId(),goodsCategory);
     }
 
 

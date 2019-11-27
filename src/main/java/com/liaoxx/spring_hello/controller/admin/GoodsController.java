@@ -16,12 +16,12 @@ public class GoodsController {
 
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
-    @RequestMapping( "/upload_thumb")
+    @RequestMapping( "/")
     public Map<String, Object> uploadThumb(@RequestParam(value = "goodsThumb")MultipartFile goodsThumb){
-        String fileName=goodsThumb.getOriginalFilename();
-        System.out.println(fileName);
-
         Map<String,Object> map =new HashMap<>();
+
+
+
 
         return map;
     }

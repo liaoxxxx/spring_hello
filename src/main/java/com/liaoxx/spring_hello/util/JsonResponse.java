@@ -12,7 +12,7 @@ public class JsonResponse {
     }
 
 
-    public static Map<String,Object> jsonSuccess(String msg,Object data ){
+    public static Map<String,Object> Success(String msg,Object data ){
         Map<String,Object> map=respMap();
         map.put("code",200);
         map.put("status","success");
@@ -21,7 +21,7 @@ public class JsonResponse {
         return  map;
     }
 
-    public static Map<String,Object> jsonError(String msg,Object data ){
+    public static Map<String,Object> Error(String msg,Object data ){
         Map<String,Object> map=respMap();
         map.put("code",500);
         map.put("status","error");
