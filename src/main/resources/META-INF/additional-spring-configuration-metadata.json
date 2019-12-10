@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "upload.imagePath",
+      "type": "java.lang.String",
+      "description": "Description for upload.imagePath."
+    },
+    {
+      "name": "file.upload.path.imge",
+      "type": "java.lang.String",
+      "description": "Description for file.upload.path.imge."
+    },
+    {
+      "name": "fileUpload.linux.imagePath",
+      "type": "java.lang.String",
+      "description": "Description for fileUpload.linux.imagePath."
+    }
+  ] }
