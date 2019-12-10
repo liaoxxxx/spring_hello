@@ -32,6 +32,7 @@ public class AppConfig {
     public String getUploadImagePath( ){
         if (OsComponent.getOsName().equals("linux")){
             return UploadImagePathLinux;
+
         }
         return UploadImagePathWindows;
     }
