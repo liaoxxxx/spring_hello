@@ -42,7 +42,6 @@ public class UploadController {
     @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
     @RequestMapping( "/singleImage")
     public Map<String, Object> uploadThumb(@RequestParam(value = "file") MultipartFile file) throws IOException, NoSuchAlgorithmException {
-        System.out.println(Md5Tool.getMD5("aaa"));
         if(file.isEmpty()){
             return JsonResponse.Error("file is empty","error");
         }
@@ -51,15 +50,12 @@ public class UploadController {
 
         assert fileName != null;
         String suffixName=fileName.substring(fileName.lastIndexOf("."));
-        String prefixPath= AppConfig.getUploadImagePath();
-        String suffixPath= DateTool.getFormatStr("YYYYMM");
-        System.out.println(suffixPath);
-
-
+        String prefixPath=AppConfig.getUploadImagePath();
+        System.out.println(prefixPath);
         File serviceFile =new File(prefixPath,fileName);
 
-        file.transferTo(serviceFile);
-        System.out.println(serviceFile.getAbsolutePath());
+        //file.transferTo(serviceFile);
+        //System.out.println(serviceFile.getAbsolutePath());
         map.put("imagePath",serviceFile.getAbsolutePath());
 
 

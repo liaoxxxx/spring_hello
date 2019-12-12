@@ -6,8 +6,7 @@ import org.springframework.stereotype.Component;
 public class OsComponent {
 
     public static String getOsName() {
-       String os=  System.getProperty("os.name").toLowerCase().substring(0,4);
-       System.out.println(os);
+       String os=  System.getProperty("os.name").toLowerCase().substring(0,5);
        if (os.equals("linux")){
            return "linux";
        }
