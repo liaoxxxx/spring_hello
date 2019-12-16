@@ -1,4 +1,4 @@
-package com.liaoxx.spring_hello.component;
+package com.liaoxx.spring_hello.util;
 
 import org.springframework.stereotype.Component;
 
