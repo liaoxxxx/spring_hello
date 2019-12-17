@@ -4,6 +4,9 @@ import com.liaoxx.spring_hello.util.OsComponent;
 import com.liaoxx.spring_hello.util.DateTool;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import java.io.File;
+
 @Component    // 在配置类注解为@Component 类
 public class AppConfig {
 
@@ -30,13 +33,9 @@ public class AppConfig {
             basePath=UploadImagePathLinux;
         }
         else if (OsComponent.getOsName().equals("windows")){
-            basePath =  UploadImagePathWindows+ DateTool.getFormatStr("YYYYMM")+"\\"+DateTool.getFormatStr("dd")+"\\";
+            basePath =  UploadImagePathWindows;
         }
         basePath +=DateTool.getFormatStr("YYYYMM")+"\\"+DateTool.getFormatStr("dd")+"\\";
-        System.out.println(UploadImagePathLinux);
-        System.out.println(UploadImagePathWindows);
-        System.out.println(port);
-        System.out.println(basePath);
         return basePath;
     }
 
