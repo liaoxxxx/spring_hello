@@ -26,10 +26,14 @@ public class UploadController {
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
     @RequestMapping( "/singleImage")
-    public Map<String, Object> uploadThumb(@RequestParam(value = "file") MultipartFile file) throws IOException, NoSuchAlgorithmException {
+    public Map<String, Object> uploadThumb(@RequestParam(value = "file") MultipartFile file)  {
         Map map=uploadServer.handleSingleImage(file);
+        if ((int)map.get("status")==1){
+            return JsonResponse.Success((String) map.get("msg"),map);
+        }else {
+            return JsonResponse.Error((String) map.get("msg"),  map);
+        }
 
-        return JsonResponse.Success("file uploaded success",map);
     }
 
 

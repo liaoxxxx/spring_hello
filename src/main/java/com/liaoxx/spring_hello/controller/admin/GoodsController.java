@@ -1,6 +1,7 @@
 package com.liaoxx.spring_hello.controller.admin;
 
 
+import com.liaoxx.spring_hello.dto.admin.GoodsDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,13 +17,13 @@ public class GoodsController {
 
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
-    @RequestMapping( "/")
-    public Map<String, Object> uploadThumb(@RequestParam(value = "goodsThumb")MultipartFile goodsThumb){
-        Map<String,Object> map =new HashMap<>();
+    @RequestMapping( "/add_goods")
+    public Map<String, Object> addGoods(GoodsDto goodsDto){
+        System.out.println(goodsDto.getName());
 
 
 
-
+        Map<String ,Object> map =new HashMap();
         return map;
     }
 
