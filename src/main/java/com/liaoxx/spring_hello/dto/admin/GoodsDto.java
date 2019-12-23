@@ -4,7 +4,6 @@ package com.liaoxx.spring_hello.dto.admin;
 public class GoodsDto {
 
 
-    private int id;
     private String name;
 
     private String title;
@@ -24,13 +23,6 @@ public class GoodsDto {
 
     private float inputPrice;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
