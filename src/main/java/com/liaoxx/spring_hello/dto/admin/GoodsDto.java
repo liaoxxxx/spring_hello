@@ -14,7 +14,7 @@ public class GoodsDto {
 
     private int cateId ;
 
-    private String Images;
+    private String[] Images;
 
     private float basePrice;
 
@@ -64,11 +64,11 @@ public class GoodsDto {
         this.cateId = cateId;
     }
 
-    public String getImages() {
+    public String[] getImages() {
         return Images;
     }
 
-    public void setImages(String images) {
+    public void setImages(String[] images) {
         Images = images;
     }
 

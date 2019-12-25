@@ -1,4 +1,6 @@
 package com.liaoxx.spring_hello.service;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.liaoxx.spring_hello.dto.admin.GoodsDto;
 import com.liaoxx.spring_hello.entity.Goods;
 import com.liaoxx.spring_hello.repository.GoodsCategoryRepository;
@@ -24,16 +26,30 @@ public class GoodsService {
 
 
     public boolean add(GoodsDto goodsDto){
-        System.out.println(goodsDto.getSubTitle());
+        //System.out.println(goodsDto.getImages()[0]);
         long timeTamp=SqlTimeTool.getMicroTimeTamp();
         Goods goods=new Goods();
         BeanUtils.copyProperties(goodsDto,goods);
-
+        goods.setImages(this.encodeImages(goodsDto.getImages()));
+        goods.setStatus((byte) 1);
         goods.setIsDelete((byte) 0);
         goods.setCreatedAt(timeTamp);
         goods.setUpdatedAt(timeTamp);
         goodsRepository.save(goods);
         return true;
+    }
+
+
+
+    public List<Goods> list(GoodsDto goodsDto){
+
+        List<Goods> list= goodsRepository.findAll();
+        return list;
+    }
+
+
+    public String encodeImages(String[] imagesArr){
+        return JSON.toJSONString(imagesArr);
     }
 
 
