@@ -41,9 +41,9 @@ public class GoodsController {
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
     @RequestMapping( "/goods_list")
-    public Map<String, Object> list(@RequestBody GoodsDto goodsDto){
+    public Map<String, Object> list(){
 
-        List<Goods> goodsList= goodsService.list(goodsDto);
+        List<Goods> goodsList= goodsService.list();
         //Map<String ,Object> map =new HashMap();
         if (goodsList.size()>0){
             return JsonResponse.Success("获取商品数据成功",goodsList);

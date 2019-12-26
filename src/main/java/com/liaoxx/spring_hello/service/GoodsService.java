@@ -41,7 +41,7 @@ public class GoodsService {
 
 
 
-    public List<Goods> list(GoodsDto goodsDto){
+    public List<Goods> list(){
 
         List<Goods> list= goodsRepository.findAll();
         return list;
