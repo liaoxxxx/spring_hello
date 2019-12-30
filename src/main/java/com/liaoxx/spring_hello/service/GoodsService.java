@@ -54,6 +54,10 @@ public class GoodsService {
 
 
 
+    public Goods findById(int id){
+        return goodsRepository.getOne(id);
+    }
+
    /* public List getList(int page,int pageSize,String cateName){
         //条件
         Specification<GoodsCategory> spec = new Specification<GoodsCategory>() {
@@ -85,9 +89,6 @@ public class GoodsService {
 
 
 
-    public GoodsCategory getById(int id){
-        return goodsCategoryRepository.getOne(id);
-    }
 
 
     public GoodsCategory update(GoodsCategory goodsCategory){

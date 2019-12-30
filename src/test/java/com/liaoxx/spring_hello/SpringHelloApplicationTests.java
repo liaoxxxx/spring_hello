@@ -1,5 +1,6 @@
 package com.liaoxx.spring_hello;
 
+import com.liaoxx.spring_hello.config.AppConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -8,9 +9,12 @@ import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 
 @RunWith(SpringRunner.class)
@@ -20,9 +24,16 @@ public class SpringHelloApplicationTests {
     @Autowired
     AmqpTemplate amqpTemplate;
 
+    @ResponseBody
+    @Test
+    public void main(){
 
+    }
+    @ResponseBody
+    @Test
     public void test1(){
-
+        Random random= new Random();
+        System.out.println(random.nextInt(6));
     }
 /*
 

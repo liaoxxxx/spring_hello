@@ -28,6 +28,7 @@ public class UploadController {
     @RequestMapping( "/singleImage")
     public Map<String, Object> uploadThumb(@RequestParam(value = "file") MultipartFile file)  {
         Map map=uploadServer.handleSingleImage(file);
+        System.out.println(map.get("path"));
         if ((int)map.get("status")==1){
             return JsonResponse.Success((String) map.get("msg"),map);
         }else {

@@ -5,6 +5,7 @@ import com.liaoxx.spring_hello.entity.Admin;
 import com.liaoxx.spring_hello.repository.AdminRepository;
 import com.liaoxx.spring_hello.service.AdminLoginService;
 import com.liaoxx.spring_hello.service.AdminService;
+import com.liaoxx.spring_hello.util.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -49,16 +50,17 @@ public class LoginController {
         map.put("admin",admin);
         return "/admin/manager/find";
     }
-    @CrossOrigin
+
     @ResponseBody
-    @RequestMapping(value = "/login")
-    public String login(@RequestParam(value = "username",required =true) String username,@RequestParam(value = "password",required =true) String password,Map map){
+    @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
+    @RequestMapping("/login")
+    public Map<String ,Object> login(@RequestParam(value = "username",required =false) String username,@RequestParam(value = "password",required =false) String password,Map map){
 
         Admin admin=  adminloginService.findByUsername(username);
         map.put("msg","bar");
         map.put("name","liaoxx");
         map.put("data",admin);
-        String jsonStr=JSON.toJSONString(map);
-        return jsonStr;
+
+        return JsonResponse.Success("登陆成功",map);
     }
 }

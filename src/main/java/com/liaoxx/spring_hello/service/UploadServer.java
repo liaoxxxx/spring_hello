@@ -10,9 +10,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 @Service
 public class UploadServer {
+
+
 
     @Autowired
     UploadFileRepository uploadFileRepository;
@@ -31,9 +34,14 @@ public class UploadServer {
 
         String fileName=uploadImage.getOriginalFilename();
         assert fileName != null;
-        String suffixName=fileName.substring(fileName.lastIndexOf("."));
+        //文件名  时间戳+随机数+ 后缀名
+        String suffixName=System.currentTimeMillis()+(  ( new Random()  ).nextInt(90)+10   )  + fileName.substring(fileName.lastIndexOf("."));
+        //上传路径
         String prefixPath= appConfig.getUploadImagePath();
-        File serviceFile =new File(prefixPath,System.currentTimeMillis()+suffixName);
+        //所属的日期路径
+        String datePath= appConfig.getDatePath();
+
+        File serviceFile =new File(prefixPath+datePath,suffixName);
         //父级目录不存在
         if (!serviceFile.getParentFile().exists()) {
             //创建目录
@@ -42,19 +50,14 @@ public class UploadServer {
         try {
             // 保存文件
             uploadImage.transferTo(serviceFile);
-            //保存到数据库
-            UploadFile uploadFile=new UploadFile();
-            uploadFile.setPath(serviceFile.getAbsolutePath());
-            uploadFile.setCreatedAt(SqlTimeTool.getMicroTimeTamp());
-            uploadFile.setUpdatedAt(SqlTimeTool.getMicroTimeTamp());
-            uploadFileRepository.save(uploadFile);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         map.put("msg","file upload success");
         map.put("status",1);
-        map.put("path",serviceFile.getAbsolutePath());
+        map.put("path",appConfig.getImageUploadPrefixUrl()+datePath+suffixName);
         return map;
 
 
