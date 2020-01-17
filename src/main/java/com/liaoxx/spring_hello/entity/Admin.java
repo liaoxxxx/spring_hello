@@ -35,6 +35,9 @@ public class Admin {
     @Column
     private int updated_at;
 
+    @Column
+    private int role_id;
+
     public int getId() {
         return id;
     }

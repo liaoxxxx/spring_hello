@@ -19,7 +19,7 @@ import java.util.Map;
 //@RestController //注解无法返回视图，默认返回JSON数据。
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/user")
 public class LoginController {
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -55,6 +55,19 @@ public class LoginController {
     @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
     @RequestMapping("/login")
     public Map<String ,Object> login(@RequestParam(value = "username",required =false) String username,@RequestParam(value = "password",required =false) String password,Map map){
+
+        Admin admin=  adminloginService.findByUsername(username);
+        map.put("msg","bar");
+        map.put("name","liaoxx");
+        map.put("data",admin);
+
+        return JsonResponse.Success("登陆成功",map);
+    }
+
+    @ResponseBody
+    @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
+    @RequestMapping("/info")
+    public Map<String ,Object> info(@RequestParam(value = "username",required =false) String username,@RequestParam(value = "password",required =false) String password,Map map){
 
         Admin admin=  adminloginService.findByUsername(username);
         map.put("msg","bar");
