@@ -19,7 +19,7 @@ import java.util.Map;
 //@RestController //注解无法返回视图，默认返回JSON数据。
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/admin")
 public class LoginController {
     @Autowired
     JdbcTemplate jdbcTemplate;
