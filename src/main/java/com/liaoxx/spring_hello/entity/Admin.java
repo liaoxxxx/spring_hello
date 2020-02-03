@@ -31,8 +31,9 @@ public class Admin {
 
    /* @Column
     private int adminDetailId;*/
-    @PrimaryKeyJoinColumn
+
     @OneToOne(cascade = CascadeType.ALL,targetEntity = AdminDetail.class)
+    @JoinColumn(name = "admin_detail_id", referencedColumnName = "id", insertable = false, updatable = false)
     private AdminDetail adminDetail;
 
    /* public int getAdminDetailId() {

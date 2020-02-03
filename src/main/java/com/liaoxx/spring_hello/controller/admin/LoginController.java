@@ -58,12 +58,12 @@ public class LoginController {
     @RequestMapping("/login")
     public Map<String ,Object> login(@RequestParam(value = "username",required =false) String username,@RequestParam(value = "password",required =false) String password,Map map){
 
-        Admin admin=  adminloginService.findByUsername(username);
+        /*Admin admin=  adminloginService.findByUsername(username);
 
         System.out.println(admin.toString());
         map.put("msg","登陆成功");
         map.put("name",admin.getNickname());
-        map.put("data",admin);
+        map.put("data",admin);*/
 
         //JwtTokenUtil.createJWT(admin.getId(),admin.getNickname(),admin.getSysRole(),)
         return JsonResponse.Success("登陆成功",map);
@@ -75,6 +75,9 @@ public class LoginController {
     public Map<String ,Object> info(@RequestParam(value = "username",required =false) String username,@RequestParam(value = "password",required =false) String password,Map map){
 
         Admin admin=  adminloginService.findByUsername(username);
+        System.out.println("--------------------");
+        System.out.println(admin.getNickname());
+        System.out.println(admin.getAdminDetail().getId());
         map.put("msg","bar");
         map.put("name","liaoxx");
         map.put("data",admin);
