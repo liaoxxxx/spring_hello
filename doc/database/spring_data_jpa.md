@@ -1,4 +1,4 @@
-#使用spring data jpa
+#使用spring data jpa  2020-02-02
 
 >##1.在pom.xml 引入spring data jpa
 
@@ -11,6 +11,7 @@
 ````
 
 >##2.配置Jpa数据源  略
+
 ````properties
 #jpa 配置
 spring.jpa.hibernate.ddl-auto=update
@@ -21,6 +22,7 @@ spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect
 ````
 
 >##3.在 "entity" 包 创建【实体类】 
+
 ```java
 package com.liaoxx.spring_hello.entity;
 import javax.persistence.*;
@@ -30,33 +32,78 @@ public class Admin {
     @Id //标注为主键
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //标注为自增主键
     private int  id;
+
+
     @Column         //标注为字段
     private String username;
     @Column
     private String password;
-    /* 省略部分Column */
-    
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-        /* 省略部getter() 和setter() */
+    @Column
+    private String salt;
+    @Column
+    private String nickname;
+    @Column
+    private byte is_delete;
+    @Column
+    private byte is_administrator;
+    @Column
+    private String avatars;
+    @Column
+    private byte status;
+
+    @Column
+    private int role_id;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "admin")
+    private AdminDetail adminDetail;
+
+    /*省略 getter() setter() */
 }
+
 ```
+
+
+```java
+package com.liaoxx.spring_hello.entity;
+
+import javax.persistence.*;
+@Entity     //标注为实体类
+@Table(name="admin_detail")      //标注表名为"admin";
+public class AdminDetail {
+    @Id //标注为主键
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  //标注为自增主键
+    private int  id;
+
+    @Column(name = "admin_id")
+    private int adminId;
+
+    @Column
+    private String phone;
+
+    @Column
+    private String email;
+
+    @Column
+    private byte sexy;
+
+    @Column
+    private String remark;
+
+    @Column
+    private int created_at;
+
+    @Column
+    private int updated_at;
+
+    @Id
+    @OneToOne
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
+}
+
+```
+
+
 
 >##4.创建Repository接口 继承JpaRepository
 
@@ -71,6 +118,7 @@ public interface AdminRepository extends JpaRepository<Admin,Integer> {
 ```
 
 >##5.使用 Repository接口 操作
+
 ````java
 package com.liaoxx.spring_hello.controller;
 
@@ -95,8 +143,56 @@ public class AdminController {
         Admin admin=adminRepository.getOne(id);
         System.out.println(admin);
         map.put("admin",admin);
-        return "/admin/manager/find";
+        return map;
     }
 }
 ````
 
+
+
+###6.@OneToOne   一对一主键关联  Admin(entity) 关联 AdminDetail(entity) 
+
+- #### 1.主表 Admin 为例
+`````text
+
+     @OneToOne(cascade = CascadeType.ALL, mappedBy = "admin")
+     private AdminDetail adminDetail;
+`````
+
+
+
+````text
+org.springframework.beans.factory.BeanCreationException:
+Error creating bean with name 'entityManagerFactory' defined in class path resource 
+[org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: 
+Invocation of init method failed; nested exception is javax.persistence.PersistenceException: 
+[PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.MappingException:
+
+Composite-id class must implement Serializable:
+ 
+com.liaoxx.spring_hello.entity.AdminDetail
+````
+
+>  @Id注解(javax.persistence.Id)需要 实现接口 【Serializable】 接口
+
+````text
+package com.liaoxx.spring_hello.entity;
+
+import javax.persistence.*;
+import java.io.Serializable;
+@Entity     //标注为实体类
+@Table(name="admin_detail")      //标注表名为"admin";
+public class AdminDetail implements Serializable {   // @Id  即 【javax.persistence.Id】 需要实现 Serializable 接口
+
+
+}
+````
+    
+
+
+
+
+>在数据库中 Table: 【admin_detail】  重复定义了字段  【admin_id】  或 【adminId】
+```text
+Invocation of init method failed; nested exception is org.hibernate.DuplicateMappingException: Table [admin_detail] contains physical column name [admin_id] referred to by multiple physical column names: [admin_id], [adminId]
+```

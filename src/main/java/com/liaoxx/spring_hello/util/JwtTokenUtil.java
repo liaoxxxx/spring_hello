@@ -4,6 +4,8 @@ import com.liaoxx.spring_hello.component.Audience;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
@@ -18,6 +20,7 @@ import java.util.Objects;
  * Version: v1.0
  * ========================
  */
+@Component
 public class JwtTokenUtil {
     private static Logger log = LoggerFactory.getLogger(JwtTokenUtil.class);
     public static final String AUTH_HEADER_KEY = "Authorization";

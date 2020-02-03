@@ -6,6 +6,7 @@ import com.liaoxx.spring_hello.repository.AdminRepository;
 import com.liaoxx.spring_hello.service.AdminLoginService;
 import com.liaoxx.spring_hello.service.AdminService;
 import com.liaoxx.spring_hello.util.JsonResponse;
+import com.liaoxx.spring_hello.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,6 +28,7 @@ public class LoginController {
     AdminRepository adminRepository;
     @Autowired
     AdminLoginService adminloginService;
+
 
     //@ResponseBody   //注解无法返回视图，默认返回JSON数据。
     @RequestMapping("/login/html")
@@ -57,10 +59,13 @@ public class LoginController {
     public Map<String ,Object> login(@RequestParam(value = "username",required =false) String username,@RequestParam(value = "password",required =false) String password,Map map){
 
         Admin admin=  adminloginService.findByUsername(username);
-        map.put("msg","bar");
-        map.put("name","liaoxx");
+
+        System.out.println(admin.toString());
+        map.put("msg","登陆成功");
+        map.put("name",admin.getNickname());
         map.put("data",admin);
 
+        //JwtTokenUtil.createJWT(admin.getId(),admin.getNickname(),admin.getSysRole(),)
         return JsonResponse.Success("登陆成功",map);
     }
 

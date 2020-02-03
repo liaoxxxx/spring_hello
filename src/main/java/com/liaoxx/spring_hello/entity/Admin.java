@@ -6,6 +6,8 @@ public class Admin {
     @Id //标注为主键
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //标注为自增主键
     private int  id;
+
+
     @Column         //标注为字段
     private String username;
     @Column
@@ -15,28 +17,39 @@ public class Admin {
     @Column
     private String nickname;
     @Column
-    private String phone;
-    @Column
-    private String email;
-    @Column
     private byte is_delete;
     @Column
     private byte is_administrator;
     @Column
     private String avatars;
     @Column
-    private byte sexy;
-    @Column
-    private String remark;
-    @Column
     private byte status;
-    @Column
-    private int created_at;
-    @Column
-    private int updated_at;
 
     @Column
     private int role_id;
+
+
+   /* @Column
+    private int adminDetailId;*/
+    @PrimaryKeyJoinColumn
+    @OneToOne(cascade = CascadeType.ALL,targetEntity = AdminDetail.class)
+    private AdminDetail adminDetail;
+
+   /* public int getAdminDetailId() {
+        return adminDetailId;
+    }
+
+    public void setAdminDetailId(int adminDetailId) {
+        this.adminDetailId = adminDetailId;
+    }*/
+
+    public AdminDetail getAdminDetail() {
+        return adminDetail;
+    }
+
+    public void setAdminDetail(AdminDetail adminDetail) {
+        this.adminDetail = adminDetail;
+    }
 
     public int getId() {
         return id;
@@ -78,22 +91,6 @@ public class Admin {
         this.nickname = nickname;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public byte getIs_delete() {
         return is_delete;
     }
@@ -118,22 +115,6 @@ public class Admin {
         this.avatars = avatars;
     }
 
-    public byte getSexy() {
-        return sexy;
-    }
-
-    public void setSexy(byte sexy) {
-        this.sexy = sexy;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
     public byte getStatus() {
         return status;
     }
@@ -142,19 +123,14 @@ public class Admin {
         this.status = status;
     }
 
-    public int getCreated_at() {
-        return created_at;
+    public int getRole_id() {
+        return role_id;
     }
 
-    public void setCreated_at(int created_at) {
-        this.created_at = created_at;
+    public void setRole_id(int role_id) {
+        this.role_id = role_id;
     }
 
-    public int getUpdated_at() {
-        return updated_at;
-    }
 
-    public void setUpdated_at(int updated_at) {
-        this.updated_at = updated_at;
-    }
+
 }
