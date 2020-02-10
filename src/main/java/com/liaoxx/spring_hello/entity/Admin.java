@@ -29,20 +29,11 @@ public class Admin {
     private int role_id;
 
 
-   /* @Column
-    private int adminDetailId;*/
 
     @OneToOne(cascade = CascadeType.ALL,targetEntity = AdminDetail.class)
     @JoinColumn(name = "admin_detail_id", referencedColumnName = "id", insertable = false, updatable = false)
     private AdminDetail adminDetail;
 
-   /* public int getAdminDetailId() {
-        return adminDetailId;
-    }
-
-    public void setAdminDetailId(int adminDetailId) {
-        this.adminDetailId = adminDetailId;
-    }*/
 
     public AdminDetail getAdminDetail() {
         return adminDetail;

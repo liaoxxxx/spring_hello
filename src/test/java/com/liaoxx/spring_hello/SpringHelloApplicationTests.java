@@ -1,6 +1,8 @@
 package com.liaoxx.spring_hello;
 
 import com.liaoxx.spring_hello.config.AppConfig;
+import com.liaoxx.spring_hello.entity.Admin;
+import com.liaoxx.spring_hello.repository.AdminRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -8,19 +10,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringHelloApplicationTests {
-
+    @Autowired
+    AdminRepository adminRepository;
     @Autowired
     AmqpTemplate amqpTemplate;
 
@@ -32,8 +37,8 @@ public class SpringHelloApplicationTests {
     @ResponseBody
     @Test
     public void test1(){
-        Random random= new Random();
-        System.out.println(random.nextInt(6));
+        Optional<Admin> admin=adminRepository.findById(1);
+        System.out.println(admin);
     }
 /*
 

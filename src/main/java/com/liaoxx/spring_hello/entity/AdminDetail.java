@@ -10,9 +10,6 @@ public class AdminDetail implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //标注为自增主键
     private int  id;
 
-    /*@Column
-    private int adminId;*/
-
     @Column
     private String phone;
 

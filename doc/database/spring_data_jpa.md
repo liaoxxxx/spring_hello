@@ -54,7 +54,10 @@ public class Admin {
     @Column
     private int role_id;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "admin")
+
+
+    @OneToOne(cascade = CascadeType.ALL,targetEntity = AdminDetail.class)
+    @JoinColumn(name = "admin_detail_id", referencedColumnName = "id", insertable = false, updatable = false)
     private AdminDetail adminDetail;
 
     /*省略 getter() setter() */
@@ -67,15 +70,14 @@ public class Admin {
 package com.liaoxx.spring_hello.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
+
 @Entity     //标注为实体类
 @Table(name="admin_detail")      //标注表名为"admin";
-public class AdminDetail {
+public class AdminDetail implements Serializable {
     @Id //标注为主键
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //标注为自增主键
     private int  id;
-
-    @Column(name = "admin_id")
-    private int adminId;
 
     @Column
     private String phone;
@@ -95,10 +97,11 @@ public class AdminDetail {
     @Column
     private int updated_at;
 
+
     @Id
-    @OneToOne
-    @JoinColumn(name = "admin_id")
+    @OneToOne(mappedBy="adminDetail", fetch=FetchType.EAGER) //
     private Admin admin;
+
 }
 
 ```
@@ -152,15 +155,26 @@ public class AdminController {
 
 ###6.@OneToOne   一对一主键关联  Admin(entity) 关联 AdminDetail(entity) 
 
-- #### 1.主表 Admin 为例
+- ####6. 1.主表 Admin 为例,
 `````text
-
-     @OneToOne(cascade = CascadeType.ALL, mappedBy = "admin")
-     private AdminDetail adminDetail;
+    @OneToOne(cascade = CascadeType.ALL,targetEntity = AdminDetail.class)
+    @JoinColumn(name = "admin_detail_id", referencedColumnName = "id", insertable = false, updatable = false)
+    //targetEntity =  AdminDetail.class     即目标实体类 为AdminDetail.class
+    //name = "admin_detail_id"              即关联字段为Admin表的  'admin_detail_id'    
+    //referencedColumnName = "id"           即 引用映射到 AdminDetail 的 主键 id  
+    private AdminDetail adminDetail;
 `````
+- ####6.2.关联附表 AdminDetail  
+```java
+    @Id
+    @OneToOne(mappedBy="adminDetail", fetch=FetchType.EAGER)   
+    //mappedBy="adminDetail"   即映射到 Admin.adminDetail 字段
+    private Admin admin;
+```
 
+- ####6.3.0出现的错误
 
-
+- #####6.3.1 @Id注解(javax.persistence.Id)需要 实现接口 【Serializable】 接口
 ````text
 org.springframework.beans.factory.BeanCreationException:
 Error creating bean with name 'entityManagerFactory' defined in class path resource 
@@ -173,7 +187,7 @@ Composite-id class must implement Serializable:
 com.liaoxx.spring_hello.entity.AdminDetail
 ````
 
->  @Id注解(javax.persistence.Id)需要 实现接口 【Serializable】 接口
+>修正后：
 
 ````text
 package com.liaoxx.spring_hello.entity;
@@ -181,7 +195,7 @@ package com.liaoxx.spring_hello.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 @Entity     //标注为实体类
-@Table(name="admin_detail")      //标注表名为"admin";
+@Table(name="admin_detail")      //标注表名为"admin_detail";
 public class AdminDetail implements Serializable {   // @Id  即 【javax.persistence.Id】 需要实现 Serializable 接口
 
 
@@ -191,7 +205,7 @@ public class AdminDetail implements Serializable {   // @Id  即 【javax.persis
 
 
 
-
+#####6.3.2 忘了233
 >在数据库中 Table: 【admin_detail】  重复定义了字段  【admin_id】  或 【adminId】
 ```text
 Invocation of init method failed; nested exception is org.hibernate.DuplicateMappingException: Table [admin_detail] contains physical column name [admin_id] referred to by multiple physical column names: [admin_id], [adminId]
