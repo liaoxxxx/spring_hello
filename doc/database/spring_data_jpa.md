@@ -189,7 +189,9 @@ com.liaoxx.spring_hello.entity.AdminDetail
 
 >修正后：
 
+
 ````text
+
 package com.liaoxx.spring_hello.entity;
 
 import javax.persistence.*;

@@ -4,6 +4,7 @@ import com.liaoxx.spring_hello.component.Audience;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -24,7 +25,8 @@ import java.util.Objects;
 public class JwtTokenUtil {
     private static Logger log = LoggerFactory.getLogger(JwtTokenUtil.class);
     public static final String AUTH_HEADER_KEY = "Authorization";
-    public static final String TOKEN_PREFIX = "Bearer ";
+
+
     /**
      * 解析jwt
      * @param jsonWebToken
@@ -53,7 +55,7 @@ public class JwtTokenUtil {
      * @param audience
      * @return
      */
-    public static String createJWT(String userId, String username, String role, Audience audience) {
+    public static String createJWT(int userId, String username, String role, Audience audience) {
         try {
             // 使用HS256加密算法
             SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -81,6 +83,7 @@ public class JwtTokenUtil {
                 builder.setExpiration(exp)  // 是一个时间戳，代表这个JWT的过期时间；
                         .setNotBefore(now); // 是一个时间戳，代表这个JWT生效的开始时间，意味着在这个时间之前验证JWT是会失败的
             }
+            //log.info(builder.toString());
             //生成JWT
             return builder.compact();
         } catch (Exception e) {
@@ -114,5 +117,24 @@ public class JwtTokenUtil {
      */
     public static boolean isExpiration(String token, String base64Security) {
         return Objects.requireNonNull(parseJWT(token, base64Security)).getExpiration().before(new Date());
+    }
+
+    public static boolean checkToken(String token, String base64Secret){
+        System.out.println();
+        Claims claims=parseJWT(token,base64Secret);
+        String iss =claims.getIssuer();
+        String sub =claims.getSubject();
+        String clientAudience =claims.getAudience();
+
+
+        String jti =claims.getId();
+
+        if (claims.getExpiration().getTime()>  System.currentTimeMillis()
+
+        )
+        {
+            return true;
+        }
+        return  false;
     }
 }

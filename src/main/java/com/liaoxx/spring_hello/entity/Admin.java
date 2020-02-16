@@ -17,23 +17,38 @@ public class Admin {
     @Column
     private String nickname;
     @Column
-    private byte is_delete;
+    private byte isDelete;
     @Column
-    private byte is_administrator;
+    private byte isAdministrator;
     @Column
     private String avatars;
     @Column
     private byte status;
 
-    @Column
-    private int role_id;
 
 
 
+    //关联 admin_detail 表
     @OneToOne(cascade = CascadeType.ALL,targetEntity = AdminDetail.class)
     @JoinColumn(name = "admin_detail_id", referencedColumnName = "id", insertable = false, updatable = false)
     private AdminDetail adminDetail;
 
+
+    //关联 admin_detail 表
+    @OneToOne(cascade = CascadeType.ALL,targetEntity = Role.class)
+    @JoinColumn(name = "admin_role_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Role role;
+
+
+
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public AdminDetail getAdminDetail() {
         return adminDetail;
@@ -84,19 +99,19 @@ public class Admin {
     }
 
     public byte getIs_delete() {
-        return is_delete;
+        return isDelete;
     }
 
-    public void setIs_delete(byte is_delete) {
-        this.is_delete = is_delete;
+    public void setIs_delete(byte isDelete) {
+        this.isDelete = isDelete;
     }
 
     public byte getIs_administrator() {
-        return is_administrator;
+        return isAdministrator;
     }
 
     public void setIs_administrator(byte is_administrator) {
-        this.is_administrator = is_administrator;
+        this.isAdministrator = is_administrator;
     }
 
     public String getAvatars() {
@@ -114,15 +129,6 @@ public class Admin {
     public void setStatus(byte status) {
         this.status = status;
     }
-
-    public int getRole_id() {
-        return role_id;
-    }
-
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
-    }
-
 
 
 }
