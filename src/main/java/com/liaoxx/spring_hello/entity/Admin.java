@@ -1,11 +1,14 @@
 package com.liaoxx.spring_hello.entity;
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import java.util.List;
 @Entity     //标注为实体类
 @Table(name="admin")      //标注表名为"admin";
 public class Admin {
     @Id //标注为主键
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //标注为自增主键
-    private int  id;
+    private long  id;
 
 
     @Column         //标注为字段
@@ -34,21 +37,6 @@ public class Admin {
     private AdminDetail adminDetail;
 
 
-    //关联 admin_detail 表
-    @OneToOne(cascade = CascadeType.ALL,targetEntity = Role.class)
-    @JoinColumn(name = "admin_role_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private Role role;
-
-
-
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
     public AdminDetail getAdminDetail() {
         return adminDetail;
@@ -58,11 +46,11 @@ public class Admin {
         this.adminDetail = adminDetail;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

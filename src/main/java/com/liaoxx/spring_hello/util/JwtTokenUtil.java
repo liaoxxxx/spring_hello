@@ -1,17 +1,17 @@
 package com.liaoxx.spring_hello.util;
 
+import com.alibaba.fastjson.JSON;
 import com.liaoxx.spring_hello.component.Audience;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
+import java.io.UnsupportedEncodingException;
 import java.security.Key;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * ========================
@@ -26,6 +26,8 @@ public class JwtTokenUtil {
     private static Logger log = LoggerFactory.getLogger(JwtTokenUtil.class);
     public static final String AUTH_HEADER_KEY = "Authorization";
 
+    @Autowired
+    Base64Util base64Util;
 
     /**
      * 解析jwt
@@ -55,7 +57,7 @@ public class JwtTokenUtil {
      * @param audience
      * @return
      */
-    public static String createJWT(int userId, String username, String role, Audience audience) {
+    public static String createJWT(long userId, String username, List role, Audience audience) {
         try {
             // 使用HS256加密算法
             SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -68,7 +70,7 @@ public class JwtTokenUtil {
             //添加构成JWT的参数
             JwtBuilder builder = Jwts.builder().setHeaderParam("typ", "JWT")
                     // 可以将基本不重要的对象信息放到claims
-                    .claim("role", role)
+                    .claim("roles", role)
                     .claim("userId", userId)
                     .setSubject(username)           // 代表这个JWT的主体，即它的所有人
                     .setIssuer(audience.getClientId())              // 代表这个JWT的签发主体；
@@ -109,6 +111,16 @@ public class JwtTokenUtil {
     public static String getUserId(String token, String base64Security){
         return Objects.requireNonNull(parseJWT(token, base64Security)).get("userId", String.class);
     }
+
+    /**
+     * 从token中获取用户ID
+     * @param token
+     * @param base64Security
+     * @return
+     */
+    public static String getRoles(String token, String base64Security){
+        return Objects.requireNonNull(parseJWT(token, base64Security)).get("roles", String.class);
+    }
     /**
      * 是否已过期
      * @param token
@@ -136,5 +148,15 @@ public class JwtTokenUtil {
             return true;
         }
         return  false;
+    }
+
+
+    public static  Map<String,Object> getPayload(String token) throws UnsupportedEncodingException {
+        //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3sicm9sZU5hbWUiOiJhZG1pbiJ9LHsicm9sZU5hbWUiOiJmaW5hbmNlIn0seyJyb2xlTmFtZSI6ImVkaXRvciJ9XSwidXNlcklkIjoxLCJzdWIiOiJhZG1pbiIsImlzcyI6IjA5OGY2YmNkNDYyMWQzNzNjYWRlNGU4MzI2MjdiNGY2IiwiaWF0IjoxNTgyNDY0MTA5LCJhdWQiOiJsb2NhbGhvc3QiLCJleHAiOjE1ODI0NjQyODIsIm5iZiI6MTU4MjQ2NDEwOX0.Xj-HaFassQLpoN2lzxUFuI55aS9tTMmANz-zJOZOZ10
+        String payloadAnsSign= token.substring(token.indexOf('.')+1); //第一次裁剪掉 jwt 的hearder 部分 余下 ：payload.sign
+        String payloadBase64=payloadAnsSign.substring(0,payloadAnsSign.indexOf('.')); ///第一次裁剪掉 jwt 的sign 部分 余下 ：payload
+        String payloadJson=new String(Base64.getDecoder().decode(payloadBase64), "utf-8");; //base64 解码获得 payload 的json字符串
+
+        return   JSON.parseObject(payloadJson); //转换成  jwtPayloadEntity
     }
 }

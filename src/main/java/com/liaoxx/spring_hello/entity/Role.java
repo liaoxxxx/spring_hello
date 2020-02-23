@@ -16,11 +16,6 @@ public class Role implements Serializable {
 
 
 
-    // 用户 - 角色关系定义;
-    /*@Id
-    @OneToOne(mappedBy="role", fetch=FetchType.EAGER)
-    private Admin admin;*/
-
     public Integer getId() {
         return id;
     }

@@ -30,7 +30,7 @@ public class AdminDetail implements Serializable {
 
 
     @Id
-    @OneToOne(mappedBy="adminDetail", fetch=FetchType.EAGER)
+    @OneToOne(mappedBy="adminDetail", fetch=FetchType.LAZY)
     private Admin admin;
 
 
