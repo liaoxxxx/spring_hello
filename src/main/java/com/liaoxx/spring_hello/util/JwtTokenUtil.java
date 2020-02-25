@@ -2,6 +2,7 @@ package com.liaoxx.spring_hello.util;
 
 import com.alibaba.fastjson.JSON;
 import com.liaoxx.spring_hello.component.Audience;
+import com.liaoxx.spring_hello.entity.Admin;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +58,7 @@ public class JwtTokenUtil {
      * @param audience
      * @return
      */
-    public static String createJWT(long userId, String username, List role, Audience audience) {
+    public static String createJWT(Admin admin, List role, Audience audience) {
         try {
             // 使用HS256加密算法
             SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -71,8 +72,11 @@ public class JwtTokenUtil {
             JwtBuilder builder = Jwts.builder().setHeaderParam("typ", "JWT")
                     // 可以将基本不重要的对象信息放到claims
                     .claim("roles", role)
-                    .claim("userId", userId)
-                    .setSubject(username)           // 代表这个JWT的主体，即它的所有人
+                    .claim("userId", admin.getId())
+                    .claim("name", admin.getNickname())
+                    .claim("avatar", admin.getAvatars())
+                    .claim("introduction",admin.getAvatars())
+                    .setSubject(admin.getUsername())           // 代表这个JWT的主体，即它的所有人
                     .setIssuer(audience.getClientId())              // 代表这个JWT的签发主体；
                     .setIssuedAt(new Date())        // 是一个时间戳，代表这个JWT的签发时间；
                     .setAudience(audience.getName())          // 代表这个JWT的接收对象；

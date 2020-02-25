@@ -69,7 +69,7 @@ public class LoginController {
         Admin admin=  adminloginService.findByUsername(username);
         //角色 列表
         List<Map<String, Object>> roleList=adminRepository.getRoleNames(admin.getId());
-        String jwt= JwtTokenUtil.createJWT(admin.getId(),admin.getUsername(), roleList,audience);
+        String jwt= JwtTokenUtil.createJWT(admin, roleList,audience);
         map.put("token",jwt);
 
 
@@ -79,7 +79,7 @@ public class LoginController {
     @ResponseBody
     @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
     @RequestMapping("/info")
-    public Map<String ,Object> info(@RequestParam(value = "token",required =true) String token, Map<String, ArrayList<String>> map) throws UnsupportedEncodingException {
+    public Map<String ,Object> info(@RequestParam(value = "token",required =true) String token, Map<String, Object> map) throws UnsupportedEncodingException {
         Claims claims=JwtTokenUtil.parseJWT(token,audience.getBase64Secret());
         List<Map<String,String>> roleListMap= (List<Map<String,String>>) claims.get("roles");
         ArrayList<String> roleList=new ArrayList<String>();
@@ -88,6 +88,10 @@ public class LoginController {
             roleList.add(roleItem.get("roleName"));
         }
         map.put("roles",roleList);
+        map.put("name",  claims.get("name"));
+        map.put("avatar",  claims.get("avatar"));
+        map.put("introduction",  claims.get("introduction"));
+
         return JsonResponse.Success("登陆成功",map);
     }
 }

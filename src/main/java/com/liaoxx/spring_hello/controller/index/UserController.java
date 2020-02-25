@@ -1,7 +1,7 @@
 package com.liaoxx.spring_hello.controller.index;
 
 import com.liaoxx.spring_hello.entity.User;
-import com.liaoxx.spring_hello.mapper.user.UserMapper;
+import com.liaoxx.spring_hello.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
