@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-
+@Table(name="sys_user")
 public class User  implements Serializable {
     @Id
     @GeneratedValue
