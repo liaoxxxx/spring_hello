@@ -23,7 +23,7 @@ public class UserModel implements Serializable {
     @Override
     public String toString(){
         return  "Admin:@id:"+this.getId()+";\r\n"
-                +"@username: "+this.getId()+";\r\n"
+                +"@username: "+this.getUsername()+";\r\n"
 
                 +"@password: "+this.getPassword()+";\r\n"
                 +"@salt: "+this.getSalt()+";\r\n"
