@@ -2,7 +2,6 @@ package com.liaoxx.spring_hello.mapper;
 
 import com.liaoxx.spring_hello.model.UserModel;
 import org.apache.ibatis.annotations.*;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
