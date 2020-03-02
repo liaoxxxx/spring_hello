@@ -13,14 +13,13 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 
 //@RestController //注解无法返回视图，默认返回JSON数据。
-
+@CrossOrigin(origins = "http://localhost:9527", maxAge = 3600,methods ={RequestMethod.GET, RequestMethod.POST,RequestMethod.OPTIONS})
 @Controller
 @RequestMapping("/admin")
 public class LoginController {
@@ -62,7 +61,6 @@ public class LoginController {
     }
 
     @ResponseBody
-    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping("/login")
     public Map<String ,Object> login(@RequestParam(value = "username",required =false) String username, @RequestParam(value = "password",required =false) String password, Map<String, String> map){
         //管理员
@@ -77,9 +75,13 @@ public class LoginController {
     }
 
     @ResponseBody
-    @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
     @RequestMapping("/info")
-    public Map<String ,Object> info(@RequestParam(value = "token",required =true) String token, Map<String, Object> map) throws UnsupportedEncodingException {
+    public Map<String ,Object> info(@RequestParam(value = "token",required =true) String token, Map<String, Object> map)  {
+        if (null==token){
+            return JsonResponse.Success("token can not be null",null);
+        }
+
+
         Claims claims=JwtTokenUtil.parseJWT(token,audience.getBase64Secret());
         List<Map<String,String>> roleListMap= (List<Map<String,String>>) claims.get("roles");
         ArrayList<String> roleList=new ArrayList<String>();
@@ -93,5 +95,6 @@ public class LoginController {
         map.put("introduction",  claims.get("introduction"));
 
         return JsonResponse.Success("登陆成功",map);
+        //return JsonResponse.Success("登陆成功",map);
     }
 }

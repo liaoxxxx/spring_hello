@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2020-02-27 02:43:34
+Date: 2020-03-01 10:55:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -432,6 +432,26 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'liaoxx', 'dwdwdwdwd', '廖xx', 'dwdw', 'https://pic4.zhimg.com/v2-8e5c071fec812465fbd806f537933a48_xl.jpg', '0', '1');
+
+-- ----------------------------
+-- Table structure for user_adress
+-- ----------------------------
+DROP TABLE IF EXISTS `user_adress`;
+CREATE TABLE `user_adress` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `province` varchar(16) NOT NULL,
+  `city` varchar(16) NOT NULL,
+  `address` varchar(64) NOT NULL,
+  `zip_code` varchar(16) NOT NULL,
+  `is_delete` tinyint(1) NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of user_adress
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for user_info
