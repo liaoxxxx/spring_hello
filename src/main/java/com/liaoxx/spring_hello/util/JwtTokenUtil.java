@@ -52,8 +52,7 @@ public class JwtTokenUtil {
     }
     /**
      * 构建jwt
-     * @param userId
-     * @param username
+     * @param admin
      * @param role
      * @param audience
      * @return

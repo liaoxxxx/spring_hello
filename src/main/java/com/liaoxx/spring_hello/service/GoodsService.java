@@ -1,6 +1,7 @@
 package com.liaoxx.spring_hello.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.graphbuilder.math.func.EFunction;
 import com.liaoxx.spring_hello.dto.admin.GoodsDto;
 import com.liaoxx.spring_hello.entity.Goods;
 import com.liaoxx.spring_hello.repository.GoodsCategoryRepository;
@@ -94,4 +95,10 @@ public class GoodsService {
     public GoodsCategory update(GoodsCategory goodsCategory){
         return goodsCategoryRepository.save(goodsCategory);
     }*/
+
+
+
+   public List<Goods> getRecommendList(int limit){
+       return goodsRepository.OrderBySortRecommendDesc();
+   }
 }

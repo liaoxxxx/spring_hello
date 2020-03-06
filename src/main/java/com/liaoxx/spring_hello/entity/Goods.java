@@ -27,6 +27,11 @@ public class Goods {
     private int cateId;
 
 
+    @Column
+    private int sortRecommend;
+
+
+
     @NotBlank(message ="商品的标题不能为空")
     @Column
     private String title;
@@ -109,6 +114,14 @@ public class Goods {
 
     public void setCateId(int cateId) {
         this.cateId = cateId;
+    }
+
+    public int getSortRecommend() {
+        return sortRecommend;
+    }
+
+    public void setSortRecommend(int sortRecommend) {
+        this.sortRecommend = sortRecommend;
     }
 
     public String getTitle() {
