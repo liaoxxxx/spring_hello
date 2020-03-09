@@ -1,19 +1,13 @@
 package com.liaoxx.spring_hello.controller.admin;
 
-
-import com.google.common.collect.Multiset;
 import com.liaoxx.spring_hello.config.AppConfig;
 import com.liaoxx.spring_hello.dto.admin.GoodsDto;
 import com.liaoxx.spring_hello.entity.Goods;
 import com.liaoxx.spring_hello.service.GoodsService;
 import com.liaoxx.spring_hello.util.JsonResponse;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 
@@ -29,10 +23,9 @@ public class GoodsController {
     @RequestMapping( "/add_goods")
     public Map<String, Object> addGoods( GoodsDto goodsDto){
         System.out.println("------------------------------");
-        System.out.println(goodsDto.getName());
-        boolean res=  goodsService.add(goodsDto);
+        System.out.println(goodsDto.getThumb());
 
-        Map<String ,Object> map =new HashMap();
+        boolean res=  goodsService.add(goodsDto);
         if (res){
             return JsonResponse.Success("商品添加成功",goodsDto);
         }

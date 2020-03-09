@@ -51,6 +51,8 @@ public class Goods {
     @Column
     private String images;
 
+    @Column
+    private String thumb;  // 缩略图
 
 
     @NotNull
@@ -146,6 +148,14 @@ public class Goods {
 
     public void setImages(String images) {
         this.images = images;
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
     }
 
     public float getBasePrice() {

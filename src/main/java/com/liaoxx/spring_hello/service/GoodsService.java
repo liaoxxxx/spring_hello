@@ -31,7 +31,12 @@ public class GoodsService {
         long timeTamp=SqlTimeTool.getMicroTimeTamp();
         Goods goods=new Goods();
         BeanUtils.copyProperties(goodsDto,goods);
+
+        goods.setThumb(this.encodeImages(goodsDto.getThumb()));
         goods.setImages(this.encodeImages(goodsDto.getImages()));
+        System.out.println("================================");
+        System.out.println(goods.getThumb());
+        System.out.println("================================");
         goods.setStatus((byte) 1);
         goods.setIsDelete((byte) 0);
         goods.setCreatedAt(timeTamp);

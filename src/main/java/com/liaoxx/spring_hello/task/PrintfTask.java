@@ -32,8 +32,8 @@ public class PrintfTask {
 
 
 
-    @Scheduled(cron = "0/1 2 * * * ?")
-    @Async  //设为异步多线程执行
+   /* @Scheduled(cron = "0/1 2 * * * ?")
+    @Async  //设为异步多线程执行*/
     public void sc4()  {
         logger.info( "线程id:"+Thread.currentThread().getId()+" sc4 ()" + System.currentTimeMillis());
     }

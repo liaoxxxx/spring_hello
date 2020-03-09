@@ -14,6 +14,8 @@ public class GoodsDto {
 
     private int cateId ;
 
+    private String[] thumb;
+
     private String[] Images;
 
     private float basePrice;
@@ -70,6 +72,14 @@ public class GoodsDto {
 
     public void setImages(String[] images) {
         Images = images;
+    }
+
+    public String[] getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String[] thumb) {
+        this.thumb = thumb;
     }
 
     public float getBasePrice() {
