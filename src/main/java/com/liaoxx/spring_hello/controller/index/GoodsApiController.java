@@ -7,6 +7,7 @@ import com.liaoxx.spring_hello.util.JsonResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
@@ -31,6 +32,18 @@ public class GoodsApiController {
         return JsonResponse.Success("获取推荐商品成功",recommendList);
     }
 
+
+    @ResponseBody
+    @RequestMapping( "/findone/{id}")
+    public Map<String, Object> findOne(@PathVariable int id){
+        Goods goodsItem= goodsService.findById(id);
+        //Map<String ,Object> map =new HashMap();
+        if (goodsItem.getId()>0){
+            return JsonResponse.Success("获取商品数据成功",goodsItem);
+        }
+
+        return JsonResponse.Success("获取商品数据失败",new Object());
+    }
 
 
 }
