@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2020-03-01 10:55:21
+Date: 2020-03-26 01:55:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,29 +20,23 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `avatars` varchar(255) DEFAULT NULL,
   `is_administrator` tinyint(4) DEFAULT NULL,
   `is_delete` tinyint(4) DEFAULT NULL,
   `nickname` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  `remark` varchar(255) DEFAULT NULL,
   `salt` varchar(255) DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL,
-  `role_id` int(11) DEFAULT NULL,
-  `sys_role_id` int(11) DEFAULT NULL,
   `admin_detail_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FKn7kdvesgar2l35ta9r2voj3i7` (`sys_role_id`),
   KEY `FKg7a10a79dxl37k1qlenec6ieo` (`admin_detail_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'https://pic4.zhimg.com/v2-8e5c071fec812465fbd806f537933a48_xll.jpg 2x', '1', '0', 'liaoxx', '123456', 'liaoxxx lege xx', 'dwdwd', '1', 'admin', '1', null, '1');
-INSERT INTO `admin` VALUES ('2', '\'\'', '2', '0', 'liaoxx', '123456', 'liaoxxx lege xx', 'dwdwd', '1', 'editor', '1', null, '2');
 
 -- ----------------------------
 -- Table structure for admin_detail
@@ -190,18 +184,20 @@ CREATE TABLE `goods` (
   `update_at_str` varchar(255) DEFAULT NULL,
   `updated_at` bigint(20) NOT NULL,
   `sub_title` varchar(255) NOT NULL,
+  `sort_recommend` int(11) DEFAULT NULL,
+  `thumb` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of goods
 -- ----------------------------
-INSERT INTO `goods` VALUES ('30', '50', '22', '1577692131485', null, '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\",\"\\\\image\\\\202012\\\\30\\\\1577692002441.jpg\"]', '45', '0', '个合同两份合同和', '0', '1', '唱歌和', '换了个路过路过路过', null, '1577692131485', '达瓦达瓦达瓦单位单位搞了个');
-INSERT INTO `goods` VALUES ('31', '50', '22', '1577692160653', null, '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\",\"\\\\image\\\\202012\\\\30\\\\1577692002441.jpg\"]', '45', '0', '电脑', '0', '1', '唱歌和', '换了个咯咯咯', null, '1577692160653', '达瓦达瓦达瓦好得很');
-INSERT INTO `goods` VALUES ('32', '50', '22', '1577692162675', null, '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\",\"\\\\image\\\\202012\\\\30\\\\1577692002441.jpg\"]', '45', '0', '电脑', '0', '1', '唱歌和', '换了个咯咯咯', null, '1577692162675', '达瓦达瓦达瓦好得很');
-INSERT INTO `goods` VALUES ('33', '50', '22', '1577692162859', null, '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\",\"\\\\image\\\\202012\\\\30\\\\1577692002441.jpg\"]', '45', '0', '电脑', '0', '1', '唱歌和', '换了个咯咯咯', null, '1577692162859', '达瓦达瓦达瓦好得很');
-INSERT INTO `goods` VALUES ('34', '50', '22', '1577692163020', null, '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\",\"\\\\image\\\\202012\\\\30\\\\1577692002441.jpg\"]', '45', '0', '电脑', '0', '1', '唱歌和', '换了个咯咯咯', null, '1577692163020', '达瓦达瓦达瓦好得很');
-INSERT INTO `goods` VALUES ('35', '50', '22', '1577692163180', null, '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\",\"\\\\image\\\\202012\\\\30\\\\1577692002441.jpg\"]', '45', '0', '电脑', '0', '1', '唱歌和', '换了个咯咯咯', null, '1577692163180', '达瓦达瓦达瓦好得很');
+INSERT INTO `goods` VALUES ('30', '50', '22', '1577692131485', null, '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\",\"\\\\image\\\\202012\\\\30\\\\1577692002441.jpg\"]', '45', '0', '个合同两份合同和', '0', '1', '唱歌和', '换了个路过路过路过', null, '1577692131485', '达瓦达瓦达瓦单位单位搞了个', '1', '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\"]');
+INSERT INTO `goods` VALUES ('31', '50', '22', '1577692160653', null, '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\",\"\\\\image\\\\202012\\\\30\\\\1577692002441.jpg\"]', '45', '0', '电脑', '0', '1', '唱歌和', '换了个咯咯咯', null, '1577692160653', '达瓦达瓦达瓦好得很', '1', '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\"]');
+INSERT INTO `goods` VALUES ('32', '50', '22', '1577692162675', null, '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\",\"\\\\image\\\\202012\\\\30\\\\1577692002441.jpg\"]', '45', '0', '电脑', '0', '1', '唱歌和', '换了个咯咯咯', null, '1577692162675', '达瓦达瓦达瓦好得很', '1', '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\"]');
+INSERT INTO `goods` VALUES ('33', '50', '22', '1577692162859', null, '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\",\"\\\\image\\\\202012\\\\30\\\\1577692002441.jpg\"]', '45', '0', '电脑', '0', '1', '唱歌和', '换了个咯咯咯', null, '1577692162859', '达瓦达瓦达瓦好得很', '1', '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\"]');
+INSERT INTO `goods` VALUES ('34', '50', '22', '1577692163020', null, '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\",\"\\\\image\\\\202012\\\\30\\\\1577692002441.jpg\"]', '45', '0', '电脑', '0', '1', '唱歌和', '换了个咯咯咯', null, '1577692163020', '达瓦达瓦达瓦好得很', '1', '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\"]');
+INSERT INTO `goods` VALUES ('35', '50', '22', '1577692163180', null, '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\",\"\\\\image\\\\202012\\\\30\\\\1577692002441.jpg\"]', '45', '0', '电脑', '0', '1', '唱歌和', '换了个咯咯咯', null, '1577692163180', '达瓦达瓦达瓦好得很', '1', '[\"\\\\image\\\\202012\\\\30\\\\1577692002464.jpg\"]');
 
 -- ----------------------------
 -- Table structure for goods_category
@@ -417,13 +413,13 @@ INSERT INTO `upload_file` VALUES ('44', '1577688265485', 'D:\\coding\\spring_hel
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(16) DEFAULT NULL,
-  `password` varchar(128) NOT NULL DEFAULT '',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(16) NOT NULL DEFAULT '',
+  `password` varchar(64) NOT NULL DEFAULT '',
+  `salt` varchar(16) NOT NULL DEFAULT '',
   `nickname` varchar(16) NOT NULL DEFAULT '',
-  `salt` varchar(64) NOT NULL DEFAULT '',
-  `avatars` varchar(255) NOT NULL DEFAULT '',
   `is_delete` tinyint(1) NOT NULL DEFAULT '0',
+  `avatars` varchar(255) NOT NULL DEFAULT '',
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
@@ -431,7 +427,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'liaoxx', 'dwdwdwdwd', '廖xx', 'dwdw', 'https://pic4.zhimg.com/v2-8e5c071fec812465fbd806f537933a48_xl.jpg', '0', '1');
+INSERT INTO `user` VALUES ('1', 'liaoxx', '4868654546546', '14165', '廖叉叉', '0', 'https://pic4.zhimg.com/v2-8e5c071fec812465fbd806f537933a48_xl.jpg', '1');
 
 -- ----------------------------
 -- Table structure for user_adress

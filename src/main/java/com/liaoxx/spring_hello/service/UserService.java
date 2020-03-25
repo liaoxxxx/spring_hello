@@ -11,6 +11,10 @@ public class UserService {
     UserMapper userMapper;
 
     public UserModel findByUsername(String userName){
-        return userMapper.getByUserName(userName);
+        return userMapper.findByUserName(userName);
+    }
+
+    public UserModel findByUserId(long userId){
+        return userMapper.getById(userId);
     }
 }

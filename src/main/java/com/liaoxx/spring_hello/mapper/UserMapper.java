@@ -18,7 +18,7 @@ public interface UserMapper {
     UserModel getById(long id) ;
 
     @Select("select * from user where username=#{username}")
-    UserModel getByUserName(String username) ;
+    UserModel findByUserName(String username) ;
 
     @Insert("INSERT INTO user( username , password , salt , nickname , avatars , is_delete, status ) VALUES( #{username} , #{password}, #{salt} , #{nickname} , #{avatars} , #{isDelete} , #{status} )")
     void install(UserModel user);

@@ -3,6 +3,7 @@ package com.liaoxx.spring_hello.util;
 import com.alibaba.fastjson.JSON;
 import com.liaoxx.spring_hello.component.Audience;
 import com.liaoxx.spring_hello.entity.Admin;
+import com.liaoxx.spring_hello.model.UserModel;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,7 +45,6 @@ public class JwtTokenUtil {
             return claims;
         } catch (ExpiredJwtException  eje) {
             log.error("===== Token过期 =====", eje);
-
         } catch (Exception e){
             log.error("===== token解析异常 =====", e);
         }
@@ -94,6 +94,45 @@ public class JwtTokenUtil {
         } catch (Exception e) {
             log.error("签名失败", e);
            return  "签名失败";
+        }
+    }
+
+
+    public static String createUserJWT(UserModel userModel, Audience audience) {
+        try {
+            // 使用HS256加密算法
+            SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+            long nowMillis = System.currentTimeMillis();
+            Date now = new Date(nowMillis);
+            //生成签名密钥
+            byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(audience.getBase64Secret());
+            Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+
+            //添加构成JWT的参数
+            JwtBuilder builder = Jwts.builder().setHeaderParam("typ", "JWT")
+                    // 可以将基本不重要的对象信息放到claims
+                    .claim("userId", userModel.getId())
+                    .claim("name", userModel.getNickname())
+                    .claim("avatar", userModel.getAvatars())
+                    .setSubject(userModel.getUsername())           // 代表这个JWT的主体，即它的所有人
+                    .setIssuer(audience.getClientId())              // 代表这个JWT的签发主体；
+                    .setIssuedAt(new Date())        // 是一个时间戳，代表这个JWT的签发时间；
+                    .setAudience(audience.getName())          // 代表这个JWT的接收对象；
+                    .signWith(signatureAlgorithm, signingKey);
+            //添加Token过期时间
+            int TTLMillis = audience.getExpiresSecond();
+            if (TTLMillis >= 0) {
+                long expMillis = nowMillis + TTLMillis;
+                Date exp = new Date(expMillis);
+                builder.setExpiration(exp)  // 是一个时间戳，代表这个JWT的过期时间；
+                        .setNotBefore(now); // 是一个时间戳，代表这个JWT生效的开始时间，意味着在这个时间之前验证JWT是会失败的
+            }
+            //log.info(builder.toString());
+            //生成JWT
+            return builder.compact();
+        } catch (Exception e) {
+            log.error("签名失败", e);
+            return  "签名失败";
         }
     }
     /**
