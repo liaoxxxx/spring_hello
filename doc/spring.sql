@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2020-03-26 01:55:48
+Date: 2020-04-06 05:55:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -232,6 +232,23 @@ INSERT INTO `goods_category` VALUES ('22', '吸尘器', '1', '1', '就是吸尘�
 INSERT INTO `goods_category` VALUES ('23', '电脑办公l', '10', '1', '就是电脑办公类a', null, '1573668860715', '1575985335738', null, null);
 
 -- ----------------------------
+-- Table structure for goods_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `goods_detail`;
+CREATE TABLE `goods_detail` (
+  `id` int(11) NOT NULL,
+  `goods_id` int(11) NOT NULL,
+  `color` varchar(256) NOT NULL,
+  `volume_size` varchar(255) NOT NULL,
+  `weight` float(8,2) NOT NULL,
+  `quantity` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of goods_detail
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for hibernate_sequence
 -- ----------------------------
 DROP TABLE IF EXISTS `hibernate_sequence`;
@@ -251,6 +268,22 @@ INSERT INTO `hibernate_sequence` VALUES ('1');
 INSERT INTO `hibernate_sequence` VALUES ('1');
 INSERT INTO `hibernate_sequence` VALUES ('1');
 INSERT INTO `hibernate_sequence` VALUES ('1');
+
+-- ----------------------------
+-- Table structure for order_main
+-- ----------------------------
+DROP TABLE IF EXISTS `order_main`;
+CREATE TABLE `order_main` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `goods_id` int(11) unsigned NOT NULL,
+  `goods_detail_id` int(11) NOT NULL,
+  `goods_snapshot` tinytext COMMENT '商品购买时的快照',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of order_main
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for role

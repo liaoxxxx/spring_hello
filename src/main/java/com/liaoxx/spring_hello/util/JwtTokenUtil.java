@@ -38,17 +38,17 @@ public class JwtTokenUtil {
      * @return
      */
     public static Claims parseJWT(String jsonWebToken, String base64Security) {
-        try {
+       /* try {*/
             Claims claims = Jwts.parser()
                     .setSigningKey(DatatypeConverter.parseBase64Binary(base64Security))
                     .parseClaimsJws(jsonWebToken).getBody();
             return claims;
-        } catch (ExpiredJwtException  eje) {
+        /*} catch (ExpiredJwtException  eje) {
             log.error("===== Token过期 =====", eje);
         } catch (Exception e){
             log.error("===== token解析异常 =====", e);
         }
-        return null;
+        return null;*/
     }
     /**
      * 构建jwt

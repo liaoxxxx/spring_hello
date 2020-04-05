@@ -31,4 +31,15 @@ public class JsonResponse {
         map.put("data",data);
         return  map;
     }
+
+    public static Map<String,Object> Error(String msg,Object data ,String errorCode ){
+        Map<String,Object> map=respMap();
+        map.put("code",500);
+        map.put("status",0);
+        map.put("success","error");
+        map.put("message",msg);
+        map.put("data",data);
+        map.put("errorCode",errorCode);
+        return  map;
+    }
 }

@@ -1,5 +1,6 @@
 package com.liaoxx.spring_hello.controller.index;
 
+import com.alibaba.fastjson.JSON;
 import com.liaoxx.spring_hello.component.Audience;
 import com.liaoxx.spring_hello.dto.UserDto;
 import com.liaoxx.spring_hello.mapper.UserAddressMapper;
@@ -11,6 +12,7 @@ import com.liaoxx.spring_hello.util.CheckUtil;
 import com.liaoxx.spring_hello.util.JsonResponse;
 import com.liaoxx.spring_hello.util.JwtTokenUtil;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -57,9 +59,16 @@ public class UserController {
     }
     @ResponseBody
     @RequestMapping("/info")
-    public Map<String, Object> info(@RequestParam(value = "token" ,required = true) String token, Map<String, Object> map){
+    public Map<String, Object> info(@RequestParam(value = "token" ,required = true) String token, Map<String, Object> map) throws Exception {
         logger.info("userapi-----/info");
-        Claims claims= JwtTokenUtil.parseJWT(token,audience.getBase64Secret());
+        Claims claims = null;
+        try{
+             claims= JwtTokenUtil.parseJWT(token,audience.getBase64Secret());
+        } catch (Exception eje){
+
+           return JsonResponse.Error(eje.getMessage(),"86", "jwt001");
+        }
+
         assert claims != null;
         System.out.println(claims.getExpiration());
         int userId=(int) claims.get("userId");

@@ -76,7 +76,7 @@ public class LoginController {
 
     @ResponseBody
     @RequestMapping("/info")
-    public Map<String ,Object> info(@RequestParam(value = "token",required =true) String token, Map<String, Object> map)  {
+    public Map<String ,Object> info(@RequestParam(value = "token",required =true) String token, Map<String, Object> map) throws Exception {
         if (null==token){
             return JsonResponse.Success("token can not be null",null);
         }

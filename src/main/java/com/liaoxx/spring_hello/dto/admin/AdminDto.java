@@ -1,5 +1,7 @@
 package com.liaoxx.spring_hello.dto.admin;
+import io.swagger.annotations.ApiModel;
 
+@ApiModel(value = "测试")
 public class AdminDto {
 
     private int  aid;
