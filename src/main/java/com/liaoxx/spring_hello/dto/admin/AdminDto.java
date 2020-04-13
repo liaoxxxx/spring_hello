@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 @ApiModel(value = "测试")
 public class AdminDto {
 
-    private int  aid;
+    private int  id;
 
     private String username;
 
@@ -20,11 +20,11 @@ public class AdminDto {
     //private String description;
 
     public int getId() {
-        return aid;
+        return id;
     }
 
     public void setId(int id) {
-        this.aid = id;
+        this.id = id;
     }
 
     public String getUsername() {
@@ -58,20 +58,4 @@ public class AdminDto {
     public void setStatus(byte status) {
         this.status = status;
     }
-
-   /* public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }*/
 }

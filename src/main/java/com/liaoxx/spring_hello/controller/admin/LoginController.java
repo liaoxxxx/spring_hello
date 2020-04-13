@@ -5,6 +5,7 @@ import com.liaoxx.spring_hello.entity.Admin;
 import com.liaoxx.spring_hello.repository.AdminRepository;
 import com.liaoxx.spring_hello.service.AdminLoginService;
 import com.liaoxx.spring_hello.util.Base64Util;
+import com.liaoxx.spring_hello.util.CheckUtil;
 import com.liaoxx.spring_hello.util.JsonResponse;
 import com.liaoxx.spring_hello.util.JwtTokenUtil;
 import io.jsonwebtoken.Claims;
@@ -19,7 +20,7 @@ import java.util.Map;
 
 
 //@RestController //注解无法返回视图，默认返回JSON数据。
-@CrossOrigin(origins = "http://localhost:9527", maxAge = 3600,methods ={RequestMethod.GET, RequestMethod.POST,RequestMethod.OPTIONS})
+@CrossOrigin(origins = "*", maxAge = 3600,methods ={RequestMethod.GET, RequestMethod.POST,RequestMethod.OPTIONS})
 @Controller
 @RequestMapping("/admin")
 public class LoginController {
@@ -64,9 +65,14 @@ public class LoginController {
     @RequestMapping("/login")
     public Map<String ,Object> login(@RequestParam(value = "username",required =false) String username, @RequestParam(value = "password",required =false) String password, Map<String, String> map){
         //管理员
+        System.out.println(username);
         Admin admin=  adminloginService.findByUsername(username);
+        if (CheckUtil.isNull(admin)){
+            return JsonResponse.Error("用戶不存在",map);
+        }
         //角色 列表
         List<Map<String, Object>> roleList=adminRepository.getRoleNames(admin.getId());
+
         String jwt= JwtTokenUtil.createJWT(admin, roleList,audience);
         map.put("token",jwt);
 
@@ -78,7 +84,7 @@ public class LoginController {
     @RequestMapping("/info")
     public Map<String ,Object> info(@RequestParam(value = "token",required =true) String token, Map<String, Object> map) throws Exception {
         if (null==token){
-            return JsonResponse.Success("token can not be null",null);
+            return JsonResponse.Error("token can not be null",null);
         }
 
 

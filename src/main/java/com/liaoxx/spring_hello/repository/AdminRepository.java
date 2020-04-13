@@ -23,7 +23,8 @@ public interface AdminRepository extends JpaRepository<Admin,Integer> {
 
 
 
-   /* //通过开启 nativeQuery开启原生语句查询
+
+    /* //通过开启 nativeQuery开启原生语句查询
     @Query(value="SELECT ar.role_name " +
             "FROM  admin  " +
             "LEFT JOIN  admin_role ar ON ad.id = ar.admin_id " +
