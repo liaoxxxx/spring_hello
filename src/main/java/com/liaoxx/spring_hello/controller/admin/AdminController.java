@@ -45,9 +45,22 @@ public class AdminController {
     @RequestMapping("/findone/{id}")
     public Map<String, Object> findOne(@PathVariable("id") int  id , Map map){
 
-        AdminDto adminDto= adminService.getOneById(id);
+        AdminDto adminDto= adminService.getAdminDtoById(id);
         map.put("data",adminDto);
         return JsonResponse.Success("获取管理员"+ id +"成功",map);
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/edit")
+    public Map<String, Object> edit(AdminDto adminDto) {
+        return adminService.edit( adminDto);
+    }
+
+    @ResponseBody
+    @RequestMapping("/add")
+    public Map<String, Object> add(AdminDto adminDto) {
+        return adminService.edit( adminDto);
     }
 
 }

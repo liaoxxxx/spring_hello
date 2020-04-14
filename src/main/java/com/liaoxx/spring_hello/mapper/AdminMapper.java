@@ -22,8 +22,8 @@ public interface AdminMapper {
     @Insert("INSERT INTO admin( username , password , salt , nickname , avatars , is_delete, status ) VALUES( #{username} , #{password}, #{salt} , #{nickname} , #{avatars} , #{isDelete} , #{status} )")
     void install(AdminModel adminModel);
 
-    @Update({"UPDATE admin SET username=#{username} ,password =#{password} ,salt =#{salt} ,nickname =#{nickname},avatars =#{avatars} is_delete=#{isDelete},status =#{status} WHERE id = #{id}"})
-    void Update(AdminModel adminModel);
+    @Update({"UPDATE admin SET username=#{username} ,password =#{password} ,salt =#{salt} ,nickname =#{nickname},avatars =#{avatars} ,is_delete=#{isDelete},status =#{status} WHERE id = #{id}"})
+    boolean Update(AdminModel adminModel);
 
     @Delete("delete from admin where id=#{id}")
     void delete(Long id);

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2020-04-06 05:55:06
+Date: 2020-04-14 01:17:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,11 +32,12 @@ CREATE TABLE `admin` (
   `admin_detail_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKg7a10a79dxl37k1qlenec6ieo` (`admin_detail_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
+INSERT INTO `admin` VALUES ('1', 'https://pic4.zhimg.com/v2-8e5c071fec812465fbd806f537933a48_xll.jpg', '1', '0', 'liaoxx', '935016445', '4545', '1', 'admin', '1');
 
 -- ----------------------------
 -- Table structure for admin_detail
@@ -230,6 +231,22 @@ INSERT INTO `goods_category` VALUES ('7', '抽油烟机', '1', '1', '就是抽�
 INSERT INTO `goods_category` VALUES ('1', '主分类', '0', '1', '就是', null, '1573456628048', '1573456628048', null, null);
 INSERT INTO `goods_category` VALUES ('22', '吸尘器', '1', '1', '就是吸尘器啊', null, '1573493736141', '1573493736141', null, null);
 INSERT INTO `goods_category` VALUES ('23', '电脑办公l', '10', '1', '就是电脑办公类a', null, '1573668860715', '1575985335738', null, null);
+
+-- ----------------------------
+-- Table structure for goods_category_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `goods_category_tag`;
+CREATE TABLE `goods_category_tag` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tag` varchar(255) NOT NULL DEFAULT '' COMMENT '标签名',
+  `goods_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='商品分类的标签';
+
+-- ----------------------------
+-- Records of goods_category_tag
+-- ----------------------------
+INSERT INTO `goods_category_tag` VALUES ('1', '', '20');
 
 -- ----------------------------
 -- Table structure for goods_detail

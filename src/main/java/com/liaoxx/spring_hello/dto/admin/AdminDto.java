@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 @ApiModel(value = "测试")
 public class AdminDto {
 
-    private int  id;
+    private long  id;
 
     private String username;
 
@@ -19,11 +19,11 @@ public class AdminDto {
 
     //private String description;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
