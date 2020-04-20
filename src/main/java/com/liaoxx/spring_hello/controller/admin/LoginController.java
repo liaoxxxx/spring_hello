@@ -9,6 +9,7 @@ import com.liaoxx.spring_hello.util.CheckUtil;
 import com.liaoxx.spring_hello.util.JsonResponse;
 import com.liaoxx.spring_hello.util.JwtTokenUtil;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -87,8 +88,13 @@ public class LoginController {
             return JsonResponse.Error("token can not be null",null);
         }
 
+        Claims claims = null;
+        try{
+            claims= JwtTokenUtil.parseJWT(token,audience.getBase64Secret());
+        } catch (Exception eje){
 
-        Claims claims=JwtTokenUtil.parseJWT(token,audience.getBase64Secret());
+            return JsonResponse.Error(eje.getMessage(),"86", "jwt001");
+        }
         List<Map<String,String>> roleListMap= (List<Map<String,String>>) claims.get("roles");
         ArrayList<String> roleList=new ArrayList<String>();
         for (Map<String,String> roleItem: roleListMap) {

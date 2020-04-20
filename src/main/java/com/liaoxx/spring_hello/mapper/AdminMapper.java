@@ -20,7 +20,7 @@ public interface AdminMapper {
     AdminModel findByUserName(String username) ;
 
     @Insert("INSERT INTO admin( username , password , salt , nickname , avatars , is_delete, status ) VALUES( #{username} , #{password}, #{salt} , #{nickname} , #{avatars} , #{isDelete} , #{status} )")
-    void install(AdminModel adminModel);
+    boolean install(AdminModel adminModel);
 
     @Update({"UPDATE admin SET username=#{username} ,password =#{password} ,salt =#{salt} ,nickname =#{nickname},avatars =#{avatars} ,is_delete=#{isDelete},status =#{status} WHERE id = #{id}"})
     boolean Update(AdminModel adminModel);

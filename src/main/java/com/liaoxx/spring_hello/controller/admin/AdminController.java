@@ -1,5 +1,6 @@
 package com.liaoxx.spring_hello.controller.admin;
 
+import com.liaoxx.spring_hello.dto.admin.AdminAddDto;
 import com.liaoxx.spring_hello.dto.admin.AdminDto;
 import com.liaoxx.spring_hello.model.AdminModel;
 import com.liaoxx.spring_hello.repository.AdminRepository;
@@ -59,8 +60,8 @@ public class AdminController {
 
     @ResponseBody
     @RequestMapping("/add")
-    public Map<String, Object> add(AdminDto adminDto) {
-        return adminService.edit( adminDto);
+    public Map<String, Object> add(AdminAddDto adminAddDto) {
+        return adminService.add( adminAddDto);
     }
 
 }
