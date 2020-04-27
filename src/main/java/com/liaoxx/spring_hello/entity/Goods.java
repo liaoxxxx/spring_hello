@@ -28,7 +28,7 @@ public class Goods {
 
 
     @Column
-    private int sortRecommend;
+    private int recommendSort;
 
 
 
@@ -45,15 +45,12 @@ public class Goods {
     @Column
     private String summary;
 
-
-
     //@NotBlank(message ="商品的描述不能为空")
     @Column
     private String images;
 
     @Column
     private String thumb;  // 缩略图
-
 
     @NotNull
     @Column
@@ -64,12 +61,9 @@ public class Goods {
     @Column
     private float inputPrice;
 
-
     @NotNull
     @Column
     private byte showPrice;
-
-
 
     @NotNull
     @Column
@@ -87,7 +81,53 @@ public class Goods {
     @NotNull
     private Long updatedAt;
 
+    @Column
+    @NotNull
+    private String shelvesNo;
 
+    @Column
+    @NotNull
+    private String volumetric;
+    @Column
+    @NotNull
+    private int sort;
+
+
+    @Column
+    @NotNull
+    private int storeCount;
+    @Column
+    @NotNull
+    private float weight;
+
+    @Column
+    @NotNull
+    private int memberCredit;
+    @Column
+    @NotNull
+    private int experienceCredit;
+
+    @Column
+    @NotNull
+    private int isShelves;
+    @Column
+    @NotNull
+    private int isNoPostage;
+    @Column
+    @NotNull
+    private int isVisible;
+    @Column
+    @NotNull
+    private int isNew;
+    @Column
+    @NotNull
+    private int isSpecialOffer;
+    @Column
+    @NotNull
+    private int isHot;
+    @Column
+    @NotNull
+    private int isRecommend;
 
     private String updateAtStr;
 
@@ -118,13 +158,6 @@ public class Goods {
         this.cateId = cateId;
     }
 
-    public int getSortRecommend() {
-        return sortRecommend;
-    }
-
-    public void setSortRecommend(int sortRecommend) {
-        this.sortRecommend = sortRecommend;
-    }
 
     public String getTitle() {
         return title;
@@ -236,5 +269,125 @@ public class Goods {
 
     public void setCreatedAtStr(String createdAtStr) {
         this.createdAtStr = createdAtStr;
+    }
+
+    public int getRecommendSort() {
+        return recommendSort;
+    }
+
+    public void setRecommendSort(int recommendSort) {
+        this.recommendSort = recommendSort;
+    }
+
+    public String getShelvesNo() {
+        return shelvesNo;
+    }
+
+    public void setShelvesNo(String shelvesNo) {
+        this.shelvesNo = shelvesNo;
+    }
+
+    public String getVolumetric() {
+        return volumetric;
+    }
+
+    public void setVolumetric(String volumetric) {
+        this.volumetric = volumetric;
+    }
+
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
+    }
+    
+    public int getStoreCount() {
+        return storeCount;
+    }
+
+    public void setStoreCount(int storeCount) {
+        this.storeCount = storeCount;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public int getMemberCredit() {
+        return memberCredit;
+    }
+
+    public void setMemberCredit(int memberCredit) {
+        this.memberCredit = memberCredit;
+    }
+
+    public int getExperienceCredit() {
+        return experienceCredit;
+    }
+
+    public void setExperienceCredit(int experienceCredit) {
+        this.experienceCredit = experienceCredit;
+    }
+
+    public int getIsShelves() {
+        return isShelves;
+    }
+
+    public void setIsShelves(int isShelves) {
+        this.isShelves = isShelves;
+    }
+
+    public int getIsNoPostage() {
+        return isNoPostage;
+    }
+
+    public void setIsNoPostage(int isNoPostage) {
+        this.isNoPostage = isNoPostage;
+    }
+
+    public int getIsVisible() {
+        return isVisible;
+    }
+
+    public void setIsVisible(int isVisible) {
+        this.isVisible = isVisible;
+    }
+
+    public int getIsNew() {
+        return isNew;
+    }
+
+    public void setIsNew(int isNew) {
+        this.isNew = isNew;
+    }
+
+    public int getIsSpecialOffer() {
+        return isSpecialOffer;
+    }
+
+    public void setIsSpecialOffer(int isSpecialOffer) {
+        this.isSpecialOffer = isSpecialOffer;
+    }
+
+    public int getIsHot() {
+        return isHot;
+    }
+
+    public void setIsHot(int isHot) {
+        this.isHot = isHot;
+    }
+
+    public int getIsRecommend() {
+        return isRecommend;
+    }
+
+    public void setIsRecommend(int isRecommend) {
+        this.isRecommend = isRecommend;
     }
 }

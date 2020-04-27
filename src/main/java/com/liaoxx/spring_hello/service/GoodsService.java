@@ -30,6 +30,7 @@ public class GoodsService {
         //System.out.println(goodsDto.getImages()[0]);
         long timeTamp=SqlTimeTool.getMicroTimeTamp();
         Goods goods=new Goods();
+        System.out.println(goodsDto.toString());
         BeanUtils.copyProperties(goodsDto,goods);
 
         goods.setThumb(this.encodeImages(goodsDto.getThumb()));
@@ -104,6 +105,6 @@ public class GoodsService {
 
 
    public List<Goods> getRecommendList(int limit){
-       return goodsRepository.OrderBySortRecommendDesc();
+       return goodsRepository.OrderByRecommendSortDesc();
    }
 }

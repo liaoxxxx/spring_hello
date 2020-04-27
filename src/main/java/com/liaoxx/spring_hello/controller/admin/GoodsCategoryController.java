@@ -11,10 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/admin_goods")
 public class GoodsCategoryController {
 
@@ -27,7 +28,6 @@ public class GoodsCategoryController {
     }
 
     @ResponseBody
-    @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
     @RequestMapping( "/add_category")
     public Map<String, Object> addGoodsCategory(@RequestBody GoodsCategoryDto goodsCategoryDto){
         Map<String,Object> map =new HashMap<>();
@@ -47,13 +47,7 @@ public class GoodsCategoryController {
         return map;
     }
 
-
-
-
-
-
     @ResponseBody
-    @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
     @RequestMapping( "/get_all_category")
     public Map<String,Object> getList(){
 
@@ -63,12 +57,13 @@ public class GoodsCategoryController {
     }
 
     @ResponseBody
-    @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
-    @RequestMapping( "/get_category_by_id")
-    public Map<String, Object> getCategoryById(@RequestBody LinkedHashMap<String,String> map){
-        GoodsCategory goodsCategory= goodsCategoryService.getById( Integer.parseInt( map.get("id")));
-
-        return   JsonResponse.Success("get goods category id : "+map.get("id"),goodsCategory);
+    @RequestMapping( "/getAllGoodsCate")
+    public Map<String, Object> getCategoryById(){
+        //所有的 商品分类
+        List<GoodsCategory> goodsCategoryList= goodsCategoryService.findAll();
+        Map<String, List<GoodsCategory>> map =new HashMap<>();
+        map.put("goodsCateList",goodsCategoryList);
+        return   JsonResponse.Success("get goodsCate success",map);
     }
 
 

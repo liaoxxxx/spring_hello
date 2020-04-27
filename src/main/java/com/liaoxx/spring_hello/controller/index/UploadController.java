@@ -24,7 +24,7 @@ public class UploadController {
 
 
     @ResponseBody
-    @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
+    @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping( "/singleImage")
     public Map<String, Object> uploadThumb(@RequestParam(value = "file") MultipartFile file)  {
         Map map=uploadServer.handleSingleImage(file);

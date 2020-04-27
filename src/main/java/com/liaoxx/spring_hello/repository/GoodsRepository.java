@@ -13,6 +13,6 @@ import java.util.List;
 public interface GoodsRepository extends JpaRepository<Goods,Integer> , JpaSpecificationExecutor<Goods> {
     //GoodsCategory findByCateName(String cateName);
 
-    List<Goods> OrderBySortRecommendDesc();
+    List<Goods> OrderByRecommendSortDesc();
 
 }

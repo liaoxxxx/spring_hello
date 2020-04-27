@@ -2,6 +2,7 @@ package com.liaoxx.spring_hello.service;
 import com.liaoxx.spring_hello.dto.admin.GoodsCategoryDto;
 import com.liaoxx.spring_hello.entity.GoodsCategory;
 import com.liaoxx.spring_hello.repository.GoodsCategoryRepository;
+import com.liaoxx.spring_hello.util.JsonResponse;
 import com.liaoxx.spring_hello.util.SqlTimeTool;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class GoodsCategoryService {
@@ -60,7 +63,8 @@ public class GoodsCategoryService {
 
 
     public List<GoodsCategory> findAll(){
-        return goodsCategoryRepository.findAll();
+        //所有的 商品分类
+        return  goodsCategoryRepository.findAll();
     }
 
 
