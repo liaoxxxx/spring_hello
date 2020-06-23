@@ -109,4 +109,31 @@ public class LoginController {
         return JsonResponse.Success("登陆成功",map);
         //return JsonResponse.Success("登陆成功",map);
     }
+
+
+    @ResponseBody
+    @RequestMapping("/exchangeToken")
+    public Map<String ,Object> exchangeToken(@RequestParam(value = "token",required =true) String token, Map<String, Object> map) throws Exception {
+        if (null==token){
+            return JsonResponse.Error("token can not be null",null);
+        }
+
+        Claims claims = null;
+
+        claims= JwtTokenUtil.parseJWT(token,audience.getBase64Secret());
+        System.out.println(claims.getSubject());
+        List<Map<String,String>> roleListMap= (List<Map<String,String>>) claims.get("roles");
+        ArrayList<String> roleList=new ArrayList<String>();
+        for (Map<String,String> roleItem: roleListMap) {
+            //System.out.println(roleItem.get("roleName"));
+            roleList.add(roleItem.get("roleName"));
+        }
+        map.put("roles",roleList);
+        map.put("name",  claims.get("name"));
+        map.put("avatar",  claims.get("avatar"));
+        map.put("introduction",  claims.get("introduction"));
+
+        return JsonResponse.Success("登陆成功",map);
+        //return JsonResponse.Success("登陆成功",map);
+    }
 }

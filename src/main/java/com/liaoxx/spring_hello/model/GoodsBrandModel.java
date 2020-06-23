@@ -1,7 +1,7 @@
 package com.liaoxx.spring_hello.model;
 import java.io.Serializable;
 
-public class BrandModel implements Serializable {
+public class GoodsBrandModel implements Serializable {
 
     private long  id;
 
@@ -10,6 +10,10 @@ public class BrandModel implements Serializable {
     private String summary;
 
     private String thumb;
+
+    private String createTime;
+
+    private String updateTime;
 
     public long getId() {
         return id;
@@ -43,9 +47,25 @@ public class BrandModel implements Serializable {
         this.thumb = thumb;
     }
 
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
     @Override
     public String toString(){
-        return  "Admin:@id:"+this.getId()+";\r\n"
+        return  "Brand:@id:"+this.getId()+";\r\n"
                 +"@name: "+this.getName()+";\r\n"
 
                 +"@summary: "+this.getSummary()+";\r\n"
