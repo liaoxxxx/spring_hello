@@ -50,7 +50,7 @@ public class SpiderController {
             //json 解析
             Map map=JSON.parseObject(jsonString); //转为map
             Object listObj =map.get("list");  //取 key => list
-            List listParse=(JSONArray) listObj; //转为Litt
+            List listParse=(JSONArray) listObj; //转为List
             //循环
             for (Object object :listParse){
                 Map<String ,Object> map1=(Map) object;

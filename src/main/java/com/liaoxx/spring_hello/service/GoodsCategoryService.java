@@ -49,9 +49,10 @@ public class GoodsCategoryService {
 
         };
         //排序
-        Sort sort = new Sort(Sort.Direction.DESC,"id");
+      //  Sort sort = new Sort(Sort.Direction.DESC);
 
-        List<GoodsCategory> list=goodsCategoryRepository.findAll(sort);
+        //List<GoodsCategory> list=goodsCategoryRepository.findAll(sort);
+        List<GoodsCategory> list=goodsCategoryRepository.findAll();
         for (GoodsCategory i:list) {
            i.setCreatedAtStr(SqlTimeTool.transMicroTime2Date(i.getCreatedAt()));
             i.setUpdateAtStr(SqlTimeTool.transMicroTime2Date(i.getUpdatedAt()));
