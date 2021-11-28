@@ -1,4 +1,4 @@
-package com.liaoxx.spring_hello.util;
+package com.liaoxx.spring_hello.util.response;
 
 import java.util.HashMap;
 import java.util.Map;

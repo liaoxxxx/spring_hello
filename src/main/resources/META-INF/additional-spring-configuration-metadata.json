@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "spring.fileUpload.linux.imagePath",
+      "type": "java.lang.String",
+      "description": "Description for spring.fileUpload.linux.imagePath."
+  }
+] }

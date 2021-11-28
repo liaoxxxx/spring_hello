@@ -17,9 +17,9 @@ public class KafkaConfig {
         return admin;
     }
 
-    @Bean
+  /*  @Bean
     public NewTopic topic2() {
         return new NewTopic("topic-kl", 1, (short) 1);
-    }
+    }*/
 }
 

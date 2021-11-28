@@ -35,15 +35,15 @@ public class GoodsBrandService {
 
         AdminModel adminModel=brandMapper.getById(adminDto.getId());
         if (adminModel==null){
-            return JsonResponse.Error("未提交管理员的id",adminDto);
+            return JsonResp.Error("未提交管理员的id",adminDto);
         }
         BeanUtils.copyProperties(  adminDto,adminModel);
         // System.out.println(adminModel.toString());
         boolean updtBool= brandMapper.Update(adminModel);
         if (updtBool){
-            return JsonResponse.Success("管理员"+adminDto.getId()+"修改成功",adminDto);
+            return JsonResp.Success("管理员"+adminDto.getId()+"修改成功",adminDto);
         }
-        return  JsonResponse.Error("未知的错误",adminDto);
+        return  JsonResp.Error("未知的错误",adminDto);
     }
 
     public Map<String, Object> add(AdminAddDto adminAddDto){
@@ -51,7 +51,7 @@ public class GoodsBrandService {
         AdminModel adminModel=brandMapper.findByUserName(adminAddDto.getUsername());
         System.out.println(adminAddDto.toString());
         if (adminModel != null){
-            return JsonResponse.Error("未提交管理员的id",adminAddDto);
+            return JsonResp.Error("未提交管理员的id",adminAddDto);
         }
         assert false;
         AdminModel adminModel1=new AdminModel();
@@ -59,9 +59,9 @@ public class GoodsBrandService {
 
         boolean updtBool= brandMapper.install(adminModel1);
         if (updtBool){
-            return JsonResponse.Success("管理员"+adminAddDto.getUsername()+"添加成功",adminAddDto);
+            return JsonResp.Success("管理员"+adminAddDto.getUsername()+"添加成功",adminAddDto);
         }
-        return  JsonResponse.Error("未知的错误",adminAddDto);
+        return  JsonResp.Error("未知的错误",adminAddDto);
     }
 */
 /*

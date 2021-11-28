@@ -1,6 +1,5 @@
 package com.liaoxx.spring_hello.controller.index;
 
-import com.alibaba.fastjson.JSON;
 import com.liaoxx.spring_hello.component.Audience;
 import com.liaoxx.spring_hello.dto.UserDto;
 import com.liaoxx.spring_hello.mapper.UserAddressMapper;
@@ -9,10 +8,9 @@ import com.liaoxx.spring_hello.service.UserService;
 import com.liaoxx.spring_hello.task.PrintfTask;
 import com.liaoxx.spring_hello.util.Base64Util;
 import com.liaoxx.spring_hello.util.CheckUtil;
-import com.liaoxx.spring_hello.util.JsonResponse;
+import com.liaoxx.spring_hello.util.response.JsonResp;
 import com.liaoxx.spring_hello.util.JwtTokenUtil;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -43,11 +41,11 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping("/login")
-    public Map<String, Object> login(@RequestParam(value = "username" ,required = true) String username, Map<String, Object> map){
+    public JsonResp login(@RequestParam(value = "username" ,required = true) String username, Map<String, Object> map){
         UserModel user= userService.findByUsername(username);
         if (CheckUtil.isNull(user)){
             map.put("timestamp", System.currentTimeMillis());
-            return JsonResponse.Error("该用户不存在",map) ;
+            return JsonResp.Error("该用户不存在") ;
         }
         String token =JwtTokenUtil.createUserJWT(user,audience);
         UserDto userDto=new UserDto();
@@ -55,18 +53,18 @@ public class UserController {
         map.put("token",token);
         map.put("timestamp", System.currentTimeMillis());
         map.put("user",userDto);
-        return JsonResponse.Success("success",map) ;
+        return JsonResp.Success(map) ;
     }
     @ResponseBody
     @RequestMapping("/info")
-    public Map<String, Object> info(@RequestParam(value = "token" ,required = true) String token, Map<String, Object> map) throws Exception {
+    public JsonResp info(@RequestParam(value = "token" ,required = true) String token, Map<String, Object> map) throws Exception {
         logger.info("userapi-----/info");
         Claims claims = null;
         try{
              claims= JwtTokenUtil.parseJWT(token,audience.getBase64Secret());
         } catch (Exception eje){
 
-           return JsonResponse.Error(eje.getMessage(),"86", "jwt001");
+           return JsonResp.Error(eje.getMessage());
         }
 
         assert claims != null;
@@ -75,12 +73,12 @@ public class UserController {
         UserModel user= userService.findByUserId(userId);
         if (CheckUtil.isNull(user)){
             map.put("timestamp", System.currentTimeMillis());
-            return JsonResponse.Error("该用户不存在",map) ;
+            return JsonResp.Error("该用户不存在") ;
         }
         //隐藏部分user 字段
         UserDto userDto=new UserDto();
         BeanUtils.copyProperties(user,userDto);
         map.put("user",userDto);
-        return JsonResponse.Success("获取用户信息成功",map) ;
+        return JsonResp.Success(map,"获取用户信息成功") ;
     }
 }

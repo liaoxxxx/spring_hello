@@ -1,9 +1,9 @@
-package com.liaoxx.spring_hello.controller.index;
+package com.liaoxx.spring_hello.controller.api.goods;
 
 
 import com.liaoxx.spring_hello.entity.Goods;
 import com.liaoxx.spring_hello.service.GoodsService;
-import com.liaoxx.spring_hello.util.JsonResponse;
+import com.liaoxx.spring_hello.util.response.JsonResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,23 +26,23 @@ public class GoodsApiController {
 
     @ResponseBody
     @RequestMapping( "/recommendList")
-    public Map<String, Object> list(){
+    public JsonResp list(){
         int limit=5;
         List<Goods> recommendList=goodsService.getRecommendList(limit);
-        return JsonResponse.Success("获取推荐商品成功",recommendList);
+        return JsonResp.Success("获取推荐商品成功",recommendList);
     }
 
 
     @ResponseBody
     @RequestMapping( "/findone/{id}")
-    public Map<String, Object> findOne(@PathVariable int id){
+    public JsonResp findOne(@PathVariable int id){
         Goods goodsItem= goodsService.findById(id);
         //Map<String ,Object> map =new HashMap();
         if (goodsItem.getId()>0){
-            return JsonResponse.Success("获取商品数据成功",goodsItem);
+            return JsonResp.Success("获取商品数据成功",goodsItem);
         }
 
-        return JsonResponse.Success("获取商品数据失败",new Object());
+        return JsonResp.Success("获取商品数据失败",new Object());
     }
 
 

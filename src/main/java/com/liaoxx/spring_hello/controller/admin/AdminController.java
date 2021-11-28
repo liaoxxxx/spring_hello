@@ -6,8 +6,7 @@ import com.liaoxx.spring_hello.model.AdminModel;
 import com.liaoxx.spring_hello.repository.AdminRepository;
 import com.liaoxx.spring_hello.repository.GoodsRepository;
 import com.liaoxx.spring_hello.service.AdminService;
-import com.liaoxx.spring_hello.util.JsonResponse;
-import org.springframework.beans.BeanUtils;
+import com.liaoxx.spring_hello.util.response.JsonResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -36,31 +35,31 @@ public class AdminController {
 
     @ResponseBody   //注解无法返回视图，默认返回JSON数据。
     @RequestMapping("/list")
-    public Map<String ,Object> list() {
+    public JsonResp list() {
         List<AdminModel> adminModelList= adminService. getAdminByPage(1,20);
-        return JsonResponse.Success("获取管理员数据成功",adminModelList);
+        return JsonResp.Success("获取管理员数据成功",adminModelList);
     }
 
 
     @ResponseBody
     @RequestMapping("/findone/{id}")
-    public Map<String, Object> findOne(@PathVariable("id") int  id , Map map){
+    public JsonResp findOne(@PathVariable("id") int  id , Map<String,Object> map){
 
         AdminDto adminDto= adminService.getAdminDtoById(id);
         map.put("data",adminDto);
-        return JsonResponse.Success("获取管理员"+ id +"成功",map);
+        return JsonResp.Success("获取管理员"+ id +"成功",map);
     }
 
 
     @ResponseBody
     @RequestMapping("/edit")
-    public Map<String, Object> edit(AdminDto adminDto) {
+    public JsonResp edit(AdminDto adminDto) {
         return adminService.edit( adminDto);
     }
 
     @ResponseBody
     @RequestMapping("/add")
-    public Map<String, Object> add(AdminAddDto adminAddDto) {
+    public JsonResp add(AdminAddDto adminAddDto) {
         return adminService.add( adminAddDto);
     }
 

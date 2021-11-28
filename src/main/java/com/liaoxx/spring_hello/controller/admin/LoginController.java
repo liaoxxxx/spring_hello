@@ -6,10 +6,9 @@ import com.liaoxx.spring_hello.repository.AdminRepository;
 import com.liaoxx.spring_hello.service.AdminLoginService;
 import com.liaoxx.spring_hello.util.Base64Util;
 import com.liaoxx.spring_hello.util.CheckUtil;
-import com.liaoxx.spring_hello.util.JsonResponse;
+import com.liaoxx.spring_hello.util.response.JsonResp;
 import com.liaoxx.spring_hello.util.JwtTokenUtil;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -64,12 +63,12 @@ public class LoginController {
 
     @ResponseBody
     @RequestMapping("/login")
-    public Map<String ,Object> login(@RequestParam(value = "username",required =false) String username, @RequestParam(value = "password",required =false) String password, Map<String, String> map){
+    public JsonResp login(@RequestParam(value = "username",required =false) String username, @RequestParam(value = "password",required =false) String password, Map<String, String> map){
         //管理员
         System.out.println(username);
         Admin admin=  adminloginService.findByUsername(username);
         if (CheckUtil.isNull(admin)){
-            return JsonResponse.Error("用戶不存在",map);
+            return JsonResp.Error("用戶不存在");
         }
         //角色 列表
         List<Map<String, Object>> roleList=adminRepository.getRoleNames(admin.getId());
@@ -78,14 +77,14 @@ public class LoginController {
         map.put("token",jwt);
 
 
-        return JsonResponse.Success("登陆成功",map);
+        return JsonResp.Success(map,"登陆成功");
     }
 
     @ResponseBody
     @RequestMapping("/info")
-    public Map<String ,Object> info(@RequestParam(value = "token",required =true) String token, Map<String, Object> map) throws Exception {
+    public JsonResp info(@RequestParam(value = "token",required =true) String token, Map<String, Object> map) throws Exception {
         if (null==token){
-            return JsonResponse.Error("token can not be null",null);
+            return JsonResp.Error("token can not be null");
         }
 
         Claims claims = null;
@@ -93,7 +92,7 @@ public class LoginController {
             claims= JwtTokenUtil.parseJWT(token,audience.getBase64Secret());
         } catch (Exception eje){
 
-            return JsonResponse.Error(eje.getMessage(),"86", "jwt001");
+            return JsonResp.Error(eje.getMessage());
         }
         List<Map<String,String>> roleListMap= (List<Map<String,String>>) claims.get("roles");
         ArrayList<String> roleList=new ArrayList<String>();
@@ -106,16 +105,16 @@ public class LoginController {
         map.put("avatar",  claims.get("avatar"));
         map.put("introduction",  claims.get("introduction"));
 
-        return JsonResponse.Success("登陆成功",map);
-        //return JsonResponse.Success("登陆成功",map);
+        return JsonResp.Success(map,"登陆成功");
+        //return JsonResp.Success("登陆成功",map);
     }
 
 
     @ResponseBody
     @RequestMapping("/exchangeToken")
-    public Map<String ,Object> exchangeToken(@RequestParam(value = "token",required =true) String token, Map<String, Object> map) throws Exception {
+    public JsonResp exchangeToken(@RequestParam(value = "token",required =true) String token, Map<String, Object> map) throws Exception {
         if (null==token){
-            return JsonResponse.Error("token can not be null",null);
+            return JsonResp.Error("token can not be null");
         }
 
         Claims claims = null;
@@ -133,7 +132,7 @@ public class LoginController {
         map.put("avatar",  claims.get("avatar"));
         map.put("introduction",  claims.get("introduction"));
 
-        return JsonResponse.Success("登陆成功",map);
-        //return JsonResponse.Success("登陆成功",map);
+        return JsonResp.Success(map,"登陆成功");
+        //return JsonResp.Success("登陆成功",map);
     }
 }

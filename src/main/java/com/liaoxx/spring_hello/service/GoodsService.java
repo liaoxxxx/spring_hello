@@ -54,6 +54,12 @@ public class GoodsService {
         return list;
     }
 
+    public List<Goods> listPage(int page,int pageSize ){
+
+        List<Goods> list= goodsRepository.findAll();
+        return list;
+    }
+
 
     public String encodeImages(String[] imagesArr){
         return JSON.toJSONString(imagesArr);
