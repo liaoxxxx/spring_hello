@@ -1,13 +1,15 @@
 package com.liaoxx.spring_hello.service;
 
+import com.liaoxx.spring_hello.dto.api.user.LoginDto;
 import com.liaoxx.spring_hello.mapper.UserMapper;
 import com.liaoxx.spring_hello.model.UserModel;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 @Service
 public class UserService {
-    @Autowired
+    @Resource
     UserMapper userMapper;
 
     public UserModel findByUsername(String userName){
@@ -16,5 +18,9 @@ public class UserService {
 
     public UserModel findByUserId(long userId){
         return userMapper.getById(userId);
+    }
+
+    public LoginDto login(String mms ,String phone ,String password){
+        return new LoginDto();
     }
 }
