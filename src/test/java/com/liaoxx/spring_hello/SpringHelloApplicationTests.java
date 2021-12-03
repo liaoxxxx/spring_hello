@@ -1,32 +1,23 @@
 package com.liaoxx.spring_hello;
 
-import com.liaoxx.spring_hello.config.AppConfig;
 import com.liaoxx.spring_hello.entity.Admin;
 import com.liaoxx.spring_hello.repository.AdminRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
-import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.io.*;
+import javax.annotation.Resource;
 import java.util.*;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringHelloApplicationTests {
-    @Autowired
+    @Resource
     AdminRepository adminRepository;
-    @Autowired
+    @Resource
     AmqpTemplate amqpTemplate;
 
     @ResponseBody

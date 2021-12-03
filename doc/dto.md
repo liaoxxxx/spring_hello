@@ -75,7 +75,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/dto")
 public class DtotestController {
 
-    @Autowired
+    @Resource
     DtoService dtoService;
 
 
@@ -132,7 +132,7 @@ import org.springframework.stereotype.Service;
 public class DtoService {
 
 
-    @Autowired
+    @Resource
     DtoRepository dtoRepository;
 
     public Dto transDto2Entity(DtoinputDto dtoinputDto){

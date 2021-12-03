@@ -9,6 +9,9 @@ import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import javax.annotation.Resource;
+
 @EnableWebMvc
 @ComponentScan
 @Configuration
@@ -16,7 +19,7 @@ public class MyWebAppConfigurer implements WebMvcConfigurer {
 
 
 
-    @Autowired
+    @Resource
     AppConfig appConfig;
 
 

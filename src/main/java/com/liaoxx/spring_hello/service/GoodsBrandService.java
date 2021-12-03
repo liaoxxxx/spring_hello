@@ -1,9 +1,14 @@
 package com.liaoxx.spring_hello.service;
 
-import com.liaoxx.spring_hello.mapper.GoodsBrandMapper;
-import com.liaoxx.spring_hello.model.GoodsBrandModel;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.liaoxx.spring_hello.entity.GoodsBrand;
+import com.liaoxx.spring_hello.repository.GoodsBrandRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -11,16 +16,17 @@ public class GoodsBrandService {
 
 
 
-    @Autowired
-    GoodsBrandMapper brandMapper;
+    @Resource
+    GoodsBrandRepository brandRepository;
 
 
 
-    public List<GoodsBrandModel> getBrandByPage(int page, int pageSize) {
-
-        List<GoodsBrandModel> brandModelList = brandMapper.getByPage( "`id`", 0, 20);
-        //List<AdminModel> adminList = adminMapper.getByPage(0, 20);
-        return brandModelList;
+    public Page<GoodsBrand> list(int page, int pageSize) {
+        // 排序方式，这里是以“recordNo”为标准进行降序
+        Sort sort =  Sort.by(Sort.Direction.DESC, "r");  // 这里的"recordNo"是实体类的主键，记住一定要是实体类的属性，而不能是数据库的字段
+        Pageable pageable = new PageRequest(page - 1, 6, sort) {
+        }; // （当前页， 每页记录数， 排序方式）
+        return brandRepository.findAll(  pageable);
 
     }
 

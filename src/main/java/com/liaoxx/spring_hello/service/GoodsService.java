@@ -1,28 +1,18 @@
 package com.liaoxx.spring_hello.service;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.graphbuilder.math.func.EFunction;
 import com.liaoxx.spring_hello.dto.admin.GoodsDto;
 import com.liaoxx.spring_hello.entity.Goods;
-import com.liaoxx.spring_hello.repository.GoodsCategoryRepository;
 import com.liaoxx.spring_hello.repository.GoodsRepository;
 import com.liaoxx.spring_hello.util.SqlTimeTool;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class GoodsService {
 
-    @Autowired
+    @Resource
     GoodsRepository goodsRepository;
 
 

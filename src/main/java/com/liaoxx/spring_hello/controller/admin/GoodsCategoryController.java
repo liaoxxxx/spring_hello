@@ -1,15 +1,16 @@
 package com.liaoxx.spring_hello.controller.admin;
 
 import com.liaoxx.spring_hello.dto.admin.GoodsCategoryDto;
-import com.liaoxx.spring_hello.entity.GoodsCategory;
-import com.liaoxx.spring_hello.service.GoodsCategoryService;
+import com.liaoxx.spring_hello.entity.GoodsClassify;
+import com.liaoxx.spring_hello.param.admin.goods.GoodsClassifyParam;
+import com.liaoxx.spring_hello.service.GoodsClassifyService;
 import com.liaoxx.spring_hello.util.response.JsonResp;
 import com.liaoxx.spring_hello.util.SqlTimeTool;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +20,8 @@ import java.util.Map;
 @RequestMapping("/admin_goods")
 public class GoodsCategoryController {
 
-    @Autowired
-    GoodsCategoryService goodsCategoryService;
+    @Resource
+    GoodsClassifyService goodsClassifyService;
 
     @RequestMapping("/list")
     public void list(){
@@ -29,22 +30,22 @@ public class GoodsCategoryController {
 
     @ResponseBody
     @RequestMapping( "/add_category")
-    public JsonResp addGoodsCategory(@RequestBody GoodsCategoryDto goodsCategoryDto){
+    public JsonResp addGoodsCategory(@RequestBody GoodsClassifyParam goodsClassifyParam){
         Map<String,Object> map =new HashMap<>();
 
-        if (goodsCategoryService.add(goodsCategoryDto)){
+        if (goodsClassifyService.add(goodsClassifyParam)){
 
             map.put("code",200);
             map.put("msg","success");
-            map.put("data",goodsCategoryDto);
+            map.put("data",goodsClassifyParam);
         }
         else {
 
             map.put("code",500);
             map.put("msg","error");
-            map.put("data",goodsCategoryDto);
+            map.put("data",goodsClassifyParam);
         }
-      return   JsonResp.Success("save GoodsCategory id : "+goodsCategoryDto.getId(),map);
+      return   JsonResp.Success("save GoodsCategory id : "+goodsClassifyParam.getId(),map);
     }
 
     @ResponseBody
@@ -52,7 +53,7 @@ public class GoodsCategoryController {
     public JsonResp getList(){
 
       return   JsonResp.Success("get goods category success",
-              goodsCategoryService.getList(10,20,"aaaa")
+              goodsClassifyService.getList(10,20,"aaaa")
       ) ;
     }
 
@@ -60,8 +61,8 @@ public class GoodsCategoryController {
     @RequestMapping( "/getAllGoodsCate")
     public JsonResp getCategoryById(){
         //所有的 商品分类
-        List<GoodsCategory> goodsCategoryList= goodsCategoryService.findAll();
-        Map<String, List<GoodsCategory>> map =new HashMap<>();
+        List<GoodsClassify> goodsCategoryList= goodsClassifyService.findAll();
+        Map<String, List<GoodsClassify>> map =new HashMap<>();
         map.put("goodsCateList",goodsCategoryList);
         return   JsonResp.Success("get goodsCate success",map);
     }
@@ -72,13 +73,13 @@ public class GoodsCategoryController {
     @RequestMapping( "/edit_category")
     public JsonResp updateGoodsCategory(@RequestBody GoodsCategoryDto goodsCategoryDto){
         //根据 分类的id 找出数据库存在的记录
-        GoodsCategory goodsCategory= goodsCategoryService.getById( goodsCategoryDto.getId());
+        GoodsClassify goodsCategory= goodsClassifyService.getById( goodsCategoryDto.getId());
         //copy dto 的数据 到 goodsCategory(entity)
         BeanUtils.copyProperties(goodsCategoryDto,goodsCategory);
         //设置更新时间
-        goodsCategory.setUpdatedAt(SqlTimeTool.getMicroTimeTamp());
+        goodsCategory.setUpdatedAt((int) SqlTimeTool.getMicroTimeTamp());
         //保存
-        goodsCategoryService.update(goodsCategory);
+        goodsClassifyService.update(goodsCategory);
         return   JsonResp.Success("save GoodsCategory id : "+goodsCategoryDto.getId(),goodsCategory);
     }
 

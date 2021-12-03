@@ -63,7 +63,7 @@
     @SpringBootTest
     
     public class SpringHelloApplicationTests {
-        @Autowired
+        @Resource
         DataSource dataSource;
         @Test
         public void contextLoads() {
@@ -90,7 +90,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    @Autowired
+    @Resource
     JdbcTemplate jdbcTemplate;   // 1.JdbcTemplate
     @RequestMapping("/querylist")
     public String queryUser(Map map){
@@ -337,7 +337,7 @@ import java.sql.DriverManager;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringHelloApplicationTests {
-    @Autowired
+    @Resource
     DataSource dataSource;
     @Test
     public void contextLoads() {

@@ -2,16 +2,18 @@ package com.liaoxx.spring_hello.controller.admin;
 
 import com.liaoxx.spring_hello.dto.admin.AdminAddDto;
 import com.liaoxx.spring_hello.dto.admin.AdminDto;
-import com.liaoxx.spring_hello.model.AdminModel;
+import com.liaoxx.spring_hello.entity.Admin;
 import com.liaoxx.spring_hello.repository.AdminRepository;
 import com.liaoxx.spring_hello.repository.GoodsRepository;
 import com.liaoxx.spring_hello.service.AdminService;
 import com.liaoxx.spring_hello.util.response.JsonResp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -21,22 +23,16 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-    @Autowired
-    AdminRepository adminRepository;
 
-    @Autowired
-    GoodsRepository goodsRepository;
 
-    @Autowired
+    @Resource
     AdminService adminService;
 
 
     @ResponseBody   //注解无法返回视图，默认返回JSON数据。
     @RequestMapping("/list")
     public JsonResp list() {
-        List<AdminModel> adminModelList= adminService. getAdminByPage(1,20);
+        List<Admin> adminModelList= adminService. getAdminByPage(1,20);
         return JsonResp.Success("获取管理员数据成功",adminModelList);
     }
 

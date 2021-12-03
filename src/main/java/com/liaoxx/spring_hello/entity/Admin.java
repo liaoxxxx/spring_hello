@@ -4,7 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import java.util.List;
 @Entity     //标注为实体类
-@Table(name="admin")      //标注表名为"admin";
+@Table(name="admin_u")      //标注表名为"admin";
 public class Admin {
     @Id //标注为主键
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //标注为自增主键
@@ -31,20 +31,6 @@ public class Admin {
 
 
 
-    //关联 admin_detail 表
-    @OneToOne(cascade = CascadeType.ALL,targetEntity = AdminDetail.class)
-    @JoinColumn(name = "admin_detail_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private AdminDetail adminDetail;
-
-
-
-    public AdminDetail getAdminDetail() {
-        return adminDetail;
-    }
-
-    public void setAdminDetail(AdminDetail adminDetail) {
-        this.adminDetail = adminDetail;
-    }
 
     public long getId() {
         return id;

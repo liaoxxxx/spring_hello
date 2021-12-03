@@ -1,12 +1,11 @@
 package com.liaoxx.spring_hello.service;
 
 import com.liaoxx.spring_hello.config.AppConfig;
-import com.liaoxx.spring_hello.entity.UploadFile;
 import com.liaoxx.spring_hello.repository.UploadFileRepository;
-import com.liaoxx.spring_hello.util.SqlTimeTool;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,10 +16,10 @@ public class UploadServer {
 
 
 
-    @Autowired
+    @Resource
     UploadFileRepository uploadFileRepository;
 
-    @Autowired       //使用@AutoWired  自动注入到该类中
+    @Resource       //使用@Resource  自动注入到该类中
     AppConfig appConfig;
 
     public Map<String, Object> handleSingleImage(MultipartFile uploadImage ) {

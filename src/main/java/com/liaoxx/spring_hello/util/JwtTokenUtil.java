@@ -7,8 +7,8 @@ import com.liaoxx.spring_hello.entity.User;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import javax.annotation.Resource;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
@@ -29,7 +29,7 @@ public class JwtTokenUtil {
     private static Logger log = LoggerFactory.getLogger(JwtTokenUtil.class);
     public static final String AUTH_HEADER_KEY = "Authorization";
 
-    @Autowired
+    @Resource
     Base64Util base64Util;
 
     /**

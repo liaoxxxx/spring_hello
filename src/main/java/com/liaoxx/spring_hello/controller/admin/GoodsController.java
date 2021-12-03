@@ -3,14 +3,14 @@ package com.liaoxx.spring_hello.controller.admin;
 import com.liaoxx.spring_hello.config.AppConfig;
 import com.liaoxx.spring_hello.dto.admin.GoodsDto;
 import com.liaoxx.spring_hello.entity.Goods;
-import com.liaoxx.spring_hello.entity.GoodsCategory;
-import com.liaoxx.spring_hello.service.GoodsCategoryService;
+import com.liaoxx.spring_hello.entity.GoodsClassify;
+import com.liaoxx.spring_hello.service.GoodsClassifyService;
 import com.liaoxx.spring_hello.service.GoodsService;
 import com.liaoxx.spring_hello.util.response.JsonResp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 @Controller
@@ -18,11 +18,11 @@ import java.util.*;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class GoodsController {
 
-    @Autowired
+    @Resource
     GoodsService goodsService;
 
-    @Autowired
-    GoodsCategoryService goodsCateService;
+    @Resource
+    GoodsClassifyService goodsClassifyService;
     @ResponseBody
     @RequestMapping( "/add_goods")
     public JsonResp addGoods( GoodsDto goodsDto){
@@ -61,7 +61,7 @@ public class GoodsController {
     @RequestMapping( "/findoneWithAllGoodsCate/{id}")
     public JsonResp findOne(@PathVariable int id){
         Goods goodsItem= goodsService.findById(id);
-        List<GoodsCategory> goodsCategory=goodsCateService.findAll();
+        List<GoodsClassify> goodsCategory=goodsClassifyService.findAll();
         HashMap map =new HashMap();
         map.put("goods",goodsItem);
         map.put("goodsCategoryList",goodsCategory);

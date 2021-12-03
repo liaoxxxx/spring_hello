@@ -134,7 +134,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     //注入Mapper
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     @RequestMapping("/list")

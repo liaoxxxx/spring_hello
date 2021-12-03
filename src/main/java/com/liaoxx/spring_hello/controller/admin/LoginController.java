@@ -9,11 +9,13 @@ import com.liaoxx.spring_hello.util.CheckUtil;
 import com.liaoxx.spring_hello.util.response.JsonResp;
 import com.liaoxx.spring_hello.util.JwtTokenUtil;
 import io.jsonwebtoken.Claims;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,17 +26,17 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin")
 public class LoginController {
-    @Autowired
+    @Resource
     JdbcTemplate jdbcTemplate;
-    @Autowired
+    @Resource
     AdminRepository adminRepository;
-    @Autowired
+    @Resource
     AdminLoginService adminloginService;
 
-    @Autowired
+    @Resource
     Audience audience;
 
-    @Autowired
+    @Resource
     Base64Util base64Util;
 
 

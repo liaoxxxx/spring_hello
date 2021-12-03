@@ -138,7 +138,7 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class AdminController {
    
-    @Autowired
+    @Resource
     AdminRepository adminRepository;
 
     @GetMapping("/find/{id}")
