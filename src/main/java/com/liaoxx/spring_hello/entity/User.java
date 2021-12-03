@@ -1,88 +1,189 @@
 package com.liaoxx.spring_hello.entity;
 
-
-
-import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.sql.Date;
 
-@Table(name="sys_user")
-public class User  implements Serializable {
-    @Id
-    @GeneratedValue
+public class User implements Serializable {
     private long id;
-    @Column(unique =true)
-    private String username ;
-    private String name;//名称（昵称或者真实姓名，不同系统不同定义）
-    private String password; //密码;
-    private String salt;//加密密码的盐
-    private byte state;//用户状态,0:创建未认证（比如没有激活，没有输入验证码等等）--等待验证的用户 , 1:正常状态,2：用户被锁定.
-    @ManyToMany(fetch= FetchType.EAGER)//立即从数据库中进行加载数据;
-    @JoinTable(name = "SysUserRole", joinColumns = { @JoinColumn(name = "d") }, inverseJoinColumns ={@JoinColumn(name = "roleId") })
-    private List<SysRole> roleList;// 一个用户具有多个角色
-
-
-    public Long getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPasswd() {
-        return password;
-    }
-    public void setPasswd(String passwd) {
-        this.password = passwd;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
+    private Date created_at;
+    private Date updated_at;
+    private String username;
+    private String password;
+    private String salt;
+    private String avatar;
+    private int state;
+    private int sex;
+    private String phone;
+    private String email;
+    private String source;
+    private int agent_id;
+    private int grade_id;
+    private String nickname;
+    private String remarks;
+    private String birthday;
+    private String administration_address;
+    private int is_register_product;
+    private int is_write_profile;
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public long getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
     }
 
-    public String getPassword() {
-        return password;
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public Date getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public byte getState() {
-        return state;
+    public String getPassword() {
+        return password;
     }
 
-    public void setState(byte state) {
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setState(int state) {
         this.state = state;
     }
 
-    public List<SysRole> getRoleList() {
-        return roleList;
+    public int getState() {
+        return state;
     }
 
-    public void setRoleList(List<SysRole> roleList) {
-        this.roleList = roleList;
+    public void setSex(int sex) {
+        this.sex = sex;
     }
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setAgent_id(int agent_id) {
+        this.agent_id = agent_id;
+    }
+
+    public int getAgent_id() {
+        return agent_id;
+    }
+
+
+    public void setGrade_id(int grade_id) {
+        this.grade_id = grade_id;
+    }
+
+    public int getGrade_id() {
+        return grade_id;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setAdministration_address(String administration_address) {
+        this.administration_address = administration_address;
+    }
+
+    public String getAdministration_address() {
+        return administration_address;
+    }
+
+    public void setIs_register_product(int is_register_product) {
+        this.is_register_product = is_register_product;
+    }
+
+    public int getIs_register_product() {
+        return is_register_product;
+    }
+
+    public void setIs_write_profile(int is_write_profile) {
+        this.is_write_profile = is_write_profile;
+    }
+
+    public int getIs_write_profile() {
+        return is_write_profile;
+    }
+
 }

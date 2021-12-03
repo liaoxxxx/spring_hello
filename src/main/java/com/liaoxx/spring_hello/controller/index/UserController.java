@@ -2,8 +2,7 @@ package com.liaoxx.spring_hello.controller.index;
 
 import com.liaoxx.spring_hello.component.Audience;
 import com.liaoxx.spring_hello.dto.UserDto;
-import com.liaoxx.spring_hello.mapper.UserAddressMapper;
-import com.liaoxx.spring_hello.model.UserModel;
+import com.liaoxx.spring_hello.entity.User;
 import com.liaoxx.spring_hello.service.UserService;
 import com.liaoxx.spring_hello.task.PrintfTask;
 import com.liaoxx.spring_hello.util.Base64Util;
@@ -14,9 +13,9 @@ import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import javax.annotation.Resource;
 import java.util.Map;
 
 @Controller
@@ -26,23 +25,22 @@ public class UserController {
 
     private static final Logger logger= LoggerFactory.getLogger(PrintfTask.class);
 
-    @Autowired
-    UserAddressMapper userAddressMapper;
 
-    @Autowired
+
+    @Resource
     UserService userService;
 
-    @Autowired
+    @Resource
     Audience audience;
 
-    @Autowired
+    @Resource
     Base64Util base64Util;
 
 
     @ResponseBody
     @RequestMapping("/login")
     public JsonResp login(@RequestParam(value = "username" ,required = true) String username, Map<String, Object> map){
-        UserModel user= userService.findByUsername(username);
+        User user= userService.findByUsername(username);
         if (CheckUtil.isNull(user)){
             map.put("timestamp", System.currentTimeMillis());
             return JsonResp.Error("该用户不存在") ;
@@ -70,7 +68,7 @@ public class UserController {
         assert claims != null;
         System.out.println(claims.getExpiration());
         int userId=(int) claims.get("userId");
-        UserModel user= userService.findByUserId(userId);
+        User user= userService.findByUserId(userId);
         if (CheckUtil.isNull(user)){
             map.put("timestamp", System.currentTimeMillis());
             return JsonResp.Error("该用户不存在") ;

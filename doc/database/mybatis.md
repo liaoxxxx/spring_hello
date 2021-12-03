@@ -86,13 +86,14 @@ public class UserModel implements Serializable {
 
 > 1.5 创建mapper接口
 
-
 ````java
 package com.liaoxx.spring_hello.mapper;
 
-import com.liaoxx.spring_hello.model.UserModel;
+import com.liaoxx.spring_hello.entity.UserModel;
 import org.apache.ibatis.annotations.*;
+
 import java.util.List;
+
 public interface UserMapper {
     @Select("select * from user")
     @Results({
@@ -101,7 +102,7 @@ public interface UserMapper {
     List<UserModel> getAll();
 
     @Select("select * from user where id=#{id}")
-    UserModel getById(long id) ;
+    UserModel getById(long id);
 
     @Insert("INSERT INTO user( username , password , salt , nickname , avatars , is_delete, status ) VALUES( #{username} , #{password}, #{salt} , #{nickname} , #{avatars} , #{isDelete} , #{status} )")
     void install(UserModel user);
@@ -121,11 +122,12 @@ public interface UserMapper {
 `````java
 package com.liaoxx.spring_hello.controller.index;
 
+import com.liaoxx.spring_hello.entity.UserModel;
 import com.liaoxx.spring_hello.mapper.UserMapper;
-import com.liaoxx.spring_hello.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.List;
 
 @Controller
@@ -136,9 +138,9 @@ public class UserController {
     private UserMapper userMapper;
 
     @RequestMapping("/list")
-    public String list(){
-        List<UserModel> userModelList= userMapper.getAll();
-        for (UserModel userItem: userModelList) {
+    public String list() {
+        List<UserModel> userModelList = userMapper.getAll();
+        for (UserModel userItem : userModelList) {
             System.out.println(userItem.toString());
         }
         return "success";

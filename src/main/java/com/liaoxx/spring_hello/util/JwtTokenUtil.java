@@ -3,7 +3,7 @@ package com.liaoxx.spring_hello.util;
 import com.alibaba.fastjson.JSON;
 import com.liaoxx.spring_hello.component.Audience;
 import com.liaoxx.spring_hello.entity.Admin;
-import com.liaoxx.spring_hello.model.UserModel;
+import com.liaoxx.spring_hello.entity.User;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.*;
 
@@ -38,17 +39,17 @@ public class JwtTokenUtil {
      * @return
      */
     public static Claims parseJWT(String jsonWebToken, String base64Security) {
-       /* try {*/
+        try {
             Claims claims = Jwts.parser()
                     .setSigningKey(DatatypeConverter.parseBase64Binary(base64Security))
                     .parseClaimsJws(jsonWebToken).getBody();
             return claims;
-        /*} catch (ExpiredJwtException  eje) {
+        } catch (ExpiredJwtException  eje) {
             log.error("===== Token过期 =====", eje);
         } catch (Exception e){
             log.error("===== token解析异常 =====", e);
         }
-        return null;*/
+        return null;
     }
     /**
      * 构建jwt
@@ -98,7 +99,7 @@ public class JwtTokenUtil {
     }
 
 
-    public static String createUserJWT(UserModel userModel, Audience audience) {
+    public static String createUserJWT(User userModel, Audience audience) {
         try {
             // 使用HS256加密算法
             SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -113,7 +114,7 @@ public class JwtTokenUtil {
                     // 可以将基本不重要的对象信息放到claims
                     .claim("userId", userModel.getId())
                     .claim("name", userModel.getNickname())
-                    .claim("avatar", userModel.getAvatars())
+                    .claim("avatar", userModel.getAvatar())
                     .setSubject(userModel.getUsername())           // 代表这个JWT的主体，即它的所有人
                     .setIssuer(audience.getClientId())              // 代表这个JWT的签发主体；
                     .setIssuedAt(new Date())        // 是一个时间戳，代表这个JWT的签发时间；
@@ -197,7 +198,7 @@ public class JwtTokenUtil {
         //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W3sicm9sZU5hbWUiOiJhZG1pbiJ9LHsicm9sZU5hbWUiOiJmaW5hbmNlIn0seyJyb2xlTmFtZSI6ImVkaXRvciJ9XSwidXNlcklkIjoxLCJzdWIiOiJhZG1pbiIsImlzcyI6IjA5OGY2YmNkNDYyMWQzNzNjYWRlNGU4MzI2MjdiNGY2IiwiaWF0IjoxNTgyNDY0MTA5LCJhdWQiOiJsb2NhbGhvc3QiLCJleHAiOjE1ODI0NjQyODIsIm5iZiI6MTU4MjQ2NDEwOX0.Xj-HaFassQLpoN2lzxUFuI55aS9tTMmANz-zJOZOZ10
         String payloadAnsSign= token.substring(token.indexOf('.')+1); //第一次裁剪掉 jwt 的hearder 部分 余下 ：payload.sign
         String payloadBase64=payloadAnsSign.substring(0,payloadAnsSign.indexOf('.')); ///第一次裁剪掉 jwt 的sign 部分 余下 ：payload
-        String payloadJson=new String(Base64.getDecoder().decode(payloadBase64), "utf-8");; //base64 解码获得 payload 的json字符串
+        String payloadJson=new String(Base64.getDecoder().decode(payloadBase64), StandardCharsets.UTF_8);; //base64 解码获得 payload 的json字符串
 
         return   JSON.parseObject(payloadJson); //转换成  jwtPayloadEntity
     }
