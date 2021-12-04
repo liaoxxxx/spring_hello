@@ -25,7 +25,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*", maxAge = 3600,methods ={RequestMethod.GET, RequestMethod.POST,RequestMethod.OPTIONS})
 @Controller
 @RequestMapping("/admin")
-public class LoginController {
+public class AdminLoginController {
     @Resource
     JdbcTemplate jdbcTemplate;
     @Resource

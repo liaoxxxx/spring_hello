@@ -1,15 +1,13 @@
 package com.liaoxx.spring_hello.controller.api.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.liaoxx.spring_hello.component.Audience;
 import com.liaoxx.spring_hello.dto.api.user.LoginDto;
-import com.liaoxx.spring_hello.param.api.user.Login;
 import com.liaoxx.spring_hello.service.UserService;
 import com.liaoxx.spring_hello.util.JwtTokenUtil;
 import com.liaoxx.spring_hello.util.response.JsonResp;
 import io.jsonwebtoken.Claims;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -18,6 +16,8 @@ import java.util.Map;
 
 //@RestController //注解无法返回视图，默认返回JSON数据。
 @CrossOrigin(origins = "*", maxAge = 3600,methods ={RequestMethod.GET, RequestMethod.POST,RequestMethod.OPTIONS})
+@JsonIgnoreProperties
+@RestController
 @RequestMapping("/xx/account")
 public class LoginController {
 
@@ -26,12 +26,11 @@ public class LoginController {
     private Audience audience;
 
     @ResponseBody
-    @RequestMapping("/login")
-    public JsonResp login(HttpServletRequest request, @RequestBody Login param){
-        LoginDto loginDto = new LoginDto();
-        String mms = request.getParameter("mms");
-        loginDto = userService.loginMain(mms, param);
-        return JsonResp.Success(loginDto, "登陆成功");
+    @PostMapping("/login" )
+    public JsonResp login(HttpServletRequest request){
+
+        LoginDto loginDto = userService.loginMain( request);
+        return JsonResp.Success(loginDto, "登陆 成功");
     }
 
     @ResponseBody
