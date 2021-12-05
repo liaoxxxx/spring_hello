@@ -25,7 +25,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*", maxAge = 3600,methods ={RequestMethod.GET, RequestMethod.POST,RequestMethod.OPTIONS})
 @Controller
 @RequestMapping("/admin")
-public class LoginController {
+public class AdminLoginController {
     @Resource
     JdbcTemplate jdbcTemplate;
     @Resource
@@ -73,9 +73,9 @@ public class LoginController {
             return JsonResp.Error("用戶不存在");
         }
         //角色 列表
-        List<Map<String, Object>> roleList=adminRepository.getRoleNames(admin.getId());
+       // List<Map<String, Object>> roleList=adminRepository.getRoleNames(admin.getId());
 
-        String jwt= JwtTokenUtil.createJWT(admin, roleList,audience);
+        String jwt= JwtTokenUtil.createJWT(admin,audience);
         map.put("token",jwt);
 
 

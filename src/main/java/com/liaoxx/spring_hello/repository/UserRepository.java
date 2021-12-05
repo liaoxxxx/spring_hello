@@ -16,9 +16,12 @@ public interface UserRepository extends JpaRepository<User,Integer> , JpaSpecifi
 
 
     /**
+     * 通过手机号查找用户
      * @param phone 手机号码
      */
-    User findByPhone(String phone);
+    User findFirstByPhoneOrderByIdDesc(String phone);
+
+
 
     User findByUsername(String username);
 }
