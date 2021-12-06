@@ -1,44 +1,50 @@
 package com.liaoxx.spring_hello.service;
 
-import com.liaoxx.spring_hello.consts.LoginType;
+import com.liaoxx.spring_hello.component.Audience;
+import com.liaoxx.spring_hello.constants.LoginType;
+import com.liaoxx.spring_hello.constants.MainState;
 import com.liaoxx.spring_hello.dto.api.user.LoginDto;
 import com.liaoxx.spring_hello.entity.User;
-import com.liaoxx.spring_hello.param.api.user.LoginParamI;
+import com.liaoxx.spring_hello.param.api.user.LoginParam;
 import com.liaoxx.spring_hello.repository.UserRepository;
+import com.liaoxx.spring_hello.service.exception.ServiceException;
+import com.liaoxx.spring_hello.util.JwtTokenUtil;
+import com.liaoxx.spring_hello.util.Md5Tool;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.Map;
 import java.util.Objects;
 
 @Service
-public class UserService {
+public class UserService  {
     @Resource
     UserRepository userRepository;
 
-    public User findByUsername(String userName){
-        return userRepository.findByUsername(userName);
-    }
+    @Resource
+    Audience audience;
 
-    public User findByUserId(int userId){
-        return userRepository.getById(userId);
-    }
 
-    public LoginDto loginMain(HttpServletRequest request){
-        Map<String,String[]> parameterMap=request.getParameterMap();
-        System.out.println("parameterMap = " + Arrays.toString(parameterMap.get("mms")));
-        LoginParamI param=new LoginParamI();
-        LoginDto loginDto= new LoginDto();
-        if (Objects.equals(param.mms, LoginType.PHONE)){
-            loginDto=   this.loginByPhone(param.phone, param.password);
+    public LoginDto loginMain(LoginParam param) throws Exception {
+        LoginDto loginDto = new LoginDto();
+        if (Objects.equals(param.mms, LoginType.PHONE)) {
+            loginDto.token = this.loginByPhone(param.phone, param.password);
+        }else {
+            throw new ServiceException("未知的登陆方式");
         }
         return loginDto;
     }
 
-    public  LoginDto loginByPhone(String phone , String password){
-        //userMapper.findByUserName()
-        return new LoginDto();
+    public String loginByPhone(String phone, String password) throws Exception {
+        User user = userRepository.findFirstByPhoneOrderByIdDesc(phone);
+        if (user.getId()<=0){
+            throw new ServiceException("用户不存在");
+        }
+        if (user.getState()!= MainState.StateOK){
+            throw new ServiceException("用户已禁用");
+        }
+        if (!user.getPassword().equals(Md5Tool.get(password + user.getSalt()))) {
+            throw new ServiceException("密码错误");
+        }
+        return JwtTokenUtil.createJWT(user,audience);
     }
 }

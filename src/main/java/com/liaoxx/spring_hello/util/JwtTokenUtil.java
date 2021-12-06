@@ -54,11 +54,10 @@ public class JwtTokenUtil {
     /**
      * 构建jwt
      * @param admin
-     * @param role
      * @param audience
      * @return
      */
-    public static String createJWT(Admin admin, List role, Audience audience) {
+    public static String createJWT(Admin admin,  Audience audience) {
         try {
             // 使用HS256加密算法
             SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
@@ -71,11 +70,9 @@ public class JwtTokenUtil {
             //添加构成JWT的参数
             JwtBuilder builder = Jwts.builder().setHeaderParam("typ", "JWT")
                     // 可以将基本不重要的对象信息放到claims
-                    .claim("roles", role)
-                    .claim("userId", admin.getId())
+                    .claim("adminId", admin.getId())
                     .claim("name", admin.getNickname())
                     .claim("avatar", admin.getAvatars())
-                    .claim("introduction",admin.getAvatars())
                     .setSubject(admin.getUsername())           // 代表这个JWT的主体，即它的所有人
                     .setIssuer(audience.getClientId())              // 代表这个JWT的签发主体；
                     .setIssuedAt(new Date())        // 是一个时间戳，代表这个JWT的签发时间；
@@ -99,7 +96,7 @@ public class JwtTokenUtil {
     }
 
 
-    public static String createUserJWT(User userModel, Audience audience) {
+    public static String createJWT(User userModel, Audience audience) {
         try {
             // 使用HS256加密算法
             SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;

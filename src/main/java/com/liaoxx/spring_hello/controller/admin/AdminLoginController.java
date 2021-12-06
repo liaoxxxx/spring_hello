@@ -73,9 +73,9 @@ public class AdminLoginController {
             return JsonResp.Error("用戶不存在");
         }
         //角色 列表
-        List<Map<String, Object>> roleList=adminRepository.getRoleNames(admin.getId());
+       // List<Map<String, Object>> roleList=adminRepository.getRoleNames(admin.getId());
 
-        String jwt= JwtTokenUtil.createJWT(admin, roleList,audience);
+        String jwt= JwtTokenUtil.createJWT(admin,audience);
         map.put("token",jwt);
 
 
