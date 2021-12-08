@@ -2,7 +2,9 @@ package com.liaoxx.spring_hello.util;
 
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Md5Tool {
 
     //加密字符串
