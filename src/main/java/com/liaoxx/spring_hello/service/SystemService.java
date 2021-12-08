@@ -1,21 +1,11 @@
 package com.liaoxx.spring_hello.service;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.liaoxx.spring_hello.component.Audience;
-import com.liaoxx.spring_hello.constants.LoginType;
-import com.liaoxx.spring_hello.constants.MainState;
 import com.liaoxx.spring_hello.constants.SystemEnum;
-import com.liaoxx.spring_hello.dto.api.common.MallConfigDto;
-import com.liaoxx.spring_hello.dto.api.user.LoginDto;
-import com.liaoxx.spring_hello.entity.User;
-import com.liaoxx.spring_hello.entity.system.System;
+import com.liaoxx.spring_hello.entity.system.SystemConfig;
 import com.liaoxx.spring_hello.entity.system.SystemShopConfig;
-import com.liaoxx.spring_hello.param.api.user.LoginParam;
 import com.liaoxx.spring_hello.repository.SystemRepository;
-import com.liaoxx.spring_hello.repository.UserRepository;
-import com.liaoxx.spring_hello.service.exception.ServiceException;
-import com.liaoxx.spring_hello.util.JwtTokenUtil;
-import com.liaoxx.spring_hello.util.Md5Tool;
 import com.liaoxx.spring_hello.util.RedisCache;
 import org.springframework.stereotype.Service;
 
@@ -30,49 +20,51 @@ public class SystemService {
     @Resource
     RedisCache redisCache;
 
+
     /**
-     *
+     *  系统商城配置项的键名
      */
-    private final String  systemShopConfigKey=SystemEnum.SYSTEM_SHOP_CONFIG;
+    private final String systemShopConfigKey = SystemEnum.SYSTEM_SHOP_CONFIG;
 
 
-
-
-    public SystemShopConfig getSystemShopConfig(){
-
-        SystemShopConfig shopConfig=  redisCache.get(systemShopConfigKey);
-        if (shopConfig==null){
-            shopConfig=   getDbSystemShopConfig();
+    public SystemShopConfig getSystemShopConfig() {
+        SystemShopConfig shopConfig = (SystemShopConfig) redisCache.get(systemShopConfigKey);
+        if (shopConfig == null) {
+            shopConfig = getDbSystemShopConfig();
+            //同时设置到缓存
+            redisCache.longSet(systemShopConfigKey, shopConfig);
         }
         return shopConfig;
     }
 
 
-    public SystemShopConfig setSystemShopConfig(){
-        String key= SystemEnum.SYSTEM_SHOP_CONFIG;
-        SystemShopConfig shopConfig=  redisCache.get(key);
-        if (shopConfig==null){
-            redisCache.longSet()
-        }
-        return shopConfig;
+    public boolean setSystemShopConfig(SystemShopConfig config) {
+        //删除
+        boolean res = setDbSystemShopConfig(config);
+        boolean deleteRes = redisCache.deleteObject(systemShopConfigKey);
+        return res;
     }
 
 
+    public SystemShopConfig getDbSystemShopConfig() {
+        SystemShopConfig config =new SystemShopConfig();
+        String strConfig = systemRepository.findFirstByKey(systemShopConfigKey).getContent();
+        System.out.println("-----------------------------");
+        System.out.println(strConfig);
+        config= (SystemShopConfig) JSONObject.parse(strConfig);
 
-    public SystemShopConfig getDbSystemShopConfig(){
-       String strConfig=  systemRepository.findFirstByKey(systemShopConfigKey).getContent();
-        SystemShopConfig shopConfig = (SystemShopConfig) JSONObject.parse(strConfig);
-        redisCache.longSet(systemShopConfigKey,shopConfig);
-        return shopConfig;
+        return  config;
     }
 
-    public SystemShopConfig setDbSystemShopConfig(){
-        String key= SystemEnum.SYSTEM_SHOP_CONFIG;
-        SystemShopConfig shopConfig=  redisCache.get(key);
-        if (shopConfig==null){
-            redisCache.longSet();
+    public boolean setDbSystemShopConfig(SystemShopConfig config) {
+        SystemConfig systemCfg = systemRepository.findFirstByKey(systemShopConfigKey);
+        if (systemCfg == null) {
+            systemCfg = new SystemConfig();
+            systemCfg.setKey(systemShopConfigKey);
         }
-        return shopConfig;
+        systemCfg.setContent(JSON.toJSONString(config));
+        systemRepository.save(systemCfg);
+        return true;
     }
 
 }

@@ -10,13 +10,15 @@ import javax.annotation.Resource;
 @Service
 public class CommonService {
     @Resource
-    SystemRepository systemRepository;
+    SystemService systemService;
 
 
 
 
-    public MallConfigDto commonConfig() throws Exception {
-        return  new MallConfigDto();
+    public MallConfigDto commonConfig() {
+        MallConfigDto mallConfigDto=  new MallConfigDto();
+        mallConfigDto.system=systemService.getSystemShopConfig();
+        return mallConfigDto;
     }
 
 

@@ -60,9 +60,8 @@ public class RedisCache {
     }
 
 
-    public boolean longSet(final String key, final T value){
+    public <T> void  longSet(final String key, final T value){
         this.set(key,value,this.saveTimeoutLong);
-        return true;
     }
 
     /**

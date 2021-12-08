@@ -3,9 +3,9 @@ package com.liaoxx.spring_hello.entity.system;
 import javax.persistence.*;
 import java.time.Instant;
 
-@Table(name = "system")
+@Table(name = "system_config")
 @Entity
-public class System {
+public class SystemConfig {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

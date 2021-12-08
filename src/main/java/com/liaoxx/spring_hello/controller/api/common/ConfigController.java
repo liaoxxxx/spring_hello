@@ -24,13 +24,13 @@ import java.util.Map;
 public class ConfigController {
 
     @Resource
-    CommonService commonConfig;
+    CommonService commonService;
 
 
     @ResponseBody
-    @PostMapping("/config")
-    public JsonResp login( ) throws Exception {
-        MallConfigDto configDto = commonConfig.commonConfig();
+    @GetMapping("/configure")
+    public JsonResp configure( ) throws Exception {
+        MallConfigDto configDto = commonService.commonConfig();
         return JsonResp.Success(configDto);
     }
 

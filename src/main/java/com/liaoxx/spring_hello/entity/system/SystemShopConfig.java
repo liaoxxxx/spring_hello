@@ -1,52 +1,28 @@
 package com.liaoxx.spring_hello.entity.system;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Getter;
+import lombok.Setter;
+
 public class SystemShopConfig {
 
-
+    @Getter
+    @Setter
+    @JSONField(name = "private_domain",deserialize = false)
     private int privateDomain;
+
+    @JSONField(name = "c_domain",deserialize = false)
     private String cDomain;
+
+    @JSONField(name = "b_domain",deserialize = false)
     private String bDomain;
+
+    @JSONField(name = "is_zgbury",deserialize = false)
     private int isZgbury;
+
+    @JSONField(name = "is_renlian",deserialize = false)
     private int isRenlian;
 
-    public void setPrivateDomain(int privateDomain) {
-        this.privateDomain = privateDomain;
-    }
 
-    public int getPrivateDomain() {
-        return privateDomain;
-    }
-
-    public void setCDomain(String cDomain) {
-        this.cDomain = cDomain;
-    }
-
-    public String getCDomain() {
-        return cDomain;
-    }
-
-    public void setBDomain(String bDomain) {
-        this.bDomain = bDomain;
-    }
-
-    public String getBDomain() {
-        return bDomain;
-    }
-
-    public void setIsZgbury(int isZgbury) {
-        this.isZgbury = isZgbury;
-    }
-
-    public int getIsZgbury() {
-        return isZgbury;
-    }
-
-    public void setIsRenlian(int isRenlian) {
-        this.isRenlian = isRenlian;
-    }
-
-    public int getIsRenlian() {
-        return isRenlian;
-    }
 
 }
