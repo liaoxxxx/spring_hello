@@ -28,12 +28,13 @@ public class SystemService {
 
 
     public SystemShopConfig getSystemShopConfig() {
-        SystemShopConfig shopConfig = (SystemShopConfig) redisCache.get(systemShopConfigKey);
-        if (shopConfig == null) {
+       // SystemShopConfig shopConfig = (SystemShopConfig) redisCache.get(systemShopConfigKey);
+        SystemShopConfig shopConfig=new SystemShopConfig();
+        //if (shopConfig == null) {
             shopConfig = getDbSystemShopConfig();
             //同时设置到缓存
-            redisCache.longSet(systemShopConfigKey, shopConfig);
-        }
+            //redisCache.longSet(systemShopConfigKey, shopConfig);
+       // }
         return shopConfig;
     }
 
@@ -51,8 +52,10 @@ public class SystemService {
         String strConfig = systemRepository.findFirstByKey(systemShopConfigKey).getContent();
         System.out.println("-----------------------------");
         System.out.println(strConfig);
-        config= (SystemShopConfig) JSONObject.parse(strConfig);
-
+        config=  JSON.parseObject(strConfig,SystemShopConfig.class);
+        System.out.println(config.getIsRenlian());
+        System.out.println(config.getCDomain());
+        System.out.println(config.getIsZgbury());
         return  config;
     }
 

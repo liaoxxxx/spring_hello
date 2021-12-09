@@ -1,27 +1,43 @@
 package com.liaoxx.spring_hello.entity.system;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-public class SystemShopConfig {
+import java.io.Serializable;
+
+public class SystemShopConfig implements Serializable {
 
     @Getter
     @Setter
-    @JSONField(name = "private_domain",deserialize = false)
-    private int privateDomain;
+    @JSONField(name = "private_domain")
+    @JsonProperty("private_domain")
+    public int privateDomain;
 
-    @JSONField(name = "c_domain",deserialize = false)
-    private String cDomain;
+    @Getter
+    @Setter
+    @JSONField(name = "c_domain")
+    @JsonProperty("c_domain")
+    public String cDomain;
 
-    @JSONField(name = "b_domain",deserialize = false)
-    private String bDomain;
+    @Getter
+    @Setter
+    @JSONField(name = "b_domain")
+    @JsonProperty("b_domain")
+    public String bDomain;
 
-    @JSONField(name = "is_zgbury",deserialize = false)
-    private int isZgbury;
+    @Getter
+    @Setter
+    @JSONField(name = "is_zgbury")
+    @JsonProperty("is_zgbury")
+    public int isZgbury;
 
-    @JSONField(name = "is_renlian",deserialize = false)
-    private int isRenlian;
+    @Getter
+    @Setter
+    @JSONField(name = "is_renlian")
+    @JsonProperty("is_renlian")
+    public int isRenlian;
 
 
 
