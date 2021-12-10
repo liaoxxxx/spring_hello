@@ -1,4 +1,4 @@
-package com.liaoxx.spring_hello.entity;
+package com.liaoxx.spring_hello.entity.common;
 
 import javax.persistence.*;
 import java.time.Instant;
