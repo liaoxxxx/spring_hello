@@ -8,12 +8,12 @@ import com.liaoxx.spring_hello.entity.system.SystemShopConfig;
 import com.liaoxx.spring_hello.repository.SystemRepository;
 import com.liaoxx.spring_hello.util.RedisCache;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
-import java.util.Objects;
+
 
 @Service
 public class SystemService {
+
     @Resource
     SystemRepository systemRepository;
 
@@ -25,6 +25,18 @@ public class SystemService {
      *  系统商城配置项的键名
      */
     private final String systemShopConfigKey = SystemEnum.SYSTEM_SHOP_CONFIG;
+
+
+
+    public  <T> T getConfigByKey(String key, Class<T> classT){
+        String content= systemRepository.findFirstByKey(key).getContent();
+        System.out.println("-------------SystemService.getConfigByKey : " +key+ " start----------------");
+        System.out.println(content);
+        System.out.println("-------------SystemService.getConfigByKey : " +key+ " end----------------");
+        T t=   JSON.parseObject(content,  classT);
+        System.out.println(t.toString());
+        return t;
+    }
 
 
     public SystemShopConfig getSystemShopConfig() {

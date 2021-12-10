@@ -1,6 +1,8 @@
 package com.liaoxx.spring_hello.controller.api.common;
 
 import com.liaoxx.spring_hello.component.Audience;
+import com.liaoxx.spring_hello.constants.SystemEnum;
+import com.liaoxx.spring_hello.constants.WechatEnum;
 import com.liaoxx.spring_hello.dto.api.common.MallConfigDto;
 import com.liaoxx.spring_hello.dto.api.user.LoginDto;
 import com.liaoxx.spring_hello.param.api.user.LoginParam;
@@ -8,11 +10,14 @@ import com.liaoxx.spring_hello.service.CommonService;
 import com.liaoxx.spring_hello.service.SystemService;
 import com.liaoxx.spring_hello.service.UserService;
 import com.liaoxx.spring_hello.util.JwtTokenUtil;
+import com.liaoxx.spring_hello.util.request.HttpRequestUtil;
 import com.liaoxx.spring_hello.util.response.JsonResp;
 import io.jsonwebtoken.Claims;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,10 +34,10 @@ public class ConfigController {
 
     @ResponseBody
     @GetMapping("/configure")
-    public JsonResp configure( ) throws Exception {
-        MallConfigDto configDto = commonService.commonConfig();
+    public JsonResp configure(HttpServletRequest request )  {
+        String wxV = HttpRequestUtil.getHeader(request, WechatEnum.MpWxV);
+        MallConfigDto configDto = commonService.commonConfig(wxV);
         return JsonResp.Success(configDto);
     }
-
 
 }

@@ -11,7 +11,7 @@ public class MallConfigDto implements DtoI {
     public String mp;
 
     @JsonProperty("mp_is_examine")
-    public String mpIsExamine;
+    public boolean mpIsExamine;
 
     @JsonProperty("invitation_register")
     public int invitationRegister;
