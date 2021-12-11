@@ -1,6 +1,7 @@
 package com.liaoxx.spring_hello.controller.api.common;
 
 import com.liaoxx.spring_hello.dto.api.common.MallConfigDto;
+import com.liaoxx.spring_hello.dto.api.common.PageBasicsDto;
 import com.liaoxx.spring_hello.param.api.common.PageBasicsParam;
 import com.liaoxx.spring_hello.service.common.CommonService;
 import com.liaoxx.spring_hello.util.response.JsonResp;
@@ -27,9 +28,9 @@ public class CommonController {
     * */
     @ResponseBody
     @GetMapping("/page/basics")
-    public JsonResp pageBasics(HttpServletRequest request, @RequestBody PageBasicsParam pageBasicsParam)  {
-        MallConfigDto configDto = commonService.commonConfig(wxV);
-        return JsonResp.Success(configDto);
+    public JsonResp pageBasics(PageBasicsParam pageBasicsParam)  {
+        PageBasicsDto pageBasics = commonService.getPageBasics(pageBasicsParam);
+        return JsonResp.Success(pageBasics);
     }
 
 }

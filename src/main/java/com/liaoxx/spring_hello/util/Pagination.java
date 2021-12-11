@@ -14,28 +14,33 @@ public class Pagination {
 
    /*public static   Pageable pageAble(int pageNum, int pageSize,Sort[] sortList){
        Sort sort =  Sort.by(Sort.Direction.DESC, "id");
-        return   new PageRequest(pageNum - 1, pageSize, sort) {}; // （当前页， 每页记录数， 排序方式）
+        return   new PageRequest(pageNum , pageSize, sort) {}; // （当前页， 每页记录数， 排序方式）
     }*/
 
 
     public static Pageable pageAble(int pageNum, int pageSize,Sort sort){
 
-        return   new PageRequest(pageNum - 1, pageSize, sort) {}; // （当前页， 每页记录数， 排序方式）
+        return   new PageRequest(pageNum , pageSize, sort) {}; // （当前页， 每页记录数， 排序方式）
     }
+
+    public static Pageable pageAble(int pageNum, int pageSize,String sortColumn,Sort.Direction sortD){
+        return   new PageRequest(pageNum , pageSize, sort(sortD,sortColumn)) {}; // （当前页， 每页记录数， 排序方式）
+    }
+
 
     public static Pageable pageAble(int pageNum, int pageSize){
         Sort sort =  sort();
-        return   new PageRequest(pageNum - 1, pageSize, sort) {}; // （当前页， 每页记录数， 排序方式）
+        return   new PageRequest(pageNum , pageSize, sort) {}; // （当前页， 每页记录数， 排序方式）
     }
 
     public static Pageable pageAble(int pageNum){
         Sort sort =  sort();
-        return   new PageRequest(pageNum - 1, limitDefault, sort) {}; // （当前页， 每页记录数， 排序方式）
+        return   new PageRequest(pageNum , limitDefault, sort) {}; // （当前页， 每页记录数， 排序方式）
     }
 
     public static Pageable pageAble(){
         Sort sort =  sort();
-        return   new PageRequest(pageDefault - 1, limitDefault, sort) {}; // （当前页， 每页记录数， 排序方式）
+        return   new PageRequest(pageDefault , limitDefault, sort) {}; // （当前页， 每页记录数， 排序方式）
     }
 
     public static Sort sort(){

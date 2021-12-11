@@ -10,6 +10,11 @@ public class PageBasicsParam {
     @Setter
     private String position;  //显示的位置
 
+
+    @Getter
+    @Setter
+    private String platform;  //客户端的平台
+
     @Getter
     @Setter
     private int  withSpecialGoods;  //是否关联专场的商品

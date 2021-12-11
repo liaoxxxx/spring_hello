@@ -1,11 +1,13 @@
 package com.liaoxx.spring_hello.service.common;
 
+import com.liaoxx.spring_hello.constants.CommonStateEnum;
 import com.liaoxx.spring_hello.constants.PagePositionEnum;
 import com.liaoxx.spring_hello.constants.PlugEnum;
 import com.liaoxx.spring_hello.constants.SystemEnum;
 import com.liaoxx.spring_hello.dto.api.common.MallConfigDto;
 import com.liaoxx.spring_hello.dto.api.common.PageBasicsDto;
 import com.liaoxx.spring_hello.entity.GoodsSpecial;
+import com.liaoxx.spring_hello.entity.common.CommonBanner;
 import com.liaoxx.spring_hello.entity.plug.Plug;
 import com.liaoxx.spring_hello.entity.system.SystemShopConfig;
 import com.liaoxx.spring_hello.entity.system.SystemWeixinMpA;
@@ -13,11 +15,13 @@ import com.liaoxx.spring_hello.param.api.common.PageBasicsParam;
 import com.liaoxx.spring_hello.repository.SystemRepository;
 import com.liaoxx.spring_hello.service.SystemService;
 import com.liaoxx.spring_hello.service.plug.PlugService;
+import com.liaoxx.spring_hello.util.Pagination;
 import com.liaoxx.spring_hello.util.request.HttpRequestUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CommonService {
@@ -27,6 +31,10 @@ public class CommonService {
 
     @Resource
     PlugService plugService;
+
+
+    @Resource
+    CommonBannerService commonBannerSvc;
 
     public MallConfigDto commonConfig(String wxV) {
         MallConfigDto mallConfigDto=  new MallConfigDto();
@@ -46,24 +54,27 @@ public class CommonService {
 
     public PageBasicsDto getPageBasics(PageBasicsParam pageBasicsParam) {
         PageBasicsDto pageBasicsDto=  new PageBasicsDto();
-        String position = PagePositionEnum.PAGEPOSTION;
-        int withSpecialGoods = 0;
+        String position  = pageBasicsParam.getPosition();
+        String platform  = pageBasicsParam.getPlatform();
+        int withSpecialGoods = pageBasicsParam.getWithSpecialGoods();;
         ArrayList<GoodsSpecial> specialListTmp = new ArrayList<GoodsSpecial>();
-        if (!pageBasicsParam.getPosition().equals("")   ){
-            position = pageBasicsParam.getPosition();
-        }
+
         if (pageBasicsParam.getWithSpecialGoods() == 1) {
             withSpecialGoods = pageBasicsParam.getWithSpecialGoods();
         }
 
-        search := util.Search(map[string]interface{}{
-            "platform": c.Get("platform"),
-                    "position": position,
-                    "state":    model.StateOK,
-                    "ctime|<=": time.Now().Unix(),
-                    "etime|>=": time.Now().Unix(),
-        })
-        banner, err := rpc.Common.RPC_Get_BannerList(search)
+        CommonBanner bannerSearch=new CommonBanner();
+        if (position!=null&&!position.equals("")) {
+            bannerSearch.setPosition(position);
+        }
+        if (platform!=null&&!platform.equals("")) {
+            bannerSearch.setPlatform(platform);
+        }
+        bannerSearch.setState(CommonStateEnum.StateOK);
+              /*  "ctime|<=": time.Now().Unix(),
+                "etime|>=": time.Now().Unix(),*/
+        List<CommonBanner> bannerList= commonBannerSvc.List(bannerSearch,0,10,"id" , Pagination.Desc);
+
        //if err == nil && banner != nil {
        //    _Rs["banner"] = banner
        //}
@@ -130,6 +141,7 @@ public class CommonService {
        //    _Rs["ishot"] = ishot
        //}
        //return c.JSON(open.SuccJson(c, _Rs))
+        pageBasicsDto.setBanner(bannerList);
         return pageBasicsDto;
     }
 
