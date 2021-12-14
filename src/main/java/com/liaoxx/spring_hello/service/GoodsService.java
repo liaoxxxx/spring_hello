@@ -1,11 +1,17 @@
 package com.liaoxx.spring_hello.service;
+
 import com.alibaba.fastjson.JSON;
 import com.liaoxx.spring_hello.dto.admin.GoodsDto;
 import com.liaoxx.spring_hello.entity.Goods;
+import com.liaoxx.spring_hello.param.api.goods.GoodsListParam;
 import com.liaoxx.spring_hello.repository.GoodsRepository;
 import com.liaoxx.spring_hello.util.SqlTimeTool;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -16,19 +22,17 @@ public class GoodsService {
     GoodsRepository goodsRepository;
 
 
-    public boolean add(GoodsDto goodsDto){
+    public boolean add(GoodsDto goodsDto) {
         //System.out.println(goodsDto.getImages()[0]);
-        long timeTamp=SqlTimeTool.getMicroTimeTamp();
-        Goods goods=new Goods();
+        long timeTamp = SqlTimeTool.getMicroTimeTamp();
+        Goods goods = new Goods();
         System.out.println(goodsDto.toString());
-        BeanUtils.copyProperties(goodsDto,goods);
+        BeanUtils.copyProperties(goodsDto, goods);
 
         goods.setThumb(this.encodeImages(goodsDto.getThumb()));
-        goods.setImages(this.encodeImages(goodsDto.getImages()));
         System.out.println("================================");
         System.out.println(goods.getThumb());
         System.out.println("================================");
-        goods.setStatus((byte) 1);
         goods.setIsDelete((byte) 0);
         goods.setCreatedAt(timeTamp);
         goods.setUpdatedAt(timeTamp);
@@ -37,70 +41,42 @@ public class GoodsService {
     }
 
 
+    public List<Goods> list(GoodsListParam goodsListParam) {
 
-    public List<Goods> list(){
-
-        List<Goods> list= goodsRepository.findAll();
+        List<Goods> list = goodsRepository.findAll();
         return list;
     }
 
-    public List<Goods> listPage(int page,int pageSize ){
+    public List<Goods> list() {
 
-        List<Goods> list= goodsRepository.findAll();
+        List<Goods> list = goodsRepository.findAll();
         return list;
     }
 
+    public List<Goods> list(Specification<Goods> spec , Pageable pageable) {
+        Page<Goods> goodsPages = goodsRepository.findAll(spec,pageable);
+        return goodsPages.getContent();
+    }
 
-    public String encodeImages(String[] imagesArr){
+
+    public List<Goods> list(Specification<Goods> spec ) {
+        List<Goods> goodsList = goodsRepository.findAll(spec);
+        return goodsList;
+    }
+
+
+    public String encodeImages(String[] imagesArr) {
         return JSON.toJSONString(imagesArr);
     }
 
 
-
-    public Goods findById(int id){
+    public Goods findById(int id) {
         return goodsRepository.getOne(id);
     }
 
-   /* public List getList(int page,int pageSize,String cateName){
-        //条件
-        Specification<GoodsCategory> spec = new Specification<GoodsCategory>() {
-            @Override
-            public Predicate toPredicate(Root<GoodsCategory> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.like(root.get("cate_name").as(String.class),cateName+"%");
-            }
 
 
-        };
-        //排序
-        Sort sort = new Sort(Sort.Direction.DESC,"id");
-
-        List<GoodsCategory> list=goodsCategoryRepository.findAll(sort);
-        for (GoodsCategory i:list) {
-           i.setCreatedAtStr(SqlTimeTool.transMicroTime2Date(i.getCreatedAt()));
-            i.setUpdateAtStr(SqlTimeTool.transMicroTime2Date(i.getUpdatedAt()));
-        }
-        return list;
-
-
+    public List<Goods> getRecommendList(int limit) {
+        return goodsRepository.OrderByRecommendSortDesc();
     }
-
-
-    public List<GoodsCategory> findAll(){
-        return goodsCategoryRepository.findAll();
-    }
-
-
-
-
-
-
-    public GoodsCategory update(GoodsCategory goodsCategory){
-        return goodsCategoryRepository.save(goodsCategory);
-    }*/
-
-
-
-   public List<Goods> getRecommendList(int limit){
-       return goodsRepository.OrderByRecommendSortDesc();
-   }
 }
