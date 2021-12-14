@@ -1,24 +1,20 @@
 package com.liaoxx.spring_hello.service.common;
 
-import com.liaoxx.spring_hello.constants.CommonStateEnum;
-import com.liaoxx.spring_hello.constants.PagePositionEnum;
-import com.liaoxx.spring_hello.constants.PlugEnum;
-import com.liaoxx.spring_hello.constants.SystemEnum;
+import com.liaoxx.spring_hello.constants.*;
 import com.liaoxx.spring_hello.dto.api.common.MallConfigDto;
 import com.liaoxx.spring_hello.dto.api.common.PageBasicsDto;
 import com.liaoxx.spring_hello.entity.GoodsSpecial;
+import com.liaoxx.spring_hello.entity.common.CommonAd;
 import com.liaoxx.spring_hello.entity.common.CommonBanner;
 import com.liaoxx.spring_hello.entity.plug.Plug;
-import com.liaoxx.spring_hello.entity.system.SystemShopConfig;
 import com.liaoxx.spring_hello.entity.system.SystemWeixinMpA;
 import com.liaoxx.spring_hello.param.api.common.PageBasicsParam;
-import com.liaoxx.spring_hello.repository.SystemRepository;
 import com.liaoxx.spring_hello.service.SystemService;
 import com.liaoxx.spring_hello.service.plug.PlugService;
-import com.liaoxx.spring_hello.util.Pagination;
-import com.liaoxx.spring_hello.util.request.HttpRequestUtil;
+import com.liaoxx.spring_hello.util.SpecUtil;
+import com.liaoxx.spring_hello.util.DateTool;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +23,9 @@ import java.util.List;
 public class CommonService {
     @Resource
     SystemService systemService;
+
+    @Resource
+    CommonAdService adService;
 
 
     @Resource
@@ -62,26 +61,24 @@ public class CommonService {
         if (pageBasicsParam.getWithSpecialGoods() == 1) {
             withSpecialGoods = pageBasicsParam.getWithSpecialGoods();
         }
+        long nowSecond= DateTool.getTimestamp();
 
-        CommonBanner bannerSearch=new CommonBanner();
-        if (position!=null&&!position.equals("")) {
-            bannerSearch.setPosition(position);
-        }
-        if (platform!=null&&!platform.equals("")) {
-            bannerSearch.setPlatform(platform);
-        }
-        bannerSearch.setState(CommonStateEnum.StateOK);
-              /*  "ctime|<=": time.Now().Unix(),
-                "etime|>=": time.Now().Unix(),*/
-        List<CommonBanner> bannerList= commonBannerSvc.List(bannerSearch,0,10,"id" , Pagination.Desc);
+        //banner轮播图查询
+        Specification<CommonBanner> bannerSearch = SpecUtil.lt("ctime",nowSecond )
+                .and(SpecUtil.gt("etime", nowSecond))
+                .and(SpecUtil.eq("state", MainState.StateOK));
+        if (position!=null&&!position.equals("")) {bannerSearch=  bannerSearch.and(SpecUtil.eq("position", position));}
+        if (platform!=null&&!platform.equals("")) {bannerSearch= bannerSearch.and(SpecUtil.eq("platform", platform));}
+        List<CommonBanner> bannerList= commonBannerSvc.List(bannerSearch);
 
-       //if err == nil && banner != nil {
-       //    _Rs["banner"] = banner
-       //}
-       //ad, err := rpc.Common.RPC_Get_AdList(search)
-       //if err == nil && ad != nil {
-       //    _Rs["ad"] = ad
-       //}
+        //广告查询
+        Specification<CommonAd> adSearch = SpecUtil.lt("ctime",nowSecond )
+                .and(SpecUtil.gt("etime", nowSecond))
+                .and(SpecUtil.eq("state", MainState.StateOK));
+        if (position!=null&&!position.equals("")) {adSearch=  adSearch.and(SpecUtil.eq("position", position));}
+        if (platform!=null&&!platform.equals("")) {adSearch= adSearch.and(SpecUtil.eq("platform", platform));}
+       List<CommonAd> adList = adService.List(adSearch);
+
        ////这边是没有时间的
        //nav, err := rpc.Common.RPC_Get_NavList(util.Search(map[string]interface{}{
        //    "platform": c.Get("platform"),
@@ -141,7 +138,12 @@ public class CommonService {
        //    _Rs["ishot"] = ishot
        //}
        //return c.JSON(open.SuccJson(c, _Rs))
-        pageBasicsDto.setBanner(bannerList);
+        if (adList != null ){
+            pageBasicsDto.setAd(adList);
+        }
+        if (bannerList != null ){
+            pageBasicsDto.setBanner(bannerList);
+        }
         return pageBasicsDto;
     }
 
