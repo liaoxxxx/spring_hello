@@ -1,7 +1,7 @@
-package com.liaoxx.spring_hello.service;
+package com.liaoxx.spring_hello.service.goods;
 
-import com.liaoxx.spring_hello.entity.GoodsBrand;
-import com.liaoxx.spring_hello.repository.GoodsBrandRepository;
+import com.liaoxx.spring_hello.entity.goods.GoodsBrand;
+import com.liaoxx.spring_hello.repository.goods.GoodsBrandRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service
 public class GoodsBrandService {

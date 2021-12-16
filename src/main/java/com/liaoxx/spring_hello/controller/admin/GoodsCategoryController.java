@@ -1,9 +1,9 @@
 package com.liaoxx.spring_hello.controller.admin;
 
 import com.liaoxx.spring_hello.dto.admin.GoodsCategoryDto;
-import com.liaoxx.spring_hello.entity.GoodsClassify;
+import com.liaoxx.spring_hello.entity.goods.GoodsClassify;
 import com.liaoxx.spring_hello.param.admin.goods.GoodsClassifyParam;
-import com.liaoxx.spring_hello.service.GoodsClassifyService;
+import com.liaoxx.spring_hello.service.goods.GoodsClassifyService;
 import com.liaoxx.spring_hello.util.response.JsonResp;
 import com.liaoxx.spring_hello.util.SqlTimeTool;
 import org.springframework.beans.BeanUtils;

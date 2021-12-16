@@ -1,16 +1,17 @@
-package com.liaoxx.spring_hello.entity;
-
-import javax.persistence.*;
+package com.liaoxx.spring_hello.entity.goods;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 
 @Entity
 @JsonIgnoreProperties(
         value={"hibernateLazyInitializer"}
 )
-@Table(name = "goods_classify")
-public class GoodsClassify {
+@Table(name = "goods_brand")
+public class GoodsBrand {
 
     @Id //标注为主键
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //标注为自增主键
@@ -35,44 +36,37 @@ public class GoodsClassify {
     @Setter
     private int state;
 
+
+
+    @Column
+    @Getter
+    @Setter
+    private String name;
+
+
     @Column
     @Getter
     @Setter
     private String image;
 
 
-    @Column//父级
+    @Column
     @Getter
     @Setter
-    private int pid;
+    private String logo;
 
-
-    @Column//'级别'
+    @Column//描述
     @Getter
     @Setter
-    private int level;
+    private String desc;
+
+
+
 
     @Column//排序
     @Getter
     @Setter
     private int r;
 
-
-    @Column//'父级'
-    @Getter
-    @Setter
-    private String name;
-
-
-    @Column//'外部ID'
-    @Getter
-    @Setter
-    private int source_id;
-
-
-    @Column//'同步的来源'
-    @Getter
-    @Setter
-    private String source_name;
 
 }

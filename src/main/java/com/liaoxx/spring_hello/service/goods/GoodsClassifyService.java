@@ -1,8 +1,8 @@
-package com.liaoxx.spring_hello.service;
+package com.liaoxx.spring_hello.service.goods;
 import com.liaoxx.spring_hello.dto.api.goods.GoodsClassifyDto;
-import com.liaoxx.spring_hello.entity.GoodsClassify;
+import com.liaoxx.spring_hello.entity.goods.GoodsClassify;
 import com.liaoxx.spring_hello.param.admin.goods.GoodsClassifyParam;
-import com.liaoxx.spring_hello.repository.GoodsClassifyRepository;
+import com.liaoxx.spring_hello.repository.goods.GoodsClassifyRepository;
 import com.liaoxx.spring_hello.util.SqlTimeTool;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.jpa.domain.Specification;

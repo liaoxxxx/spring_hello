@@ -1,7 +1,7 @@
 package com.liaoxx.spring_hello.controller.admin;
 
-import com.liaoxx.spring_hello.entity.GoodsBrand;
-import com.liaoxx.spring_hello.service.GoodsBrandService;
+import com.liaoxx.spring_hello.entity.goods.GoodsBrand;
+import com.liaoxx.spring_hello.service.goods.GoodsBrandService;
 import com.liaoxx.spring_hello.util.response.JsonResp;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;

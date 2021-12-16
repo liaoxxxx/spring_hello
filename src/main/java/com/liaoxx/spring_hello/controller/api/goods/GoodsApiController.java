@@ -1,8 +1,8 @@
 package com.liaoxx.spring_hello.controller.api.goods;
 
 
-import com.liaoxx.spring_hello.entity.Goods;
-import com.liaoxx.spring_hello.service.GoodsService;
+import com.liaoxx.spring_hello.entity.goods.Goods;
+import com.liaoxx.spring_hello.service.goods.GoodsService;
 import com.liaoxx.spring_hello.util.response.JsonResp;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:9527", maxAge = 3600)
 @Controller
@@ -25,13 +23,7 @@ public class GoodsApiController {
 
 
 
-    @ResponseBody
-    @RequestMapping( "/recommendList")
-    public JsonResp list(){
-        int limit=5;
-        List<Goods> recommendList=goodsService.getRecommendList(limit);
-        return JsonResp.Success("获取推荐商品成功",recommendList);
-    }
+
 
 
     @ResponseBody

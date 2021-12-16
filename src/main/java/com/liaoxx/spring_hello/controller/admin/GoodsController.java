@@ -2,10 +2,10 @@ package com.liaoxx.spring_hello.controller.admin;
 
 import com.liaoxx.spring_hello.config.AppConfig;
 import com.liaoxx.spring_hello.dto.admin.GoodsDto;
-import com.liaoxx.spring_hello.entity.Goods;
-import com.liaoxx.spring_hello.entity.GoodsClassify;
-import com.liaoxx.spring_hello.service.GoodsClassifyService;
-import com.liaoxx.spring_hello.service.GoodsService;
+import com.liaoxx.spring_hello.entity.goods.Goods;
+import com.liaoxx.spring_hello.entity.goods.GoodsClassify;
+import com.liaoxx.spring_hello.service.goods.GoodsClassifyService;
+import com.liaoxx.spring_hello.service.goods.GoodsService;
 import com.liaoxx.spring_hello.util.response.JsonResp;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

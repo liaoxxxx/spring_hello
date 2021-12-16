@@ -1,10 +1,10 @@
-package com.liaoxx.spring_hello.service;
+package com.liaoxx.spring_hello.service.goods;
 
 import com.alibaba.fastjson.JSON;
 import com.liaoxx.spring_hello.dto.admin.GoodsDto;
-import com.liaoxx.spring_hello.entity.Goods;
+import com.liaoxx.spring_hello.entity.goods.Goods;
 import com.liaoxx.spring_hello.param.api.goods.GoodsListParam;
-import com.liaoxx.spring_hello.repository.GoodsRepository;
+import com.liaoxx.spring_hello.repository.goods.GoodsRepository;
 import com.liaoxx.spring_hello.util.SqlTimeTool;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -33,9 +33,8 @@ public class GoodsService {
         System.out.println("================================");
         System.out.println(goods.getThumb());
         System.out.println("================================");
-        goods.setIsDelete((byte) 0);
-        goods.setCreatedAt(timeTamp);
-        goods.setUpdatedAt(timeTamp);
+
+
         goodsRepository.save(goods);
         return true;
     }
@@ -76,7 +75,4 @@ public class GoodsService {
 
 
 
-    public List<Goods> getRecommendList(int limit) {
-        return goodsRepository.OrderByRecommendSortDesc();
-    }
 }

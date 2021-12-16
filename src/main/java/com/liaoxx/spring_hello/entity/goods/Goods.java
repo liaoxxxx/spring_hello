@@ -1,4 +1,4 @@
-package com.liaoxx.spring_hello.entity;
+package com.liaoxx.spring_hello.entity.goods;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -8,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @JsonIgnoreProperties(
@@ -28,48 +29,18 @@ public class Goods {
 
     @NotNull
     @Column
-    private byte isDelete;
-
-    @NotNull
-    @Column
-    private Long createdAt;
+    private Date createdAt;
 
     @Column
     @NotNull
-    private Long updatedAt;
+    private Date updatedAt;
 
-    @Column
-    @NotNull
-    private int sort;
-
-    @Column
-    @NotNull
-    private int storeCount;
-    @Column
-    @NotNull
-    private float weight;
-
-    @Column
-    @NotNull
-    private int memberCredit;
-    @Column
-    @NotNull
-    private int experienceCredit;
-
-    @Column
-    @NotNull
-    private int isShelves;
-    @Column
-    @NotNull
-    private int isNoPostage;
-    @Column
-    @NotNull
-    private int isVisible;
     @Column
     @NotNull
     private int isNew;
 
-    @Column
+
+    @Column(name = "is_hot", nullable = false)
     @NotNull
     private int isHot;
 
@@ -377,93 +348,20 @@ public class Goods {
         this.thumb = thumb;
     }
 
-    public byte getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(byte isDelete) {
-        this.isDelete = isDelete;
-    }
-
-
-    public Long getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Long createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Long getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Long updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public int getSort() {
-        return sort;
-    }
-
-    public void setSort(int sort) {
-        this.sort = sort;
-    }
-
-    public int getStoreCount() {
-        return storeCount;
-    }
-
-    public void setStoreCount(int storeCount) {
-        this.storeCount = storeCount;
-    }
-
-    public float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(float weight) {
-        this.weight = weight;
-    }
-
-    public int getMemberCredit() {
-        return memberCredit;
-    }
-
-    public void setMemberCredit(int memberCredit) {
-        this.memberCredit = memberCredit;
-    }
-
-    public int getExperienceCredit() {
-        return experienceCredit;
-    }
-
-    public void setExperienceCredit(int experienceCredit) {
-        this.experienceCredit = experienceCredit;
-    }
-
-    public int getIsShelves() {
-        return isShelves;
-    }
-
-    public void setIsShelves(int isShelves) {
-        this.isShelves = isShelves;
-    }
-
-    public int getIsNoPostage() {
-        return isNoPostage;
-    }
-
-    public void setIsNoPostage(int isNoPostage) {
-        this.isNoPostage = isNoPostage;
-    }
-
-    public int getIsVisible() {
-        return isVisible;
-    }
-
-    public void setIsVisible(int isVisible) {
-        this.isVisible = isVisible;
     }
 
     public int getIsNew() {

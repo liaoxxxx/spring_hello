@@ -1,7 +1,6 @@
-package com.liaoxx.spring_hello.repository;
+package com.liaoxx.spring_hello.repository.goods;
 
-import com.liaoxx.spring_hello.entity.GoodsBrand;
-import com.liaoxx.spring_hello.entity.GoodsClassify;
+import com.liaoxx.spring_hello.entity.goods.GoodsBrand;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,9 +9,9 @@ import org.springframework.stereotype.Repository;
 
 //继承JpaRepository 来完成对数据库的操作
 @Repository
-public interface GoodsClassifyRepository extends JpaRepository<GoodsClassify,Integer> , JpaSpecificationExecutor<GoodsClassify> {
+public interface GoodsBrandRepository extends JpaRepository<GoodsBrand,Integer> , JpaSpecificationExecutor<GoodsBrand> {
     //GoodsCategory findByCateName(String cateName);
 
-     Page<GoodsClassify> findAll(Pageable pageable);;
+     Page<GoodsBrand> findAll(Pageable pageable);;
 
 }
