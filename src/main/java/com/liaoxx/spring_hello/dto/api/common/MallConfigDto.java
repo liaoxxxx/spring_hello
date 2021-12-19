@@ -20,7 +20,5 @@ public class MallConfigDto implements DtoI {
     public SystemShopConfig system;
 
     @Override
-    public boolean isDto() {
-        return true;
-    }
+    public void isDto() {}
 }

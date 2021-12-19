@@ -143,7 +143,7 @@ public class CommonService {
 
         ////获取热门商品
         // Specification<Goods> goodsSearch = SpecUtil.eq("is_hot", MainState.StateOK).and(SpecUtil.eq("state", MainState.StateOK));
-        Specification<Goods> goodsHotSearch = SpecUtil.eq("state", MainState.StateOK).and(SpecUtil.eq("is_new", MainState.StateOK));
+        Specification<Goods> goodsHotSearch = SpecUtil.eq("state", MainState.StateOK).and(SpecUtil.eq("isHot", MainState.StateOK));
         List<Goods>   hotGoodsList= goodsService.list(goodsHotSearch);
         //ishot, _, err := rpc.Goods.RPC_Get_GoodsGetList(map[string]interface{}{"is_hot": model.StateOK, "brand_id": c.FormValue("brand_id")}, int64(0), int64(50), util.Int64s(c.Get("uid")), c)
         //if suit != nil && err == nil {

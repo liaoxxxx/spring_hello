@@ -11,9 +11,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@JsonIgnoreProperties(
-        value = {"hibernateLazyInitializer"}
-)
 @Table(name = "goods")
 public class Goods {
     @Id //标注为主键

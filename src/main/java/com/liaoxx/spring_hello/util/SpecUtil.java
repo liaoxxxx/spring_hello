@@ -6,7 +6,9 @@ import org.springframework.data.jpa.domain.Specification;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.ConcurrentModificationException;
 import java.util.Date;
+
 
 public class SpecUtil {
     // 时区对象
@@ -166,5 +168,26 @@ public class SpecUtil {
     public static Specification in(String fieldName,Object...values){
         return (root, query, cb) -> root.get(fieldName).in(values);
     }
+
+
+  /*  public static Specification fromMap( Map<String, Object> searchMap){
+
+        for (Map.Entry<String, Object> entry : searchMap.entrySet()) {
+            String key;
+            Object value;
+            try {
+                key = entry.getKey();
+                // 1. 分割key 判断where 条件类型
+                 key.split("|");
+
+                value = entry.getValue();
+            } catch (IllegalStateException ise) {
+                // this usually means the entry is no longer in the map.
+                throw new ConcurrentModificationException(ise);
+            }
+        }
+
+        return this.equals("");
+    }*/
 
 }

@@ -40,7 +40,5 @@ public class PageBasicsDto implements DtoI {
 
 
     @Override
-    public boolean isDto() {
-        return true;
-    }
+    public void isDto() {}
 }

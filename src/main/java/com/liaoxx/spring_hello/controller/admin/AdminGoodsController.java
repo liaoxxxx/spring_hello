@@ -16,7 +16,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/admin_goods")
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class GoodsController {
+public class AdminGoodsController {
 
     @Resource
     GoodsService goodsService;

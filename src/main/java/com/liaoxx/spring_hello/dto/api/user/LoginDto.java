@@ -6,7 +6,5 @@ public class LoginDto  implements DtoI {
     public String token="";
 
     @Override
-    public boolean isDto() {
-        return true;
-    }
+    public void isDto() {}
 }

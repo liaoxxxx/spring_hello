@@ -59,4 +59,6 @@ public class GoodsClassifyDto {
     @Setter
     private String source_name;
 
+
+
 }
