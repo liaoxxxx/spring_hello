@@ -1,13 +1,19 @@
 package com.liaoxx.spring_hello.util;
 
 
+import com.liaoxx.spring_hello.entity.BaseEntity;
+import com.liaoxx.spring_hello.entity.goods.Goods;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.data.jpa.domain.Specification;
 
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ConcurrentModificationException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SpecUtil {
@@ -45,7 +51,7 @@ public class SpecUtil {
      * @param value     固定值
      * @return 查询条件的封装对象
      */
-    private static Specification like(String fieldName, String value) {
+    public static Specification like(String fieldName, String value) {
         return likeBuild(fieldName, "%" + value + "%");
     }
 
@@ -170,24 +176,69 @@ public class SpecUtil {
     }
 
 
-  /*  public static Specification fromMap( Map<String, Object> searchMap){
-
-        for (Map.Entry<String, Object> entry : searchMap.entrySet()) {
-            String key;
-            Object value;
-            try {
-                key = entry.getKey();
-                // 1. 分割key 判断where 条件类型
-                 key.split("|");
-
-                value = entry.getValue();
-            } catch (IllegalStateException ise) {
-                // this usually means the entry is no longer in the map.
-                throw new ConcurrentModificationException(ise);
-            }
-        }
-
-        return this.equals("");
-    }*/
+   public static <T> Specification fromMap(Map<String, Object> searchMap,Specification  specification){
+        assert specification !=null ;
+       for (Map.Entry<String, Object> entry : searchMap.entrySet()) {
+           String key;
+           String[] filedAndOption;
+           Object value;
+           try {
+               key = entry.getKey();
+               value=entry.getValue();
+               System.out.println("---------------start--------------");
+               System.out.println(key);
+               System.out.println(value);
+               System.out.println("---------------end--------------");
+               //跳过 null ，空都跳过
+               if (value == null || key==null||  value.toString().trim().length() == 0 || key.trim().length() == 0) {
+                   continue;
+               }
+               // 1. 通过 | 分割key 判断where 条件类型
+               filedAndOption=  key.split("\\|");
+               String filed=  filedAndOption[0];
+               if (filedAndOption.length==2){
+                   String option=  filedAndOption[1];
+                   //比较
+                   if (option.equals("lt")) {
+                       specification = specification.and(SpecUtil.lt(filed, (Number) value));
+                   }
+                   if (option.equals("lte")) {
+                       specification = specification.and(SpecUtil.lte(filed, (Comparable) value));
+                   }
+                   if (option.equals("gt")) {
+                       specification = specification.and(SpecUtil.gt(filed, (Number)value));
+                   }
+                   if (option.equals("gte")) {
+                       specification = specification.and(SpecUtil.gte(filed, (Comparable) value));
+                   }
+                   //模糊搜索
+                   if (option.equals( "like")){
+                       specification=specification.and(SpecUtil.like(filed,(String)value));
+                   }
+                   if (option.equals( "lkS")){
+                       specification=specification.and(SpecUtil.likeStart(filed,(String)value));
+                   }
+                   if (option.equals( "lkE")){
+                       specification=specification.and(SpecUtil.likeEnd(filed,(String)value));
+                   }
+                   if (option.equals( "eq")){
+                       specification=specification.and(SpecUtil.eq(filed,value));
+                   }
+               }
+               if (filedAndOption.length == 1) {
+                   System.out.println("----------length ==1 -----start--------------");
+                   System.out.println(key);
+                   System.out.println(value);
+                   System.out.println(specification);
+                   System.out.println("-----------length ==1----end--------------");
+                   specification = specification.and(SpecUtil.eq(key, value));
+               }
+           } catch (IllegalStateException ise) {
+               // this usually means the entry is no longer in the map.
+               throw new ConcurrentModificationException(ise);
+           }
+       }
+       return specification;
+    }
 
 }

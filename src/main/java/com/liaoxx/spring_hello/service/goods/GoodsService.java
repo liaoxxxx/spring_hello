@@ -7,6 +7,7 @@ import com.liaoxx.spring_hello.entity.goods.Goods;
 import com.liaoxx.spring_hello.param.api.goods.GoodsListParam;
 import com.liaoxx.spring_hello.repository.goods.GoodsRepository;
 import com.liaoxx.spring_hello.util.Pagination;
+import com.liaoxx.spring_hello.util.SpecUtil;
 import com.liaoxx.spring_hello.util.SqlTimeTool;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -46,6 +48,13 @@ public class GoodsService {
         GoodsListDto goodsListDto = new GoodsListDto();
         goodsListDto.page = goodsListParam.page;
         goodsListDto.pagesize = goodsListParam.pagesize;
+        HashMap<String ,Object> map=new HashMap<>();
+        map.put("isHot",goodsListParam.isHot);
+        map.put("isNew",goodsListParam.isNew);
+        map.put("cate",goodsListParam.cate);
+        map.put("title|like",goodsListParam.title);
+        Specification<Goods> specification=SpecUtil.b;
+        SpecUtil.fromMap(map,specification);
        // Pageable goodsPages = this.listPage(, Pagination.pageAble(goodsListParam.page,goodsListParam.pagesize));
         //goodsListDto.list=goodsPages.getContent();
         return goodsListDto;
