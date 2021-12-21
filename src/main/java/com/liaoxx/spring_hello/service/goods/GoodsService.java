@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class GoodsService {
@@ -45,15 +46,11 @@ public class GoodsService {
     }
 
 
-    public GoodsListDto list(GoodsListParam goodsListParam) {
+    public GoodsListDto list(Map<String ,String[]> paramMap,int page ,int pagesize) {
         GoodsListDto goodsListDto = new GoodsListDto();
-        goodsListDto.page = goodsListParam.page;
-        goodsListDto.pagesize = goodsListParam.pagesize;
-        HashMap<String ,Object> map=new HashMap<>();
-        map.put("state", MainState.StateOK);
-        map.put("isHot",goodsListParam.isHot);
-        map.put("title|like",goodsListParam.title);
-        Specification<Goods> specification=  SpecUtil.fromMap(map,Goods.class);
+        goodsListDto.page = page;
+        goodsListDto.pagesize = pagesize;
+        Specification<Goods> specification=  SpecUtil.fromMap(paramMap,Goods.class);
         List<Goods> goodsList= goodsRepository.findAll(specification);
        // Pageable goodsPages = this.listPage(, );
         goodsListDto.list=goodsList;

@@ -13,9 +13,9 @@ public class GoodsListParam {
     @JsonProperty(value = "pagesize")
     public int pagesize=Pagination.limitDefault;
 
-    public int isHot= MainState.StateOK;
+    public int isHot;
 
-    public int isNew=MainState.StateOK;
+    public int isNew;
 
     public String title;
 

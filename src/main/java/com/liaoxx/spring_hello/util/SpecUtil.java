@@ -170,17 +170,17 @@ public class SpecUtil {
     }
 
 
-   public static <T> Specification fromMap(Map<String, Object> searchMap, Class<T> classT){
+   public static <T> Specification fromMap(Map<String, String[]> searchMap, Class<T> classT){
        Specification<  T>  specification = null;
        int isNullCount=0;
-       for (Map.Entry<String, Object> entry : searchMap.entrySet()) {
+       for (Map.Entry<String, String[]> entry : searchMap.entrySet()) {
            Specification<  T>  specificationTmp = null;
            String key=entry.getKey();
            String[] filedAndOption;
-           Object value=entry.getValue();;
+           String[] value=entry.getValue();;
            try {
                //跳过 null ，空都跳过
-               if (value == null || key==null||  value.toString().trim().length() == 0 || key.trim().length() == 0) {
+               if (value == null || key==null||  value.length == 0 || key.trim().length() == 0) {
                    continue;
                }
                // 1. 通过 | 分割key 判断where 条件类型
@@ -190,33 +190,33 @@ public class SpecUtil {
                    String option=  filedAndOption[1];
                    //比较
                    if (option.equals("lt")) {
-                       specificationTmp =SpecUtil.lt(filed, (Number) value);
+                       specificationTmp =SpecUtil.lt(filed,   Integer.parseInt(value[0]));
                    }
                    if (option.equals("lte")) {
-                       specificationTmp =SpecUtil.lte(filed, (Comparable) value);
+                       specificationTmp =SpecUtil.lte(filed, (Comparable) value[0]);
                    }
                    if (option.equals("gt")) {
-                       specificationTmp =SpecUtil.gt(filed, (Number)value);
+                       specificationTmp =SpecUtil.gt(filed,  Integer.parseInt(value[0]));
                    }
                    if (option.equals("gte")) {
-                       specificationTmp =SpecUtil.gte(filed, (Comparable) value);
+                       specificationTmp =SpecUtil.gte(filed, (Comparable) value[0]);
                    }
                    //模糊搜索
                    if (option.equals( "like")){
-                       specificationTmp=SpecUtil.like(filed,(String)value);
+                       specificationTmp=SpecUtil.like(filed,value[0]);
                    }
                    if (option.equals( "lkS")){
-                       specificationTmp=SpecUtil.likeStart(filed,(String)value);
+                       specificationTmp=SpecUtil.likeStart(filed,value[0]);
                    }
                    if (option.equals( "lkE")){
-                       specificationTmp=SpecUtil.likeEnd(filed,(String)value);
+                       specificationTmp=SpecUtil.likeEnd(filed,value[0]);
                    }
                    if (option.equals( "eq")){
-                       specificationTmp=SpecUtil.eq(filed,value);
+                       specificationTmp=SpecUtil.eq(filed,value[0]);
                    }
                }
                if (filedAndOption.length == 1) {
-                   specificationTmp =SpecUtil.eq(key, value);
+                   specificationTmp =SpecUtil.eq(key, value[0]);
                }
 
                if (specificationTmp!=null){
