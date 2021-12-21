@@ -1,18 +1,12 @@
 package com.liaoxx.spring_hello.util;
 
 
-import com.liaoxx.spring_hello.entity.BaseEntity;
-import com.liaoxx.spring_hello.entity.goods.Goods;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.data.jpa.domain.Specification;
-
-import javax.persistence.Entity;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ConcurrentModificationException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -176,19 +170,15 @@ public class SpecUtil {
     }
 
 
-   public static <T> Specification fromMap(Map<String, Object> searchMap,Specification  specification){
-        assert specification !=null ;
+   public static <T> Specification fromMap(Map<String, Object> searchMap, Class<T> classT){
+       Specification<  T>  specification = null;
+       int isNullCount=0;
        for (Map.Entry<String, Object> entry : searchMap.entrySet()) {
-           String key;
+           Specification<  T>  specificationTmp = null;
+           String key=entry.getKey();
            String[] filedAndOption;
-           Object value;
+           Object value=entry.getValue();;
            try {
-               key = entry.getKey();
-               value=entry.getValue();
-               System.out.println("---------------start--------------");
-               System.out.println(key);
-               System.out.println(value);
-               System.out.println("---------------end--------------");
                //跳过 null ，空都跳过
                if (value == null || key==null||  value.toString().trim().length() == 0 || key.trim().length() == 0) {
                    continue;
@@ -200,39 +190,45 @@ public class SpecUtil {
                    String option=  filedAndOption[1];
                    //比较
                    if (option.equals("lt")) {
-                       specification = specification.and(SpecUtil.lt(filed, (Number) value));
+                       specificationTmp =SpecUtil.lt(filed, (Number) value);
                    }
                    if (option.equals("lte")) {
-                       specification = specification.and(SpecUtil.lte(filed, (Comparable) value));
+                       specificationTmp =SpecUtil.lte(filed, (Comparable) value);
                    }
                    if (option.equals("gt")) {
-                       specification = specification.and(SpecUtil.gt(filed, (Number)value));
+                       specificationTmp =SpecUtil.gt(filed, (Number)value);
                    }
                    if (option.equals("gte")) {
-                       specification = specification.and(SpecUtil.gte(filed, (Comparable) value));
+                       specificationTmp =SpecUtil.gte(filed, (Comparable) value);
                    }
                    //模糊搜索
                    if (option.equals( "like")){
-                       specification=specification.and(SpecUtil.like(filed,(String)value));
+                       specificationTmp=SpecUtil.like(filed,(String)value);
                    }
                    if (option.equals( "lkS")){
-                       specification=specification.and(SpecUtil.likeStart(filed,(String)value));
+                       specificationTmp=SpecUtil.likeStart(filed,(String)value);
                    }
                    if (option.equals( "lkE")){
-                       specification=specification.and(SpecUtil.likeEnd(filed,(String)value));
+                       specificationTmp=SpecUtil.likeEnd(filed,(String)value);
                    }
                    if (option.equals( "eq")){
-                       specification=specification.and(SpecUtil.eq(filed,value));
+                       specificationTmp=SpecUtil.eq(filed,value);
                    }
                }
                if (filedAndOption.length == 1) {
-                   System.out.println("----------length ==1 -----start--------------");
-                   System.out.println(key);
-                   System.out.println(value);
-                   System.out.println(specification);
-                   System.out.println("-----------length ==1----end--------------");
-                   specification = specification.and(SpecUtil.eq(key, value));
+                   specificationTmp =SpecUtil.eq(key, value);
                }
+
+               if (specificationTmp!=null){
+                   if (isNullCount<=0){
+                       specification=specificationTmp;
+                   }else {
+                       specification=specification.and( specificationTmp);
+                   }
+                   isNullCount++;
+               }
+
+
            } catch (IllegalStateException ise) {
                // this usually means the entry is no longer in the map.
                throw new ConcurrentModificationException(ise);

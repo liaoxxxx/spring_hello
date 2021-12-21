@@ -1,6 +1,7 @@
 package com.liaoxx.spring_hello.service.goods;
 
 import com.alibaba.fastjson.JSON;
+import com.liaoxx.spring_hello.constants.MainState;
 import com.liaoxx.spring_hello.dto.admin.GoodsDto;
 import com.liaoxx.spring_hello.dto.api.goods.GoodsListDto;
 import com.liaoxx.spring_hello.entity.goods.Goods;
@@ -49,14 +50,13 @@ public class GoodsService {
         goodsListDto.page = goodsListParam.page;
         goodsListDto.pagesize = goodsListParam.pagesize;
         HashMap<String ,Object> map=new HashMap<>();
+        map.put("state", MainState.StateOK);
         map.put("isHot",goodsListParam.isHot);
-        map.put("isNew",goodsListParam.isNew);
-        map.put("cate",goodsListParam.cate);
         map.put("title|like",goodsListParam.title);
-        Specification<Goods> specification=SpecUtil.b;
-        SpecUtil.fromMap(map,specification);
-       // Pageable goodsPages = this.listPage(, Pagination.pageAble(goodsListParam.page,goodsListParam.pagesize));
-        //goodsListDto.list=goodsPages.getContent();
+        Specification<Goods> specification=  SpecUtil.fromMap(map,Goods.class);
+        List<Goods> goodsList= goodsRepository.findAll(specification);
+       // Pageable goodsPages = this.listPage(, );
+        goodsListDto.list=goodsList;
         return goodsListDto;
     }
 

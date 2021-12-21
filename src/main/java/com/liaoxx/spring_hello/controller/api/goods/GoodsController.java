@@ -18,7 +18,7 @@ public class GoodsController {
     GoodsService goodsService;
 
     @GetMapping(value = "/list")
-    public JsonResp list( @Nullable GoodsListParam goodsListParam){
+    public JsonResp list( @RequestBody GoodsListParam goodsListParam){
         assert goodsListParam != null;
         GoodsListDto goodsListDto =goodsService.list(goodsListParam);
         return JsonResp.Success(goodsListDto);
