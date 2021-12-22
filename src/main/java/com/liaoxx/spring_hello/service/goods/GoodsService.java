@@ -51,9 +51,11 @@ public class GoodsService {
         goodsListDto.page = page;
         goodsListDto.pagesize = pagesize;
         Specification<Goods> specification=  SpecUtil.fromMap(paramMap,Goods.class);
-        List<Goods> goodsList= goodsRepository.findAll(specification);
-       // Pageable goodsPages = this.listPage(, );
-        goodsListDto.list=goodsList;
+        Pageable pageable = Pagination.pageAble(page,pagesize );
+        Page<Goods> goodsPages= goodsRepository.findAll(specification,pageable);
+
+        goodsListDto.list=goodsPages.getContent();
+        goodsListDto.count=goodsPages.getTotalElements();
         return goodsListDto;
     }
 

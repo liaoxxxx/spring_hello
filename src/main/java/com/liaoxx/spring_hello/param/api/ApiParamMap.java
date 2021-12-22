@@ -1,8 +1,6 @@
 package com.liaoxx.spring_hello.param.api;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.liaoxx.spring_hello.util.Pagination;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,9 +13,9 @@ public class ApiParamMap {
         mapTmp.remove("pagesize");
         this.paramMap=mapTmp;
     }
-    @JsonProperty(value = "page")
+
     public int page = Pagination.pageDefault;
-    @JsonProperty(value = "pagesize")
+
     public int pagesize=Pagination.limitDefault;
 
 

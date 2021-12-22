@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GoodsListDto implements DtoI {
-    public int count=0;
+    public long count=0;
 
     public int page=0;
 
