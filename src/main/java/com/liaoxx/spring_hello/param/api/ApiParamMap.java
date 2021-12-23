@@ -7,7 +7,7 @@ import java.util.Map;
 public class ApiParamMap {
     public ApiParamMap(Map<String, String[]> map){
         this.page=map.get("page")!=null ? Integer .parseInt(map.get("page")[0]):Pagination.pageDefault;
-        this.page=map.get("pagesize")!=null ? Integer .parseInt(map.get("pagesize")[0]):Pagination.limitDefault;
+        this.pagesize=map.get("pagesize")!=null ? Integer .parseInt(map.get("pagesize")[0]):Pagination.limitDefault;
         Map<String,String[]> mapTmp = new HashMap<String,String[]>(map);
         mapTmp.remove("page");
         mapTmp.remove("pagesize");

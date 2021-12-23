@@ -19,10 +19,12 @@ import com.liaoxx.spring_hello.service.goods.GoodsSuitService;
 import com.liaoxx.spring_hello.service.plug.PlugService;
 import com.liaoxx.spring_hello.util.SpecUtil;
 import com.liaoxx.spring_hello.util.DateTool;
+import com.liaoxx.spring_hello.util.request.HttpRequestUtil;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,10 +73,10 @@ public class CommonService {
         return mallConfigDto;
     }
 
-    public PageBasicsDto getPageBasics(PageBasicsParam pageBasicsParam) {
+    public PageBasicsDto getPageBasics(HttpServletRequest request, PageBasicsParam pageBasicsParam) {
         PageBasicsDto pageBasicsDto = new PageBasicsDto();
         String position = pageBasicsParam.getPosition();
-        String platform = pageBasicsParam.getPlatform();
+        String platform = HttpRequestUtil.getHeader(request,"platform");
         int withSpecialGoods = pageBasicsParam.getWithSpecialGoods();
 
         ArrayList<GoodsSpecial> specialListTmp = new ArrayList<GoodsSpecial>();
@@ -106,7 +108,7 @@ public class CommonService {
         if (platform != null && !platform.equals("")) {
             adSearch = adSearch.and(SpecUtil.eq("platform", platform));
         }
-        List<CommonAd> adList = adService.List(adSearch);
+        List<CommonAd> adList = adService.list(adSearch);
 
         //导航查询
         Specification<CommonNav> navSearch = SpecUtil.eq("position", position).and(SpecUtil.eq("state", MainState.StateOK));

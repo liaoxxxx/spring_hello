@@ -2,8 +2,6 @@ package com.liaoxx.spring_hello.entity.goods;
 
 
 
-import com.liaoxx.spring_hello.entity.BaseEntity;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -81,7 +79,7 @@ public class Goods {
 
     private String sourceName;
 
-    private Integer isRecommand;
+    private Integer is_recommand;
 
     private String supplierName;
 
@@ -128,12 +126,12 @@ public class Goods {
     }
 
     @Column(name = "is_recommand", nullable = false)
-    public Integer getIsRecommand() {
-        return isRecommand;
+    public Integer getIs_recommand() {
+        return is_recommand;
     }
 
-    public void setIsRecommand(Integer isRecommand) {
-        this.isRecommand = isRecommand;
+    public void setIs_recommand(Integer isRecommand) {
+        this.is_recommand = isRecommand;
     }
 
     @Column(name = "source_name", nullable = false, length = 100)
