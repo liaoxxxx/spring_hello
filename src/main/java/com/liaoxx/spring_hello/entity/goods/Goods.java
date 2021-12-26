@@ -1,12 +1,14 @@
 package com.liaoxx.spring_hello.entity.goods;
 
-
-
+import com.alibaba.fastjson.JSON;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
+
 
 @Entity
 @Table(name = "goods")
@@ -32,12 +34,12 @@ public class Goods {
 
     @Column
     @NotNull
-    private int isNew;
+    private int is_new;
 
 
     @Column(name = "is_hot", nullable = false)
     @NotNull
-    private int isHot;
+    private int is_hot;
 
     private Integer state;
 
@@ -67,27 +69,42 @@ public class Goods {
 
     private Integer tcate;
 
-    private Integer brandId;
+    private Integer brand_id;
 
-    private Integer isSpec;
+    private Integer is_spec;
 
     private Integer stock;
 
     private Integer r;
 
-    private String sourceId;
+    private String source_id;
 
-    private String sourceName;
+    private String source_name;
 
     private Integer is_recommand;
 
-    private String supplierName;
+    private String supplier_name;
 
     private Integer ty;
 
-    private BigDecimal supplyCostprice;
+    private BigDecimal supply_costprice;
 
     private BigDecimal freight;
+
+
+
+
+    @Transient
+    private List<String> images;
+
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
 
     @Column(name = "freight", precision = 10, scale = 2)
     public BigDecimal getFreight() {
@@ -99,12 +116,12 @@ public class Goods {
     }
 
     @Column(name = "supply_costprice", nullable = false, precision = 10, scale = 2)
-    public BigDecimal getSupplyCostprice() {
-        return supplyCostprice;
+    public BigDecimal getSupply_costprice() {
+        return supply_costprice;
     }
 
-    public void setSupplyCostprice(BigDecimal supplyCostprice) {
-        this.supplyCostprice = supplyCostprice;
+    public void setSupply_costprice(BigDecimal supplyCostprice) {
+        this.supply_costprice = supplyCostprice;
     }
 
     @Column(name = "ty", nullable = false)
@@ -117,12 +134,12 @@ public class Goods {
     }
 
     @Column(name = "supplier_name", nullable = false, length = 100)
-    public String getSupplierName() {
-        return supplierName;
+    public String getSupplier_name() {
+        return supplier_name;
     }
 
-    public void setSupplierName(String supplierName) {
-        this.supplierName = supplierName;
+    public void setSupplier_name(String supplierName) {
+        this.supplier_name = supplierName;
     }
 
     @Column(name = "is_recommand", nullable = false)
@@ -135,21 +152,21 @@ public class Goods {
     }
 
     @Column(name = "source_name", nullable = false, length = 100)
-    public String getSourceName() {
-        return sourceName;
+    public String getSource_name() {
+        return source_name;
     }
 
-    public void setSourceName(String sourceName) {
-        this.sourceName = sourceName;
+    public void setSource_name(String sourceName) {
+        this.source_name = sourceName;
     }
 
     @Column(name = "source_id", nullable = false, length = 100)
-    public String getSourceId() {
-        return sourceId;
+    public String getSource_id() {
+        return source_id;
     }
 
-    public void setSourceId(String sourceId) {
-        this.sourceId = sourceId;
+    public void setSource_id(String sourceId) {
+        this.source_id = sourceId;
     }
 
     @Column(name = "r", nullable = false)
@@ -171,21 +188,21 @@ public class Goods {
     }
 
     @Column(name = "is_spec", nullable = false)
-    public Integer getIsSpec() {
-        return isSpec;
+    public Integer getIs_spec() {
+        return is_spec;
     }
 
-    public void setIsSpec(Integer isSpec) {
-        this.isSpec = isSpec;
+    public void setIs_spec(Integer isSpec) {
+        this.is_spec = isSpec;
     }
 
     @Column(name = "brand_id", nullable = false)
-    public Integer getBrandId() {
-        return brandId;
+    public Integer getBrand_id() {
+        return brand_id;
     }
 
-    public void setBrandId(Integer brandId) {
-        this.brandId = brandId;
+    public void setBrand_id(Integer brandId) {
+        this.brand_id = brandId;
     }
 
     @Column(name = "tcate", nullable = false)
@@ -359,21 +376,26 @@ public class Goods {
         this.updatedAt = updatedAt;
     }
 
-    public int getIsNew() {
-        return isNew;
+    public int getIs_new() {
+        return is_new;
     }
 
-    public void setIsNew(int isNew) {
-        this.isNew = isNew;
+    public void setIs_new(int isNew) {
+        this.is_new = isNew;
     }
 
-    public int getIsHot() {
-        return isHot;
+    public int getIs_hot() {
+        return is_hot;
     }
 
-    public void setIsHot(int isHot) {
-        this.isHot = isHot;
+    public void setIs_hot(int isHot) {
+        this.is_hot = isHot;
     }
 
+    public Goods initImages(){
+        List<String> images = JSON.parseArray(this.getThumbs(),String.class);
 
+        this.setImages(images);
+        return this ;
+    }
 }

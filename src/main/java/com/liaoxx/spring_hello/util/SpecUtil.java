@@ -2,6 +2,7 @@ package com.liaoxx.spring_hello.util;
 
 
 import org.springframework.data.jpa.domain.Specification;
+
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -143,98 +144,172 @@ public class SpecUtil {
 
     /**
      * 字段为null条件
+     *
      * @param fieldName 实体中的字段名称
      * @return 查询条件的封装对象
      */
-    public static Specification isNull(String fieldName){
+    public static Specification isNull(String fieldName) {
         return (root, query, cb) -> cb.isNull(root.get(fieldName));
     }
 
     /**
      * 字段不为null条件
+     *
      * @param fieldName 实体中的字段名称
      * @return 查询条件的封装对象
      */
-    public static Specification isNotNull(String fieldName){
+    public static Specification isNotNull(String fieldName) {
         return (root, query, cb) -> cb.isNotNull(root.get(fieldName));
     }
 
     /**
      * in 条件
+     *
      * @param fieldName
      * @param values
      * @return
      */
-    public static Specification in(String fieldName,Object...values){
+    public static Specification in(String fieldName, Object... values) {
         return (root, query, cb) -> root.get(fieldName).in(values);
     }
 
 
-   public static <T> Specification fromMap(Map<String, String[]> searchMap, Class<T> classT){
-       Specification<  T>  specification = null;
-       int isNullCount=0;
-       for (Map.Entry<String, String[]> entry : searchMap.entrySet()) {
-           Specification<  T>  specificationTmp = null;
-           String key=entry.getKey();
-           String[] filedAndOption;
-           String[] value=entry.getValue();;
-           try {
-               //跳过 null ，空都跳过
-               if (value == null || key==null||  value.length == 0 || key.trim().length() == 0) {
-                   continue;
-               }
-               // 1. 通过 | 分割key 判断where 条件类型
-               filedAndOption=  key.split("\\|");
-               String filed=  filedAndOption[0];
-               if (filedAndOption.length==2){
-                   String option=  filedAndOption[1];
-                   //比较
-                   if (option.equals("lt")) {
-                       specificationTmp =SpecUtil.lt(filed,   Integer.parseInt(value[0]));
-                   }
-                   if (option.equals("lte")) {
-                       specificationTmp =SpecUtil.lte(filed, (Comparable) value[0]);
-                   }
-                   if (option.equals("gt")) {
-                       specificationTmp =SpecUtil.gt(filed,  Integer.parseInt(value[0]));
-                   }
-                   if (option.equals("gte")) {
-                       specificationTmp =SpecUtil.gte(filed, (Comparable) value[0]);
-                   }
-                   //模糊搜索
-                   if (option.equals( "like")){
-                       specificationTmp=SpecUtil.like(filed,value[0]);
-                   }
-                   if (option.equals( "lkS")){
-                       specificationTmp=SpecUtil.likeStart(filed,value[0]);
-                   }
-                   if (option.equals( "lkE")){
-                       specificationTmp=SpecUtil.likeEnd(filed,value[0]);
-                   }
-                   if (option.equals( "eq")){
-                       specificationTmp=SpecUtil.eq(filed,value[0]);
-                   }
-               }
-               if (filedAndOption.length == 1) {
-                   specificationTmp =SpecUtil.eq(key, value[0]);
-               }
 
-               if (specificationTmp!=null){
-                   if (isNullCount<=0){
-                       specification=specificationTmp;
-                   }else {
-                       specification=specification.and( specificationTmp);
-                   }
-                   isNullCount++;
-               }
+    public static <T> Specification fromRequestParamMap(Map<String, String[]> searchMap, Class<T> classT) {
+        Specification<T> specification = null;
+        int isNullCount = 0;
+        for (Map.Entry<String, String[]> entry : searchMap.entrySet()) {
+            Specification<T> specificationTmp = null;
+            String key = entry.getKey();
+            String[] filedAndOption;
+            String[] value = entry.getValue();
+            ;
+            try {
+                //跳过 null ，空都跳过
+                if (value == null || key == null || value.length == 0 || key.trim().length() == 0) {
+                    continue;
+                }
+                // 1. 通过 | 分割key 判断where 条件类型
+                filedAndOption = key.split("\\|");
+                String filed = filedAndOption[0];
+                if (filedAndOption.length == 2) {
+                    String option = filedAndOption[1];
+                    //比较
+                    if (option.equals("lt")) {
+                        specificationTmp = SpecUtil.lt(filed, Integer.parseInt(value[0]));
+                    }
+                    if (option.equals("lte")) {
+                        specificationTmp = SpecUtil.lte(filed, (Comparable) value[0]);
+                    }
+                    if (option.equals("gt")) {
+                        specificationTmp = SpecUtil.gt(filed, Integer.parseInt(value[0]));
+                    }
+                    if (option.equals("gte")) {
+                        specificationTmp = SpecUtil.gte(filed, (Comparable) value[0]);
+                    }
+                    //模糊搜索
+                    if (option.equals("like")) {
+                        specificationTmp = SpecUtil.like(filed, value[0]);
+                    }
+                    if (option.equals("lkS")) {
+                        specificationTmp = SpecUtil.likeStart(filed, value[0]);
+                    }
+                    if (option.equals("lkE")) {
+                        specificationTmp = SpecUtil.likeEnd(filed, value[0]);
+                    }
+                    if (option.equals("eq")) {
+                        specificationTmp = SpecUtil.eq(filed, value[0]);
+                    }
+                }
+                if (filedAndOption.length == 1) {
+                    specificationTmp = SpecUtil.eq(key, value[0]);
+                }
+
+                if (specificationTmp != null) {
+                    if (isNullCount <= 0) {
+                        specification = specificationTmp;
+                    } else {
+                        specification = specification.and(specificationTmp);
+                    }
+                    isNullCount++;
+                }
 
 
-           } catch (IllegalStateException ise) {
-               // this usually means the entry is no longer in the map.
-               throw new ConcurrentModificationException(ise);
-           }
-       }
-       return specification;
+            } catch (IllegalStateException ise) {
+                // this usually means the entry is no longer in the map.
+                throw new ConcurrentModificationException(ise);
+            }
+        }
+        return specification;
     }
+
+    public static <T> Specification fromMap(Map<String, Object> searchMap, Class<T> classT) {
+        Specification<T> specification = null;
+        int isNullCount = 0;
+        for (Map.Entry<String, Object> entry : searchMap.entrySet()) {
+            Specification<T> specificationTmp = null;
+            String key = entry.getKey();
+            String[] filedAndOption;
+            Object value = entry.getValue();
+            ;
+            try {
+                //跳过 null ，空都跳过
+                if (value == null || key == null || key.trim().length() == 0) {
+                    continue;
+                }
+                // 1. 通过 | 分割key 判断where 条件类型
+                filedAndOption = key.split("\\|");
+                String filed = filedAndOption[0];
+                if (filedAndOption.length == 2) {
+                    String option = filedAndOption[1];
+                    //比较
+                    if (option.equals("lt")) {
+                        specificationTmp = SpecUtil.lt(filed, Integer.parseInt((String) value));
+                    }
+                    if (option.equals("lte")) {
+                        specificationTmp = SpecUtil.lte(filed, (Comparable) value);
+                    }
+                    if (option.equals("gt")) {
+                        specificationTmp = SpecUtil.gt(filed, Integer.parseInt((String) value));
+                    }
+                    if (option.equals("gte")) {
+                        specificationTmp = SpecUtil.gte(filed, (Comparable) value);
+                    }
+                    //模糊搜索
+                    if (option.equals("like")) {
+                        specificationTmp = SpecUtil.like(filed, (String) value);
+                    }
+                    if (option.equals("lkS")) {
+                        specificationTmp = SpecUtil.likeStart(filed, (String) value);
+                    }
+                    if (option.equals("lkE")) {
+                        specificationTmp = SpecUtil.likeEnd(filed, (String) value);
+                    }
+                    if (option.equals("eq")) {
+                        specificationTmp = SpecUtil.eq(filed, value);
+                    }
+                }
+                if (filedAndOption.length == 1) {
+                    specificationTmp = SpecUtil.eq(key, value);
+                }
+
+                if (specificationTmp != null) {
+                    if (isNullCount <= 0) {
+                        specification = specificationTmp;
+                    } else {
+                        specification = specification.and(specificationTmp);
+                    }
+                    isNullCount++;
+                }
+
+
+            } catch (IllegalStateException ise) {
+                // this usually means the entry is no longer in the map.
+                throw new ConcurrentModificationException(ise);
+            }
+        }
+        return specification;
+    }
+
 
 }

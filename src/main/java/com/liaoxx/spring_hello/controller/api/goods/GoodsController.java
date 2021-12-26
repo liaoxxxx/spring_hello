@@ -1,8 +1,10 @@
 package com.liaoxx.spring_hello.controller.api.goods;
 
+import com.liaoxx.spring_hello.dto.api.goods.GoodsDetailDto;
 import com.liaoxx.spring_hello.dto.api.goods.GoodsListDto;
 import com.liaoxx.spring_hello.param.api.ApiParamMap;
 import com.liaoxx.spring_hello.param.api.goods.GoodsListParam;
+import com.liaoxx.spring_hello.service.exception.ServiceException;
 import com.liaoxx.spring_hello.service.goods.GoodsService;
 import com.liaoxx.spring_hello.util.response.JsonResp;
 import org.springframework.web.bind.annotation.*;
@@ -25,5 +27,15 @@ public class GoodsController {
         GoodsListDto goodsListDto =goodsService.list(paramMap.paramMap,paramMap.page,paramMap.pagesize);
         return JsonResp.Success(goodsListDto);
     }
+
+
+    @GetMapping(value = "/detail")
+    public JsonResp detail(HttpServletRequest request) throws ServiceException {
+        ApiParamMap paramMap=new ApiParamMap(request.getParameterMap());
+        int goodsId= Integer.parseInt( paramMap.paramMap.get("id")[0]);
+        GoodsDetailDto detailDto =goodsService.detail(goodsId);
+        return JsonResp.Success(detailDto);
+    }
+
 
 }

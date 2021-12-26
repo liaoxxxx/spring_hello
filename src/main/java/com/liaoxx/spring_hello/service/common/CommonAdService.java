@@ -2,7 +2,6 @@ package com.liaoxx.spring_hello.service.common;
 
 import com.liaoxx.spring_hello.dto.api.common.CommonAdListDto;
 import com.liaoxx.spring_hello.entity.common.CommonAd;
-import com.liaoxx.spring_hello.entity.common.CommonBanner;
 import com.liaoxx.spring_hello.entity.goods.Goods;
 import com.liaoxx.spring_hello.repository.common.CommonAdRepository;
 import com.liaoxx.spring_hello.util.Pagination;
@@ -41,7 +40,7 @@ public class CommonAdService {
         adListDto.page=pageNum;
         adListDto.pagesize=pageSize;
         Pageable pageable = Pagination.pageAble(pageNum,pageSize);
-        Specification<CommonAd> specification=  SpecUtil.fromMap(paramMap,Goods.class);
+        Specification<CommonAd> specification=  SpecUtil.fromRequestParamMap(paramMap,Goods.class);
         Page<CommonAd> adPage= adRepository.findAll(specification,pageable);
         adListDto.count=adPage.getTotalElements();
         adListDto.list=adPage.getContent();
