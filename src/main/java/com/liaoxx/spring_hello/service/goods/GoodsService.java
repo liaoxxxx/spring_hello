@@ -2,13 +2,10 @@ package com.liaoxx.spring_hello.service.goods;
 
 import com.alibaba.fastjson.JSON;
 import com.liaoxx.spring_hello.constants.MainState;
+import com.liaoxx.spring_hello.entity.goods.*;
 import com.liaoxx.spring_hello.export.admin.GoodsDto;
 import com.liaoxx.spring_hello.export.api.goods.GoodsDetailExport;
 import com.liaoxx.spring_hello.export.api.goods.GoodsListExport;
-import com.liaoxx.spring_hello.entity.goods.Goods;
-import com.liaoxx.spring_hello.entity.goods.GoodsOption;
-import com.liaoxx.spring_hello.entity.goods.GoodsSpec;
-import com.liaoxx.spring_hello.entity.goods.GoodsSpecItem;
 import com.liaoxx.spring_hello.repository.goods.GoodsOptionRepository;
 import com.liaoxx.spring_hello.repository.goods.GoodsRepository;
 import com.liaoxx.spring_hello.repository.goods.GoodsSpecItemRepository;
@@ -96,102 +93,6 @@ public class GoodsService {
      */
     public GoodsDetailExport detail(int id) throws ServiceException {
         ArrayList<Integer> specIds =new ArrayList<>();
-    /*    var (
-                imgs     []string
-        spec_ids []int64
-        sku      []*model.GoodsOption
-	)
-        list, err := GoodsGet(map[string]interface{}{"id": c.FormValue("id")})
-        if list == nil || err != nil {
-            return c.JSON(open.ErrJson("商品不存在", open.ERROR_PARAMS))
-        }
-        //处理轮播图
-        imgs = append(imgs, list.Thumb)
-        if string(list.Thumbs) != "" {
-            var (
-                    img []string
-		)
-            err = json.Unmarshal([]byte(string(list.Thumbs)), &img)
-            if err != nil {
-                return c.JSON(open.SuccJson(c, _Rs))
-            }
-            //过滤mp4
-            for _, v := range img {
-                if path.Ext(v) == ".mp4" {
-                    continue
-                }
-                imgs = append(imgs, v)
-            }
-        }
-        list.Images = imgs
-
-        //分类处理
-        ids := []int64{list.Cate, list.Pcate, list.Tcate}
-        classify, err := rpc.Goods.RPC_Get_GoodsClassifyGetIn(ids, map[string]interface{}{})
-        if err != nil {
-            return c.JSON(open.SuccJson(c, _Rs))
-        }
-        for _, v := range classify {
-            if v.Pid == 0 {
-                list.PcateName = v.Name
-            }
-            if v.Pid == list.Pcate {
-                list.CateName = v.Name
-            }
-            if v.Pid == list.Cate {
-                list.TcateName = v.Name
-            }
-        }
-        // 获取分类信息
-        list.Content = html.UnescapeString(list.Content)
-        option, err := GoodsOption(map[string]interface{}{"state": model.StateOK, "goods_id": list.Id})
-        if err != nil {
-            return c.JSON(open.SuccJson(c, _Rs))
-        }
-        //获取规格
-        spec_item, err := GoodsSpecItem(map[string]interface{}{"goods_id": list.Id})
-        if err != nil {
-            return c.JSON(open.SuccJson(c, _Rs))
-        }
-        for _, t := range spec_item {
-            spec_ids = append(spec_ids, int64(t.Specid))
-        }
-        // 获取子类
-        spec, err := GoodsSpecIn("id", map[string]interface{}{}, spec_ids)
-        if err != nil {
-            return c.JSON(open.SuccJson(c, _Rs))
-        }
-        costprice, productprice, marketprice, profit := rpc.User.RPC_Get_UserPrice(c, list.Costprice, list.Productprice, list.Marketprice)
-
-        sell, err := rpc.User.RPC_Get_MerchantGoodsIn([]int64{list.Id}, util.Int64s(c.Get("uid")))
-        if len(sell) != 0 {
-            list.Is_sell = true
-        }
-        list.Created_at_str = util.Time2Str(list.Created_at)
-        //对价格进行测算
-        list.Costprice = costprice
-        list.Productprice = productprice
-        list.Marketprice = marketprice
-        list.Profit = profit
-        GoodsAddHistory(util.Int64s(c.Get("uid")), list.Id)
-        for _, v := range option {
-            t := &model.GoodsOption{}
-            t = v
-            costprice, productprice, marketprice, profit := rpc.User.RPC_Get_UserPrice(c, v.Costprice, v.Productprice, v.Marketprice)
-            t.Costprice = costprice
-            t.Productprice = productprice
-            t.Marketprice = marketprice
-            t.Profit = profit
-            sku = append(sku, t)
-        }
-        _Rs = map[string]interface{}{
-            "list":      list,
-                    "option":    sku,
-                    "spec_item": spec_item,
-                    "spec":      spec,
-        }
-*/
-
         GoodsDetailExport detailDto = new GoodsDetailExport();
         Optional<Goods> goods = goodsRepository.findById(id);
         goods.get().initImages();
@@ -203,10 +104,14 @@ public class GoodsService {
         HashMap<String, Object> optionSearch = new HashMap();
         optionSearch.put("state|eq", MainState.StateOK);
         optionSearch.put("goods_id|eq", id);
-        System.out.println(optionSearch);
         Specification<GoodsOption>  optionSpec= SpecUtil.fromMap(optionSearch, GoodsOption.class);
         List<GoodsOption> optionList = optionRepository.findAll(optionSpec);
-        detailDto.option = optionList;
+        //转成 DTO
+        ArrayList<GoodsOptionDto> optionDtoList =new ArrayList<>();
+        optionList.forEach((e) -> {
+            optionDtoList.add(new GoodsOptionDto().fromEntity(e));
+        });
+        detailDto.option = optionDtoList;
 
         //查找 该商品的所有有效的spec规格 值
         HashMap<String, Object> specItemSearch = new HashMap();

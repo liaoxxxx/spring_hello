@@ -1,12 +1,14 @@
 package com.liaoxx.spring_hello.entity.goods;
 
+import com.liaoxx.spring_hello.entity.EntityI;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity(name = "Goods_Option")
 @Table(name = "goods_option")
-public class GoodsOption {
+public class GoodsOption  implements EntityI {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -50,15 +52,15 @@ public class GoodsOption {
 
     private Integer source_stock;
 
-    private BigDecimal supplyCostprice;
+    private BigDecimal supply_costprice;
 
     @Column(name = "supply_costprice", nullable = false, precision = 10, scale = 2)
-    public BigDecimal getSupplyCostprice() {
-        return supplyCostprice;
+    public BigDecimal getSupply_costprice() {
+        return supply_costprice;
     }
 
-    public void setSupplyCostprice(BigDecimal supplyCostprice) {
-        this.supplyCostprice = supplyCostprice;
+    public void setSupply_costprice(BigDecimal supplyCostprice) {
+        this.supply_costprice = supplyCostprice;
     }
 
     @Column(name = "source_stock", nullable = false)
@@ -232,7 +234,7 @@ public class GoodsOption {
         this.goods_id = goods_id;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
