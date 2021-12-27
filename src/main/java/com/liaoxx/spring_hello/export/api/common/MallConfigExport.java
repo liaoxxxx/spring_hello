@@ -1,10 +1,10 @@
-package com.liaoxx.spring_hello.dto.api.common;
+package com.liaoxx.spring_hello.export.api.common;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.liaoxx.spring_hello.dto.DtoI;
+import com.liaoxx.spring_hello.export.ExportI;
 import com.liaoxx.spring_hello.entity.system.SystemShopConfig;
 
-public class MallConfigDto implements DtoI {
+public class MallConfigExport implements ExportI {
 
 
     @JsonProperty("mp")

@@ -1,6 +1,6 @@
-package com.liaoxx.spring_hello.dto.api.common;
+package com.liaoxx.spring_hello.export.api.common;
 
-import com.liaoxx.spring_hello.dto.DtoI;
+import com.liaoxx.spring_hello.export.ExportI;
 import com.liaoxx.spring_hello.entity.goods.Goods;
 import com.liaoxx.spring_hello.entity.goods.GoodsSpecial;
 import com.liaoxx.spring_hello.entity.goods.GoodsSuit;
@@ -12,7 +12,7 @@ import lombok.Setter;
 
 import java.util.List;
 
-public class PageBasicsDto implements DtoI {
+public class PageBasicsExport implements ExportI {
 
     @Getter
     @Setter

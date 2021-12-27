@@ -1,7 +1,7 @@
 package com.liaoxx.spring_hello.controller.api.common;
 
 import com.liaoxx.spring_hello.constants.WechatEnum;
-import com.liaoxx.spring_hello.dto.api.common.MallConfigDto;
+import com.liaoxx.spring_hello.export.api.common.MallConfigExport;
 import com.liaoxx.spring_hello.service.common.CommonService;
 import com.liaoxx.spring_hello.util.request.HttpRequestUtil;
 import com.liaoxx.spring_hello.util.response.JsonResp;
@@ -24,7 +24,7 @@ public class ConfigController {
     @GetMapping("/configure")
     public JsonResp configure(HttpServletRequest request )  {
         String wxV = HttpRequestUtil.getHeader(request, WechatEnum.MpWxV);
-        MallConfigDto configDto = commonService.commonConfig(wxV);
+        MallConfigExport configDto = commonService.commonConfig(wxV);
         return JsonResp.Success(configDto);
     }
 

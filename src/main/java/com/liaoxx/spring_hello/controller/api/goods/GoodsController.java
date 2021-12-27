@@ -1,7 +1,7 @@
 package com.liaoxx.spring_hello.controller.api.goods;
 
-import com.liaoxx.spring_hello.dto.api.goods.GoodsDetailDto;
-import com.liaoxx.spring_hello.dto.api.goods.GoodsListDto;
+import com.liaoxx.spring_hello.export.api.goods.GoodsDetailExport;
+import com.liaoxx.spring_hello.export.api.goods.GoodsListExport;
 import com.liaoxx.spring_hello.param.api.ApiParamMap;
 import com.liaoxx.spring_hello.param.api.goods.GoodsListParam;
 import com.liaoxx.spring_hello.service.exception.ServiceException;
@@ -24,7 +24,7 @@ public class GoodsController {
     @GetMapping(value = "/list")
     public JsonResp list(HttpServletRequest request, GoodsListParam goodsListParam){
         ApiParamMap paramMap=new ApiParamMap(request.getParameterMap());
-        GoodsListDto goodsListDto =goodsService.list(paramMap.paramMap,paramMap.page,paramMap.pagesize);
+        GoodsListExport goodsListDto =goodsService.list(paramMap.paramMap,paramMap.page,paramMap.pagesize);
         return JsonResp.Success(goodsListDto);
     }
 
@@ -33,7 +33,7 @@ public class GoodsController {
     public JsonResp detail(HttpServletRequest request) throws ServiceException {
         ApiParamMap paramMap=new ApiParamMap(request.getParameterMap());
         int goodsId= Integer.parseInt( paramMap.paramMap.get("id")[0]);
-        GoodsDetailDto detailDto =goodsService.detail(goodsId);
+        GoodsDetailExport detailDto =goodsService.detail(goodsId);
         return JsonResp.Success(detailDto);
     }
 

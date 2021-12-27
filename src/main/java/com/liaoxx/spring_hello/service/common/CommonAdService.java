@@ -1,6 +1,6 @@
 package com.liaoxx.spring_hello.service.common;
 
-import com.liaoxx.spring_hello.dto.api.common.CommonAdListDto;
+import com.liaoxx.spring_hello.export.api.common.CommonAdListExport;
 import com.liaoxx.spring_hello.entity.common.CommonAd;
 import com.liaoxx.spring_hello.entity.goods.Goods;
 import com.liaoxx.spring_hello.repository.common.CommonAdRepository;
@@ -35,8 +35,8 @@ public class CommonAdService {
         return adList;
     }
 
-    public CommonAdListDto list(Map<String ,String[]> paramMap, int pageNum, int pageSize) {
-        CommonAdListDto adListDto =new CommonAdListDto();
+    public CommonAdListExport list(Map<String ,String[]> paramMap, int pageNum, int pageSize) {
+        CommonAdListExport adListDto =new CommonAdListExport();
         adListDto.page=pageNum;
         adListDto.pagesize=pageSize;
         Pageable pageable = Pagination.pageAble(pageNum,pageSize);

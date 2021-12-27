@@ -1,9 +1,7 @@
 package com.liaoxx.spring_hello.controller.api.common;
 
-import com.liaoxx.spring_hello.dto.api.common.CommonAdListDto;
-import com.liaoxx.spring_hello.dto.api.common.MallConfigDto;
-import com.liaoxx.spring_hello.dto.api.common.PageBasicsDto;
-import com.liaoxx.spring_hello.dto.api.goods.GoodsListDto;
+import com.liaoxx.spring_hello.export.api.common.CommonAdListExport;
+import com.liaoxx.spring_hello.export.api.common.PageBasicsExport;
 import com.liaoxx.spring_hello.param.api.ApiParamMap;
 import com.liaoxx.spring_hello.param.api.common.PageBasicsParam;
 import com.liaoxx.spring_hello.service.common.CommonAdService;
@@ -33,7 +31,7 @@ public class CommonController {
     @ResponseBody
     @GetMapping("/page/basics")
     public JsonResp pageBasics(HttpServletRequest request,PageBasicsParam pageBasicsParam) {
-        PageBasicsDto pageBasics = commonService.getPageBasics(request,pageBasicsParam);
+        PageBasicsExport pageBasics = commonService.getPageBasics(request,pageBasicsParam);
         return JsonResp.Success(pageBasics);
     }
 
@@ -43,7 +41,7 @@ public class CommonController {
     @GetMapping("/ad")
     public JsonResp advertising(HttpServletRequest request, PageBasicsParam pageBasicsParam) {
         ApiParamMap paramMap = new ApiParamMap(request.getParameterMap());
-        CommonAdListDto adListDto = adService.list(paramMap.paramMap, paramMap.page, paramMap.pagesize);
+        CommonAdListExport adListDto = adService.list(paramMap.paramMap, paramMap.page, paramMap.pagesize);
         return JsonResp.Success(adListDto);
     }
 

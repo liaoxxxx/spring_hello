@@ -9,9 +9,10 @@
 
 >2 .创建 DTO 对象
 >
+
 ```java
      
-    package com.liaoxx.spring_hello.dto.index;
+    package com.liaoxx.spring_hello.export.index;
     
     public class DtoinputDto {   //用户信息传输
         private String username;
@@ -51,20 +52,16 @@
 
 > 3 .  注入到请求对象 ,访问 http://localhost:18306/dto/test?username=liaoxx&password=99354996&salt=99999&orther=name   ,其中请求的参数 和   dtoinputDto 有效的字段匹配,其他字段无效
 >
-    
+
 ```java
 package com.liaoxx.spring_hello.controller.index;
 
 
-import com.liaoxx.spring_hello.dto.index.DtoinputDto;
+import com.liaoxx.spring_hello.export.index.DtoinputDto;
 import com.liaoxx.spring_hello.entity.Dto;
 import com.liaoxx.spring_hello.repository.BiliRecommendVideoRepository;
 import com.liaoxx.spring_hello.repository.DtoRepository;
 import com.liaoxx.spring_hello.service.DtoService;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -79,8 +76,6 @@ public class DtotestController {
     DtoService dtoService;
 
 
-
-
     @RequestMapping("/test")
     @ResponseBody
     public String test(DtoinputDto dtoinputDto) {   //注入到请求
@@ -88,7 +83,7 @@ public class DtotestController {
         System.out.println(dtoinputDto.getPassword());
         System.out.println(dtoinputDto.getSalt());
 
-        Dto dtoEntity=dtoService.transDto2Entity(dtoinputDto);
+        Dto dtoEntity = dtoService.transDto2Entity(dtoinputDto);
 
 
         System.out.println("******************copyProperties()后**********************");
@@ -114,18 +109,16 @@ public class DtotestController {
 
 
 
-> 4 . 使用 org.springframework.beans.BeanUtils#copyProperties() ; 转换DTO 对象成为 Entity 对象后,Entity封装其他属性,保存到数据库即可     
-
+> 4 . 使用 org.springframework.beans.BeanUtils#copyProperties() ; 转换DTO 对象成为 Entity 对象后,Entity封装其他属性,保存到数据库即可
 
 ````java
 package com.liaoxx.spring_hello.service;
 
 
-import com.liaoxx.spring_hello.dto.index.DtoinputDto;
+import com.liaoxx.spring_hello.export.index.DtoinputDto;
 import com.liaoxx.spring_hello.entity.Dto;
 import com.liaoxx.spring_hello.repository.DtoRepository;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -135,14 +128,14 @@ public class DtoService {
     @Resource
     DtoRepository dtoRepository;
 
-    public Dto transDto2Entity(DtoinputDto dtoinputDto){
-        Dto dto =  new Dto();
-        BeanUtils.copyProperties(dtoinputDto,dto);
+    public Dto transDto2Entity(DtoinputDto dtoinputDto) {
+        Dto dto = new Dto();
+        BeanUtils.copyProperties(dtoinputDto, dto);
         return dto;
     }
 
 
-    public void save(Dto dtoEntity){
+    public void save(Dto dtoEntity) {
         dtoRepository.save(dtoEntity);
     }
 }

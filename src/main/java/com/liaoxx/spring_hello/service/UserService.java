@@ -3,7 +3,7 @@ package com.liaoxx.spring_hello.service;
 import com.liaoxx.spring_hello.component.Audience;
 import com.liaoxx.spring_hello.constants.LoginType;
 import com.liaoxx.spring_hello.constants.MainState;
-import com.liaoxx.spring_hello.dto.api.user.LoginDto;
+import com.liaoxx.spring_hello.export.api.user.LoginExport;
 import com.liaoxx.spring_hello.entity.User;
 import com.liaoxx.spring_hello.param.api.user.LoginParam;
 import com.liaoxx.spring_hello.repository.UserRepository;
@@ -24,8 +24,8 @@ public class UserService  {
     Audience audience;
 
 
-    public LoginDto loginMain(LoginParam param) throws Exception {
-        LoginDto loginDto = new LoginDto();
+    public LoginExport loginMain(LoginParam param) throws Exception {
+        LoginExport loginDto = new LoginExport();
         if (Objects.equals(param.mms, LoginType.PHONE)) {
             loginDto.token = this.loginByPhone(param.phone, param.password);
         }else {

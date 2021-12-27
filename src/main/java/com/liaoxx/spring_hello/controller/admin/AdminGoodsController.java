@@ -1,7 +1,7 @@
 package com.liaoxx.spring_hello.controller.admin;
 
 import com.liaoxx.spring_hello.config.AppConfig;
-import com.liaoxx.spring_hello.dto.admin.GoodsDto;
+import com.liaoxx.spring_hello.export.admin.GoodsDto;
 import com.liaoxx.spring_hello.entity.goods.Goods;
 import com.liaoxx.spring_hello.entity.goods.GoodsClassify;
 import com.liaoxx.spring_hello.service.goods.GoodsClassifyService;

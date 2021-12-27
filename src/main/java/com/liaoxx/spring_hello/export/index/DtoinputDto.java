@@ -1,4 +1,4 @@
-package com.liaoxx.spring_hello.dto.index;
+package com.liaoxx.spring_hello.export.index;
 
 public class DtoinputDto {
     private String username;

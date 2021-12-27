@@ -1,4 +1,4 @@
-package com.liaoxx.spring_hello.dto.api.goods;
+package com.liaoxx.spring_hello.export.api.goods;
 
 
 import lombok.Getter;

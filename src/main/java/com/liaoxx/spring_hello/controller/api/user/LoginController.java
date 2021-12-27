@@ -1,10 +1,8 @@
 package com.liaoxx.spring_hello.controller.api.user;
 
-import com.liaoxx.spring_hello.component.Audience;
-import com.liaoxx.spring_hello.dto.api.user.LoginDto;
+import com.liaoxx.spring_hello.export.api.user.LoginExport;
 import com.liaoxx.spring_hello.param.api.user.LoginParam;
 import com.liaoxx.spring_hello.service.UserService;
-import com.liaoxx.spring_hello.util.JwtTokenUtil;
 import com.liaoxx.spring_hello.util.response.JsonResp;
 import io.jsonwebtoken.Claims;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +25,7 @@ public class LoginController {
     @ResponseBody
     @PostMapping("/login")
     public JsonResp login( @RequestBody LoginParam param) throws Exception {
-        LoginDto loginDto = userService.loginMain(param);
+        LoginExport loginDto = userService.loginMain(param);
         return JsonResp.Success(loginDto, "登陆成功");
     }
 

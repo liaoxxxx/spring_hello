@@ -1,7 +1,7 @@
 package com.liaoxx.spring_hello.controller.admin;
 
-import com.liaoxx.spring_hello.dto.admin.AdminAddDto;
-import com.liaoxx.spring_hello.dto.admin.AdminDto;
+import com.liaoxx.spring_hello.export.admin.AdminAddDto;
+import com.liaoxx.spring_hello.export.admin.AdminDto;
 import com.liaoxx.spring_hello.entity.Admin;
 import com.liaoxx.spring_hello.service.AdminService;
 import com.liaoxx.spring_hello.util.response.JsonResp;

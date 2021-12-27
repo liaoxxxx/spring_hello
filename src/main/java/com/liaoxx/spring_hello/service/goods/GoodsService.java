@@ -2,9 +2,9 @@ package com.liaoxx.spring_hello.service.goods;
 
 import com.alibaba.fastjson.JSON;
 import com.liaoxx.spring_hello.constants.MainState;
-import com.liaoxx.spring_hello.dto.admin.GoodsDto;
-import com.liaoxx.spring_hello.dto.api.goods.GoodsDetailDto;
-import com.liaoxx.spring_hello.dto.api.goods.GoodsListDto;
+import com.liaoxx.spring_hello.export.admin.GoodsDto;
+import com.liaoxx.spring_hello.export.api.goods.GoodsDetailExport;
+import com.liaoxx.spring_hello.export.api.goods.GoodsListExport;
 import com.liaoxx.spring_hello.entity.goods.Goods;
 import com.liaoxx.spring_hello.entity.goods.GoodsOption;
 import com.liaoxx.spring_hello.entity.goods.GoodsSpec;
@@ -60,8 +60,8 @@ public class GoodsService {
     }
 
 
-    public GoodsListDto list(Map<String, String[]> paramMap, int page, int pagesize) {
-        GoodsListDto goodsListDto = new GoodsListDto();
+    public GoodsListExport list(Map<String, String[]> paramMap, int page, int pagesize) {
+        GoodsListExport goodsListDto = new GoodsListExport();
         goodsListDto.page = page;
         goodsListDto.pagesize = pagesize;
         Specification<Goods> specification = SpecUtil.fromRequestParamMap(paramMap, Goods.class);
@@ -94,7 +94,7 @@ public class GoodsService {
      * @param id  商品的id
      *
      */
-    public GoodsDetailDto detail(int id) throws ServiceException {
+    public GoodsDetailExport detail(int id) throws ServiceException {
         ArrayList<Integer> specIds =new ArrayList<>();
     /*    var (
                 imgs     []string
@@ -192,7 +192,7 @@ public class GoodsService {
         }
 */
 
-        GoodsDetailDto detailDto = new GoodsDetailDto();
+        GoodsDetailExport detailDto = new GoodsDetailExport();
         Optional<Goods> goods = goodsRepository.findById(id);
         goods.get().initImages();
         if (goods.isEmpty()) {

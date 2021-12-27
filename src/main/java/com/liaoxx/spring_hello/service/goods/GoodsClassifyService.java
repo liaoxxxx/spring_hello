@@ -1,5 +1,5 @@
 package com.liaoxx.spring_hello.service.goods;
-import com.liaoxx.spring_hello.dto.api.goods.GoodsClassifyDto;
+import com.liaoxx.spring_hello.export.api.goods.GoodsClassifyDto;
 import com.liaoxx.spring_hello.entity.goods.GoodsClassify;
 import com.liaoxx.spring_hello.param.admin.goods.GoodsClassifyParam;
 import com.liaoxx.spring_hello.repository.goods.GoodsClassifyRepository;

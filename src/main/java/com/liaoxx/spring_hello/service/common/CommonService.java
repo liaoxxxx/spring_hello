@@ -1,8 +1,8 @@
 package com.liaoxx.spring_hello.service.common;
 
 import com.liaoxx.spring_hello.constants.*;
-import com.liaoxx.spring_hello.dto.api.common.MallConfigDto;
-import com.liaoxx.spring_hello.dto.api.common.PageBasicsDto;
+import com.liaoxx.spring_hello.export.api.common.MallConfigExport;
+import com.liaoxx.spring_hello.export.api.common.PageBasicsExport;
 import com.liaoxx.spring_hello.entity.goods.Goods;
 import com.liaoxx.spring_hello.entity.goods.GoodsSpecial;
 import com.liaoxx.spring_hello.entity.common.CommonAd;
@@ -57,8 +57,8 @@ public class CommonService {
     GoodsService goodsService;
 
 
-    public MallConfigDto commonConfig(String wxV) {
-        MallConfigDto mallConfigDto = new MallConfigDto();
+    public MallConfigExport commonConfig(String wxV) {
+        MallConfigExport mallConfigDto = new MallConfigExport();
         Plug invitationPlug = plugService.getByKey(PlugEnum.FUNC_INVITATION);
         mallConfigDto.invitationRegister = invitationPlug.getState();
 
@@ -73,8 +73,8 @@ public class CommonService {
         return mallConfigDto;
     }
 
-    public PageBasicsDto getPageBasics(HttpServletRequest request, PageBasicsParam pageBasicsParam) {
-        PageBasicsDto pageBasicsDto = new PageBasicsDto();
+    public PageBasicsExport getPageBasics(HttpServletRequest request, PageBasicsParam pageBasicsParam) {
+        PageBasicsExport pageBasicsDto = new PageBasicsExport();
         String position = pageBasicsParam.getPosition();
         String platform = HttpRequestUtil.getHeader(request,"platform");
         int withSpecialGoods = pageBasicsParam.getWithSpecialGoods();

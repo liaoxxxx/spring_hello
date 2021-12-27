@@ -1,11 +1,11 @@
 package com.liaoxx.spring_hello.service.interfaces;
 
-import com.liaoxx.spring_hello.dto.DtoI;
+import com.liaoxx.spring_hello.export.ExportI;
 
 public interface ServiceI {
     public String getMsg();
     public int grtCode();
-    public DtoI getData();
+    public ExportI getData();
 
     public boolean isService();
 }
