@@ -4,7 +4,7 @@ import com.liaoxx.spring_hello.export.api.goods.GoodsDetailExport;
 import com.liaoxx.spring_hello.export.api.goods.GoodsListExport;
 import com.liaoxx.spring_hello.param.api.ApiParamMap;
 import com.liaoxx.spring_hello.param.api.goods.GoodsListParam;
-import com.liaoxx.spring_hello.service.exception.ServiceException;
+import com.liaoxx.spring_hello.exception.ServiceException;
 import com.liaoxx.spring_hello.service.goods.GoodsService;
 import com.liaoxx.spring_hello.util.response.JsonResp;
 import org.springframework.web.bind.annotation.*;

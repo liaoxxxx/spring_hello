@@ -3,17 +3,19 @@ package com.liaoxx.spring_hello.service;
 import com.liaoxx.spring_hello.component.Audience;
 import com.liaoxx.spring_hello.constants.LoginType;
 import com.liaoxx.spring_hello.constants.MainState;
+import com.liaoxx.spring_hello.entity.user.UserDto;
 import com.liaoxx.spring_hello.export.api.user.LoginExport;
-import com.liaoxx.spring_hello.entity.User;
+import com.liaoxx.spring_hello.entity.user.User;
 import com.liaoxx.spring_hello.param.api.user.LoginParam;
 import com.liaoxx.spring_hello.repository.UserRepository;
-import com.liaoxx.spring_hello.service.exception.ServiceException;
+import com.liaoxx.spring_hello.exception.ServiceException;
 import com.liaoxx.spring_hello.util.JwtTokenUtil;
 import com.liaoxx.spring_hello.util.Md5Tool;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class UserService  {
@@ -46,5 +48,10 @@ public class UserService  {
             throw new ServiceException("密码错误");
         }
         return JwtTokenUtil.createJWT(user,audience);
+    }
+
+    public UserDto find(int userId) {
+        Optional<User> user= userRepository.findById(userId);
+        return new UserDto( ).fromEntity(user.get());
     }
 }

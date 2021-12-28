@@ -1,5 +1,6 @@
-package com.liaoxx.spring_hello.entity;
+package com.liaoxx.spring_hello.entity.user;
 
+import com.liaoxx.spring_hello.entity.EntityI;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -11,13 +12,13 @@ import java.sql.Date;
 
 @Entity     //标注为实体类
 @Table(name = "user")      //标注表名为"admin";
-public class User implements Serializable {
+public class User implements Serializable , EntityI {
 
     @Id //标注为主键
     @Getter
     @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //标注为自增主键
-    private long id;
+    private int id;
 
 
     @Column

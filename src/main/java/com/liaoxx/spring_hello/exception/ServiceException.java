@@ -1,4 +1,4 @@
-package com.liaoxx.spring_hello.service.exception;
+package com.liaoxx.spring_hello.exception;
 
 public class ServiceException extends Exception {
 

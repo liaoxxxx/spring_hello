@@ -10,7 +10,7 @@ import com.liaoxx.spring_hello.repository.goods.GoodsOptionRepository;
 import com.liaoxx.spring_hello.repository.goods.GoodsRepository;
 import com.liaoxx.spring_hello.repository.goods.GoodsSpecItemRepository;
 import com.liaoxx.spring_hello.repository.goods.GoodsSpecRepository;
-import com.liaoxx.spring_hello.service.exception.ServiceException;
+import com.liaoxx.spring_hello.exception.ServiceException;
 import com.liaoxx.spring_hello.util.Pagination;
 import com.liaoxx.spring_hello.util.SpecUtil;
 import com.liaoxx.spring_hello.util.SqlTimeTool;

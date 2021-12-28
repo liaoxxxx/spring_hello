@@ -39,8 +39,6 @@ public class GoodsOptionDto implements Serializable, DtoI {
     private  Integer goods_id;
 
 
-
-
     @Override
     public GoodsOptionDto fromEntity(EntityI entity) {
         BeanUtils.copyProperties(entity,this);

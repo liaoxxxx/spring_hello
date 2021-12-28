@@ -3,7 +3,7 @@ package com.liaoxx.spring_hello.util;
 import com.alibaba.fastjson.JSON;
 import com.liaoxx.spring_hello.component.Audience;
 import com.liaoxx.spring_hello.entity.Admin;
-import com.liaoxx.spring_hello.entity.User;
+import com.liaoxx.spring_hello.entity.user.User;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +26,8 @@ import java.util.*;
  */
 @Component
 public class JwtTokenUtil {
-    private static Logger log = LoggerFactory.getLogger(JwtTokenUtil.class);
-    public static final String AUTH_HEADER_KEY = "Authorization";
+    private static final Logger log = LoggerFactory.getLogger(JwtTokenUtil.class);
 
-    @Resource
-    Base64Util base64Util;
 
     /**
      * 解析jwt
