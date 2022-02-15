@@ -1,6 +1,11 @@
 package com.liaoxx.spring_hello.config;
 
 import com.liaoxx.spring_hello.constants.QueueEnum;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,26 +39,68 @@ public class RabbitMqConfig {
         });
     }
 
-
+    //rabbitAdmin 用于管理 exchanges, queues and bindings等
     @Bean
-    public Queue QueueOrderDelayRight() {
-
-        return new Queue(QueueEnum.TypeQueueOrderRight);  //订单延迟处理队列
+    RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory) {
+        return new RabbitAdmin(connectionFactory);
     }
 
+    //queue 声明队列：queue"+QueueEnum.TypeQueueOrderRight
+    @Bean
+    Queue queueOrderDelayRight(RabbitAdmin rabbitAdmin) {
+        Queue queue = new Queue(QueueEnum.TypeQueueOrderRight, true);  //订单延迟处理队列
+        rabbitAdmin.declareQueue(queue);
+        return queue;
+    }
+
+    //exchange 声明交换：exchange"+QueueEnum.TypeQueueOrderRight
+    @Bean
+    TopicExchange exchangeOrderRight(RabbitAdmin rabbitAdmin) {
+        TopicExchange topicExchange = new TopicExchange(QueueEnum.TypeQueueOrderRight);
+        rabbitAdmin.declareExchange(topicExchange);
+        return topicExchange;
+    }
+
+    //绑定exchange和queue
+    @Bean
+    Binding bindingExchangeOrderRight(Queue queueOrderDelayRight, TopicExchange exchange, RabbitAdmin rabbitAdmin) {
+        Binding binding = BindingBuilder.bind(queueOrderDelayRight).to(exchange).with(QueueEnum.TypeQueueOrderRight);
+        rabbitAdmin.declareBinding(binding);
+        return binding;
+    }
+
+
+
+        /////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @Bean
     public Queue QueueOrderSpellDelayRight() {
 
-        return new Queue(QueueEnum.TypeQueueOrderSpellRight);  //拼团自动延迟处理取消
+        return new Queue(QueueEnum.TypeQueueOrderSpellRight,true);  //拼团自动延迟处理取消
     }
     @Bean
     public Queue QueueOrderDelayReceiving() {
 
-        return new Queue(QueueEnum.TypeQueueOrderReceiving);  //订单延迟处理队列
+        return new Queue(QueueEnum.TypeQueueOrderReceiving,true);  //订单延迟处理队列
     }
     @Bean
     public Queue QueueMerchantActivityDelayCancel() {
 
-        return new Queue(QueueEnum.TypeQueueMerchantActivityCancel);  //订单延迟处理队列
+        return new Queue(QueueEnum.TypeQueueMerchantActivityCancel,true);  //订单延迟处理队列
     }
 }
