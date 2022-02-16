@@ -23,7 +23,7 @@ public class RabbitMqConfig {
     @Resource
     private RabbitTemplate rabbitTemplate;
 
-    @PostConstruct
+  /*  @PostConstruct
     public void enableConfirmCallback() {
         //confirm 监听，当消息成功发到交换机 ack = true，没有发送到交换机 ack = false
         //correlationData 可在发送时指定消息唯一 id
@@ -37,7 +37,7 @@ public class RabbitMqConfig {
         rabbitTemplate.setReturnsCallback(returned -> {
             //记录日志、发送邮件通知、落库定时任务扫描重发
         });
-    }
+    }*/
 
     //rabbitAdmin 用于管理 exchanges, queues and bindings等
     @Bean
@@ -101,6 +101,6 @@ public class RabbitMqConfig {
     @Bean
     public Queue QueueMerchantActivityDelayCancel() {
 
-        return new Queue(QueueEnum.TypeQueueMerchantActivityCancel,true);  //订单延迟处理队列
+        return new Queue(QueueEnum.TypeQueueMerchantActivityCancel,true);  //店主的活动自动延迟处取消
     }
 }

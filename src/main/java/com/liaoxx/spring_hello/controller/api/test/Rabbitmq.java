@@ -5,6 +5,7 @@ import com.liaoxx.spring_hello.export.api.goods.GoodsDetailExport;
 import com.liaoxx.spring_hello.export.api.goods.GoodsListExport;
 import com.liaoxx.spring_hello.param.api.ApiParamMap;
 import com.liaoxx.spring_hello.param.api.goods.GoodsListParam;
+import com.liaoxx.spring_hello.publisher.OrderPublisher;
 import com.liaoxx.spring_hello.service.goods.GoodsService;
 import com.liaoxx.spring_hello.util.response.JsonResp;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -22,21 +23,13 @@ import java.util.Map;
 public class Rabbitmq {
 
     @Resource
-    private RabbitTemplate rabbitTemplate;
+    OrderPublisher orderPublisher;
 
 
 
     @GetMapping(value = "/push2OrderQueue")
     public JsonResp push2OrderQueue(HttpServletRequest request)  {
-        System.out.println("-----------/xx/test/rabbitmq/push2OrderQueue start----------");
-
-
-
-            Map<String, Object> map = new HashMap<>();
-            map.put("sendTime", (new Date().toString()));
-            map.put("msg", "push2OrderQueue---test");
-            rabbitTemplate.convertAndSend( map);
-
+        orderPublisher.OrderCreate();
         return  null;
     }
 }
