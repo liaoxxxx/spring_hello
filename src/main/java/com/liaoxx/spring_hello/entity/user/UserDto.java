@@ -31,7 +31,7 @@ public class UserDto implements Serializable, DtoI {
     public  String administration_address;
     public  int is_register_product;
     public  int is_write_profile;
-
+    public        UserGrade grade;
 
 
     @Override

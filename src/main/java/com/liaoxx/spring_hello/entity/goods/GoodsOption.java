@@ -3,7 +3,6 @@ package com.liaoxx.spring_hello.entity.goods;
 import com.liaoxx.spring_hello.entity.EntityI;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity(name = "Goods_Option")
@@ -20,15 +19,15 @@ public class GoodsOption  implements EntityI {
 
     private String thumb;
 
-    private BigDecimal productprice;
+    private Double productprice;
 
-    private BigDecimal marketprice;
+    private Double marketprice;
 
-    private BigDecimal costprice;
+    private Double costprice;
 
     private Integer stock;
 
-    private BigDecimal weight;
+    private Double weight;
 
     private Integer r;
 
@@ -52,14 +51,14 @@ public class GoodsOption  implements EntityI {
 
     private Integer source_stock;
 
-    private BigDecimal supply_costprice;
+    private Double supply_costprice;
 
     @Column(name = "supply_costprice", nullable = false, precision = 10, scale = 2)
-    public BigDecimal getSupply_costprice() {
+    public Double getSupply_costprice() {
         return supply_costprice;
     }
 
-    public void setSupply_costprice(BigDecimal supplyCostprice) {
+    public void setSupply_costprice(Double supplyCostprice) {
         this.supply_costprice = supplyCostprice;
     }
 
@@ -163,11 +162,11 @@ public class GoodsOption  implements EntityI {
     }
 
     @Column(name = "weight", nullable = false, precision = 10, scale = 2)
-    public BigDecimal getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(BigDecimal weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
@@ -181,29 +180,29 @@ public class GoodsOption  implements EntityI {
     }
 
     @Column(name = "costprice", nullable = false, precision = 10, scale = 2)
-    public BigDecimal getCostprice() {
+    public Double getCostprice() {
         return costprice;
     }
 
-    public void setCostprice(BigDecimal costprice) {
+    public void setCostprice(Double costprice) {
         this.costprice = costprice;
     }
 
     @Column(name = "marketprice", nullable = false, precision = 10, scale = 2)
-    public BigDecimal getMarketprice() {
+    public Double getMarketprice() {
         return marketprice;
     }
 
-    public void setMarketprice(BigDecimal marketprice) {
+    public void setMarketprice(Double marketprice) {
         this.marketprice = marketprice;
     }
 
     @Column(name = "productprice", nullable = false, precision = 10, scale = 2)
-    public BigDecimal getProductprice() {
+    public Double getProductprice() {
         return productprice;
     }
 
-    public void setProductprice(BigDecimal productprice) {
+    public void setProductprice(Double productprice) {
         this.productprice = productprice;
     }
 

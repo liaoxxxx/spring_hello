@@ -1,6 +1,7 @@
 package com.liaoxx.spring_hello.controller.api.coupon;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONAware;
 import com.alibaba.fastjson.JSONObject;
 import com.liaoxx.spring_hello.entity.coupon.CouponUserDto;
 import com.liaoxx.spring_hello.exception.ServiceException;
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
@@ -28,12 +30,16 @@ public class CouponUserController {
     @Resource
     GoodsService goodsService;
 
-    @GetMapping(value = "/sure/list")
+    @PostMapping(value = "/sure/list")
     public JsonResp list(HttpServletRequest request, GoodsListParam goodsListParam) {
         CouponUserExport export = new CouponUserExport();
         CouponUserDto dto = new CouponUserDto();
-        List<OrderSkuParams> params = new ArrayList<>();
+        List<OrderSkuParams> params;
         String paramJson = request.getParameter("list");
+        Map parameterMap = request.getParameterMap();
+        System.out.println("----------parameterMap----------");
+        System.out.println("p");
+        System.out.println("----------parameterMap----------");
         params = JSONObject.parseArray(paramJson, OrderSkuParams.class);
 
         if (params.size() == 0) {

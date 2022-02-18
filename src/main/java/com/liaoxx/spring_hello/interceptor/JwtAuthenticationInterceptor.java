@@ -4,7 +4,7 @@ package com.liaoxx.spring_hello.interceptor;
 import com.liaoxx.spring_hello.annotation.PassToken;
 import com.liaoxx.spring_hello.entity.user.UserDto;
 import com.liaoxx.spring_hello.exception.AuthException;
-import com.liaoxx.spring_hello.service.UserService;
+import com.liaoxx.spring_hello.service.user.UserService;
 import com.liaoxx.spring_hello.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;

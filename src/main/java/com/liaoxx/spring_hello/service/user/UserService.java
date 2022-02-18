@@ -1,4 +1,4 @@
-package com.liaoxx.spring_hello.service;
+package com.liaoxx.spring_hello.service.user;
 
 import com.liaoxx.spring_hello.component.Audience;
 import com.liaoxx.spring_hello.constants.LoginType;
@@ -54,4 +54,14 @@ public class UserService  {
         Optional<User> user= userRepository.findById(userId);
         return new UserDto( ).fromEntity(user.get());
     }
+
+
+    public UserDto findFull(int userId) {
+        Optional<User> user= userRepository.findById(userId);
+        return new UserDto( ).fromEntity(user.get());
+    }
+
+
+
+
 }

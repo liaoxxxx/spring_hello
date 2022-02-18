@@ -2,7 +2,7 @@ package com.liaoxx.spring_hello.controller.api.user;
 
 import com.liaoxx.spring_hello.export.api.user.LoginExport;
 import com.liaoxx.spring_hello.param.api.user.LoginParam;
-import com.liaoxx.spring_hello.service.UserService;
+import com.liaoxx.spring_hello.service.user.UserService;
 import com.liaoxx.spring_hello.util.response.JsonResp;
 import io.jsonwebtoken.Claims;
 import org.springframework.web.bind.annotation.*;

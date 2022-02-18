@@ -31,13 +31,7 @@ public class FreightController {
     }
 
 
-    @GetMapping(value = "/detail")
-    public JsonResp detail(HttpServletRequest request) throws ServiceException {
-        ApiParamMap paramMap=new ApiParamMap(request.getParameterMap());
-        int goodsId= Integer.parseInt( paramMap.paramMap.get("id")[0]);
-        GoodsDetailExport detailDto =goodsService.detail(goodsId);
-        return JsonResp.Success(detailDto);
-    }
+
 
 
 }

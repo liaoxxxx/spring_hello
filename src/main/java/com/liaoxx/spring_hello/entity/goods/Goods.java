@@ -1,6 +1,9 @@
 package com.liaoxx.spring_hello.entity.goods;
 
 import com.alibaba.fastjson.JSON;
+import com.liaoxx.spring_hello.entity.BaseEntity;
+import com.liaoxx.spring_hello.entity.EntityI;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -12,7 +15,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "goods")
-public class Goods {
+public class Goods extends BaseEntity implements EntityI  {
     @Id //标注为主键
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //标注为自增主键
     private int id;
@@ -69,7 +72,7 @@ public class Goods {
 
     private Integer tcate;
 
-    private Integer brand_id;
+    private Long brand_id;
 
     private Integer is_spec;
 
@@ -197,11 +200,11 @@ public class Goods {
     }
 
     @Column(name = "brand_id", nullable = false)
-    public Integer getBrand_id() {
+    public Long getBrand_id() {
         return brand_id;
     }
 
-    public void setBrand_id(Integer brandId) {
+    public void setBrand_id(Long brandId) {
         this.brand_id = brandId;
     }
 
