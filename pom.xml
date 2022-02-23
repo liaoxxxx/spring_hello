@@ -118,6 +118,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
+            <version>1.2.76</version>
         </dependency>
         <!--    spring cache  -->
         <dependency>
@@ -246,7 +247,11 @@
             <version>31.0.1-jre</version>
             <scope>compile</scope>
         </dependency>
-
+        <!--elasticsearch-->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-elasticsearch</artifactId>
+        </dependency>
 
     </dependencies>
 
